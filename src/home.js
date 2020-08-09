@@ -12,7 +12,7 @@ class Home extends React.Component {
 
     const mystyle = {
       color: "white",
-      backgroundColor: "DodgerBlue",
+      backgroundColor: "green",
       padding: "10px",
       fontFamily: "Arial",
       textAlign: "center"
@@ -20,7 +20,7 @@ class Home extends React.Component {
 
     return (
       <div>
-        <h1 style={mystyle}>Anders Bergquist</h1>
+        <h1 style={mystyle}>Treebook</h1>
 
 
       </div>

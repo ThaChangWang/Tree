@@ -1,5 +1,5 @@
 import React from "react"
-import Image from "./image.js"
+
 
 class Login extends React.Component {
   constructor() {
@@ -11,6 +11,7 @@ class Login extends React.Component {
     this.handleChange = this.handleChange.bind(this)
 
   }
+
 
   handleChange(event) {
 
@@ -28,8 +29,6 @@ class Login extends React.Component {
         Password:
         <input type="text" name="password" value={this.state.password} onChange={this.handleChange} />
         <br/>
-
-        <Image imgName="images/FACE.svg" />
 
         
 

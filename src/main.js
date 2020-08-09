@@ -1,6 +1,10 @@
 import React from "react"
 import Login from "./login"
 import Home from "./home"
+import Posts from "./posts"
+import Upload from "./upload"
+
+
 
 class Main extends React.Component {
   constructor() {
@@ -8,19 +12,29 @@ class Main extends React.Component {
     this.state = {
       page: "home"
     }
+    
   }
 
 
   render() {
+
+    const mystyle = {
+      color: "white",
+      backgroundColor: "DodgerBlue",
+      padding: "10px",
+      fontFamily: "Arial",
+      textAlign: "center"
+    }
 
     if (this.state.page === "home") {
 
       return (
         <div>
 
-          <button onClick={() => this.setState({ page: "home" })}>home</button>
-          <button onClick={() => this.setState({ page: "about" })}>about</button>
-          <button onClick={() => this.setState({ page: "projects" })}>projects</button>
+          <button style={mystyle} onClick={() => this.setState({ page: "home" })}>home</button>
+          <button style={mystyle} onClick={() => this.setState({ page: "login" })}>login</button>
+          <button style={mystyle} onClick={() => this.setState({ page: "posts" })}>posts</button>
+
 
           <Home />
 
@@ -28,14 +42,16 @@ class Main extends React.Component {
       )
     }
 
-    else if (this.state.page === "about") {
+    else if (this.state.page === "login") {
 
       return (
         <div>
 
-          <button onClick={() => this.setState({ page: "home" })}>home</button>
-          <button onClick={() => this.setState({ page: "about" })}>about</button>
-          <button onClick={() => this.setState({ page: "projects" })}>projects</button>
+          <button style={mystyle} onClick={() => this.setState({ page: "home" })}>home</button>
+          <button style={mystyle} onClick={() => this.setState({ page: "home" })}>logout</button>
+          <button style={mystyle} onClick={() => this.setState({ page: "posts" })}>posts</button>
+
+          <br/>
 
           <Login />
 
@@ -43,16 +59,22 @@ class Main extends React.Component {
       )
     }
 
-    else if (this.state.page === "projects") {
+    else if (this.state.page === "posts") {
 
       return (
         <div>
 
-          <button onClick={() => this.setState({ page: "home" })}>home</button>
-          <button onClick={() => this.setState({ page: "about" })}>about</button>
-          <button onClick={() => this.setState({ page: "projects" })}>projects</button>
+          <button style={mystyle} onClick={() => this.setState({ page: "home" })}>home</button>
+          <button style={mystyle} onClick={() => this.setState({ page: "home" })}>logout</button>
+          <button style={mystyle} onClick={() => this.setState({ page: "posts" })}>posts</button>
 
-          <h1>{this.state.page}</h1>        
+
+          <br/>
+
+          <Posts />
+          <Upload />
+
+          
 
         </div>
       )
