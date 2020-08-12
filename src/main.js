@@ -49,11 +49,13 @@ function Main() {
           <button style={mystyle} onClick={() => setPage("posts")}>posts</button>
 
           {user ? 
-          (<button style={mystyle} onClick={() => auth.signOut()}>logout</button>, 
-          <h1>{user}</h1>) :
+          (<button style={mystyle} onClick={() => auth.signOut()}>logout</button>) :
           (<button style={mystyle} onClick={() => setPage("login")}>login</button>)
-          
+          }
 
+          {user ? 
+          (<h1> Hello {user}</h1>) :
+          (<h1> Not signed in </h1>)
           }
 
           <Home />
@@ -70,9 +72,17 @@ function Main() {
         <div>
 
           <button style={mystyle} onClick={() => setPage("home")}>home</button>
-          <button style={mystyle} onClick={() => setPage("login")}>login</button>
           <button style={mystyle} onClick={() => setPage("posts")}>posts</button>
-          <br/>
+
+          {user ? 
+          (<button style={mystyle} onClick={() => auth.signOut()}>logout</button>) :
+          (<button style={mystyle} onClick={() => setPage("login")}>login</button>)
+          }
+          
+          {user ? 
+          (<h1> Hello {user}</h1>) :
+          (<h1> Not signed in </h1>)
+          }
 
           <Login />
 
@@ -86,14 +96,26 @@ function Main() {
         <div>
 
           <button style={mystyle} onClick={() => setPage("home")}>home</button>
-          <button style={mystyle} onClick={() => setPage("login")}>login</button>
           <button style={mystyle} onClick={() => setPage("posts")}>posts</button>
 
+          {user ? 
+          (<button style={mystyle} onClick={() => auth.signOut()}>logout</button>) :
+          (<button style={mystyle} onClick={() => setPage("login")}>login</button>)
+          }
 
-          <br/>
+          {user ? 
+          (<h1> Hello {user}</h1>) :
+          (<h1> Not signed in </h1>)
+          }
 
           <Posts />
-          <Upload />
+
+
+          {user ? 
+          (<Upload username={user.displayName}/>) :
+          (<h1> Need to sign in to upload </h1>)
+          }
+          
 
           
 
