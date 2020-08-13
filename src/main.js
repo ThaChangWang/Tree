@@ -13,7 +13,7 @@ function Main() {
   const [page, setPage] = useState("home")
   const [user, setUser] = useState(null)
 
-    useEffect(() => {
+  useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(function(authUser)  {
       if (authUser) {
         console.log(authUser)
@@ -28,7 +28,7 @@ function Main() {
       unsubscribe()
     }
 
-    }, [])
+  }, [])
 
     const mystyle = {
       color: "white",
@@ -112,7 +112,7 @@ function Main() {
 
 
           {user ? 
-          (<Upload username={user.displayName}/>) :
+          (<Upload username={user}/>) :
           (<h1> Need to sign in to upload </h1>)
           }
           

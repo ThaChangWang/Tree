@@ -11,11 +11,11 @@ class Post extends React.Component {
   render() {
     return (
       <div>
-          {this.props.username}
+          <h4>{this.props.username}</h4>
           <br/>
-          {this.props.imgURL}
+          <img src={this.props.imageUrl} alt="" height="200" width="200" />
           <br/>
-          {this.props.caption}
+          <h4>{this.props.caption}</h4>
           <br/>
       </div>
     )

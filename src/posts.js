@@ -29,7 +29,7 @@ class Posts extends React.Component {
     return (
       <div>
         {displayPosts.length > 0 ? displayPosts.map(post => {
-        return <Post username={post.username} imgURL={post.imgUrl} caption={post.caption}/>
+        return <Post username={post.username} imageUrl={post.imageUrl} caption={post.caption}/>
       }) : <h1>hey</h1> }
         
       </div>
