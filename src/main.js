@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react"
 import Login from "./login"
 import Home from "./home"
 import Posts from "./posts"
-import Upload from "./upload"
+import UploadPost from "./uploadPost"
+import UploadTree from "./uploadTree"
+import Adopt from "./adopt"
 
 import { auth } from "./firebase"
 
@@ -10,7 +12,7 @@ import { auth } from "./firebase"
 
 function Main() {
 
-  const [page, setPage] = useState("home")
+  const [page, setPage] = useState("adopt")
   const [user, setUser] = useState(null)
 
   useEffect(() => {
@@ -47,6 +49,8 @@ function Main() {
 
           <button style={mystyle} onClick={() => setPage("home")}>home</button>
           <button style={mystyle} onClick={() => setPage("posts")}>posts</button>
+          <button style={mystyle} onClick={() => setPage("adopt")}>adopt</button>
+      
 
           {user ? 
           (<button style={mystyle} onClick={() => auth.signOut()}>logout</button>) :
@@ -73,6 +77,7 @@ function Main() {
 
           <button style={mystyle} onClick={() => setPage("home")}>home</button>
           <button style={mystyle} onClick={() => setPage("posts")}>posts</button>
+          <button style={mystyle} onClick={() => setPage("adopt")}>adopt</button>
 
           {user ? 
           (<button style={mystyle} onClick={() => auth.signOut()}>logout</button>) :
@@ -97,6 +102,7 @@ function Main() {
 
           <button style={mystyle} onClick={() => setPage("home")}>home</button>
           <button style={mystyle} onClick={() => setPage("posts")}>posts</button>
+          <button style={mystyle} onClick={() => setPage("adopt")}>adopt</button>
 
           {user ? 
           (<button style={mystyle} onClick={() => auth.signOut()}>logout</button>) :
@@ -108,16 +114,49 @@ function Main() {
           (<h1> Not signed in </h1>)
           }
 
+          {user ? 
+          (<UploadPost username={user} />) :
+          (<h1> Need to sign in to upload </h1>)
+          }
+
           <Posts />
 
 
-          {user ? 
-          (<Upload username={user}/>) :
-          (<h1> Need to sign in to upload </h1>)
-          }
+          
           
 
           
+
+        </div>
+      )
+    }
+
+    else if (page === "adopt") {
+
+      return (
+        <div>
+
+          <button style={mystyle} onClick={() => setPage("home")}>home</button>
+          <button style={mystyle} onClick={() => setPage("posts")}>posts</button>
+          <button style={mystyle} onClick={() => setPage("adopt")}>adopt</button>
+
+          {user ? 
+          (<button style={mystyle} onClick={() => auth.signOut()}>logout</button>) :
+          (<button style={mystyle} onClick={() => setPage("login")}>login</button>)
+          }
+
+          {user ? 
+          (<h1> Hello {user}</h1>) :
+          (<h1> Not signed in </h1>)
+          }
+
+          {user ? 
+          (<UploadTree username={user} />) :
+          (<h1> Need to sign in to upload </h1>)
+          }
+
+          <Adopt />
+
 
         </div>
       )

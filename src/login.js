@@ -34,7 +34,8 @@ class Login extends React.Component {
     auth.createUserWithEmailAndPassword(this.state.signEmail, this.state.signPassword)
     .then((authUser) => {
       return authUser.user.updateProfile({
-        displayName: this.state.signUsername
+        displayName: this.state.signUsername,
+        publicTrees: []
       })
     })
     .catch((error) => alert(error.message))

@@ -3,7 +3,7 @@ import React, { useState } from "react"
 import firebase from "firebase"
 import { db, storage } from "./firebase"
 
-function Upload(props) {
+function UploadPost(props) {
 
   const [caption, setCaption] = useState("")
   const [progress, setProgress] = useState(0)
@@ -55,4 +55,4 @@ function Upload(props) {
     )
 }
 
-export default Upload
+export default UploadPost
