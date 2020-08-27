@@ -27,8 +27,9 @@ class Adopt extends React.Component {
 
     return (
       <div>
+        <h2> Adopt a Tree </h2>
         {displayTrees.length > 0 ? displayTrees.map(tree => {
-        return <PublicTree key="public-tree" type={tree.type} imageUrl={tree.imageUrl} owner={tree.owner} description={tree.description} username={tree.username}/>
+        return <PublicTree key={tree.key} type={tree.props.type} imageUrl={tree.imageUrl} lat={tree.props.latitude} lng={tree.props.longitude} description={tree.props.description} username={tree.props.username}/>
       }) : <h1>hey</h1> }
         
       </div>

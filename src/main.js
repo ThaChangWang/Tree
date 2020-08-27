@@ -3,7 +3,7 @@ import Login from "./login"
 import Home from "./home"
 import Posts from "./posts"
 import UploadPost from "./uploadPost"
-import UploadTree from "./uploadTree"
+import TreeForm from "./treeForm"
 import Adopt from "./adopt"
 
 import { auth } from "./firebase"
@@ -151,7 +151,7 @@ function Main() {
           }
 
           {user ? 
-          (<UploadTree username={user} />) :
+          (<TreeForm username={user} />) :
           (<h1> Need to sign in to upload </h1>)
           }
 
