@@ -30,6 +30,7 @@ function UploadImage(props) {
     () => {
       storage.ref("images").child(image.name).getDownloadURL().then(url => {
         db.collection(props.db).add({
+          id: Math.random().toString(36).substr(2, 9),
           timestamp: firebase.firestore.FieldValue.serverTimestamp(),
           imageUrl: url,
           props

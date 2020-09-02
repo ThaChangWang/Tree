@@ -2,15 +2,15 @@ import React, { useState, useEffect } from "react"
 import Login from "./login"
 import Home from "./home"
 import TreeForm from "./treeForm"
-import Adopt from "./adopt"
+import AdoptMap from "./adoptMap"
 
 import { auth } from "./firebase"
 
 
 
-function Main() {
+function Main(props) {
 
-  const [page, setPage] = useState("adopt")
+  const [page, setPage] = useState(props.page)
   const [user, setUser] = useState(null)
 
   useEffect(() => {
@@ -119,7 +119,8 @@ function Main() {
 
           
 
-          <Adopt />
+          <AdoptMap height="100vh" width="100%" lat={47.7511} lng={-120.7401} zoom={6} />
+
 
 
         </div>
@@ -156,6 +157,7 @@ function Main() {
         </div>
       )
     }
+
     
   
     
