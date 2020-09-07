@@ -15,7 +15,7 @@ class PublicTree extends React.Component {
 
       return (
       <div>
-          <h4>{this.props.tree.props.type}</h4>
+          <h4>{this.props.tree.props.name}</h4>
           <br/>
           <img src={this.props.tree.imageUrl} alt="" height="500" width="500" />
           <br/>

@@ -18,46 +18,55 @@ function UploadImage(props) {
   }
 
   const handleUpload = () => {
-    const uploadTask = storage.ref("images/" + image.name).put(image)
+    if (image) {
+      const uploadTask = storage.ref("images/" + image.name).put(image)
 
-    uploadTask.on("state_changed", (snapshot) => {
-      const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100)
-      setProgress(progress)
-    },
-    (error) => {
-      alert(error.message)
-    },
-    () => {
-      storage.ref("images").child(image.name).getDownloadURL().then(url => {
-        db.collection(props.db).add({
-          id: Math.random().toString(36).substr(2, 9),
-          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-          imageUrl: url,
-          props
-
-          /*username: props.username,
-          latitude: props.latitude,
-          longitude: props.longitude,
-          type: props.type,
-          description: props.description*/
-
-
+      uploadTask.on("state_changed", (snapshot) => {
+        const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100)
+        setProgress(progress)
+      },
+      (error) => {
+        alert(error.message)
+      },
+      () => {
+        storage.ref("images").child(image.name).getDownloadURL().then(url => {
+          db.collection(props.db).add({
+            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+            imageUrl: url,
+            props
+          })
         })
-      })
-        setProgress(0)
-        setImage(null)
+          setProgress(0)
+          setImage(null)
+      }
+      )
     }
-    )
+    else {
+      alert("Please provide an image.")
+    }
 
   }
 
+  if (props.latitude !== 0 && props.longitude !== 0) {
     return (
       <div>
+        
         <progress value={progress} max="100" />
         <input type="file" onChange={handleChange}/>
         <button onClick={handleUpload}> Upload </button>
       </div>
     )
+  }
+
+  else {
+    return (
+      <div>
+        <h3> Click on the map to locate your tree </h3>
+      </div>
+    )
+  }
+
+    
 }
 
 export default UploadImage

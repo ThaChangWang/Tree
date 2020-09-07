@@ -7,7 +7,7 @@ class TreeForm extends React.Component {
     super()
     this.state = {
       description: "",
-      type: "",
+      name: "",
 
       lat: 47.7511,
       lng: -120.7401,
@@ -28,7 +28,7 @@ componentDidMount() {
     this.setState({
       lat: latitude,
       lng: longitude,
-      zoom: 15
+      zoom: 8
     });
   };
 
@@ -52,21 +52,37 @@ componentDidMount() {
 
     render() {
 
-      
+      const namestyle = {
+        color: "white",
+        backgroundColor: "black",
+        padding: "10px",
+        height: "10px",
+        width: "200px",
+        fontFamily: "Arial",
+        textAlign: "left"
+
+      }
+
+      const criptstyle = {
+        color: "white",
+        backgroundColor: "black",
+        padding: "10px",
+        height: "100px",
+        width: "500px",
+        fontFamily: "Arial",
+        textAlign: "left"
+
+      }
 
       return (
       <div>
-        <h2>Upload a Public Tree</h2>
+        <h2> Name the tree: </h2>
+        <input style={namestyle} type="text" placeholder="Name the tree" name="name" onChange={this.handleChange} value={this.state.name}/>
         <br/>
-        <input type="text" placeholder="Enter the tree classification.." name="type" onChange={this.handleChange} value={this.state.type} />
-        <br/>
-        <input type="text" placeholder="Enter a description" name="description" onChange={this.handleChange} value={this.state.description} />
-        <br/>
-        <UploadMap height="50vh" width="50%" lat={this.state.lat} lng={this.state.lng} zoom={this.state.zoom} db="publicTrees" username={this.props.username} type={this.state.type} description={this.state.description}/>
-        
-        
-        
-
+        <h2> Enter a description: </h2>
+        <textarea style={criptstyle} placeholder="Enter a description" name="description" onChange={this.handleChange} value={this.state.description}></textarea>
+        <h2> Locate the tree: </h2>
+        <UploadMap height="100vh" width="100%" lat={this.state.lat} lng={this.state.lng} zoom={this.state.zoom} username={this.props.username} type={this.state.type} description={this.state.description}/>
       </div>
     )
     }

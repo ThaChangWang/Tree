@@ -1,14 +1,8 @@
 import React from 'react'
 import GoogleMapReact from 'google-map-react'
 import { db } from "./firebase"
-import Marker from "./marker"
+import AdoptMarker from "./adoptMarker"
 import PublicTree from "./publicTree"
-
-
-
-
-//import treeImg from "./images/tree.png"
-
 
 
 let isMounted = true
@@ -75,7 +69,7 @@ class AdoptMap extends React.Component {
         >
        {displayTrees.length > 0 ? displayTrees.map(tree => {
         console.log(tree)
-        return <Marker lat={tree.props.latitude} lng={tree.props.longitude} key={tree.id} function={this.setTree} tree={tree} />
+        return <AdoptMarker lat={tree.props.latitude} lng={tree.props.longitude} key={tree.props.id} function={this.setTree} tree={tree} />
       }) :  null }
         
         </GoogleMapReact>

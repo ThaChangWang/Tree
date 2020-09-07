@@ -6,7 +6,7 @@ import * as serviceWorker from './serviceWorker'
 
 ReactDOM.render(
     
-    <Main page="adopt" />,
+    <Main page="upload" />,
   document.getElementById('root')
 )
 
