@@ -52,7 +52,7 @@ class AdoptMap extends React.Component {
         console.log(this.state.tree)
       return (
         <div>
-        <PublicTree tree={this.state.tree}/>
+        <PublicTree tree={this.state.tree} height="500" width="500" />
         </div>
       )
 

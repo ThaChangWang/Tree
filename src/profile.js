@@ -1,5 +1,6 @@
 import React from "react"
 import UploadImage from "./uploadImage"
+import MyTrees from "./myTrees"
 import { db } from "./firebase"
 
 class Profile extends React.Component {
@@ -28,7 +29,6 @@ class Profile extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.props.username)
     db.collection("profiles").where("props.username", "==", this.props.username)
     .get()
     .then((querySnapshot) => {
@@ -40,7 +40,6 @@ class Profile extends React.Component {
             bio = doc.data().props.bio
             profilePic = doc.data().imageUrl
         })
-        console.log(bio, profilePic)
         this.setState({
               bio: bio,
               profilePic: profilePic
@@ -98,6 +97,9 @@ class Profile extends React.Component {
         <h4> {this.state.bio} </h4>
         <br/>
         <button onClick={this.setEdit}> Edit Profile </button>
+        <br/>
+        <h2> My Trees: </h2>
+        <MyTrees username={this.props.username}/>
       </div>
       )
       
