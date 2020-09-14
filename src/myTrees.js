@@ -7,12 +7,12 @@ class MyTrees extends React.Component {
   constructor() {
     super()
     this.state = {
-      myTrees: null
+      myTrees: []
     }
   }
 
   componentDidMount() {
-    db.collection("publicTrees").where("props.username", "==", this.props.username)
+    db.collection("publicTrees").where("props.owner", "==", this.props.username)
     .get()
     .then((querySnapshot) => {
         let myTrees = []
@@ -36,25 +36,16 @@ class MyTrees extends React.Component {
 
     let myTrees = this.state.myTrees
 
-    if (this.state.myTrees) {
        return (
       <div>
-        {myTrees.map(tree => {
-          return <PublicTree tree={tree} height="200" width="200" />
-        })}
+        {myTrees.length > 0 ? myTrees.map(tree => {
+          return <PublicTree key={tree.psudeoId} username={this.props.username} tree={tree} height="200" width="200" />
+        }) :
+        <h2> No Trees </h2>}
       </div>
     )
-    }
-
-    else {
-      return (
-      <div>
-        <h2> No trees </h2>
-      </div>
-    )
-    }
-    
-  }
+}
+  
 }
 
 export default MyTrees

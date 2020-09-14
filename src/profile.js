@@ -1,5 +1,5 @@
 import React from "react"
-import UploadImage from "./uploadImage"
+import UploadTree from "./uploadTree"
 import MyTrees from "./myTrees"
 import { db } from "./firebase"
 
@@ -74,7 +74,7 @@ class Profile extends React.Component {
         <textarea style={biostyle} name="bio" value={this.state.bio} onChange={this.handleChange}></textarea>
         <br/>
         <h2> Upload a Profile Pic: </h2>
-        <UploadImage db="profiles" username={this.props.username} bio={this.state.bio} />
+        <UploadTree db="profiles" username={this.props.username} bio={this.state.bio} />
         <br/>
         <button onClick={this.setEdit}> Back To Profile </button>
 

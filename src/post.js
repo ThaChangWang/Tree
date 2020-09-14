@@ -3,12 +3,10 @@ import React, { useState } from "react"
 import firebase from "firebase"
 import { db, storage } from "./firebase"
 
-function UploadImage(props) {
+function Post(props) {
 
   const [progress, setProgress] = useState(0)
   const [image, setImage] = useState(null)
-
-  console.log(props)
 
   const handleChange = (e) => {
     if(e.target.files[0]) {
@@ -33,6 +31,7 @@ function UploadImage(props) {
           db.collection(props.db).add({
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
             imageUrl: url,
+            psudeoId: Math.random().toString(36),
             props
           })
         })
@@ -47,26 +46,18 @@ function UploadImage(props) {
 
   }
 
-  if (props.latitude !== 0 && props.longitude !== 0) {
     return (
       <div>
-        
         <progress value={progress} max="100" />
         <input type="file" onChange={handleChange}/>
         <button onClick={handleUpload}> Upload </button>
       </div>
     )
-  }
+  
 
-  else {
-    return (
-      <div>
-        <h3> Click on the map to locate your tree </h3>
-      </div>
-    )
-  }
+
 
     
 }
 
-export default UploadImage
+export default Post

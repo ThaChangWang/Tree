@@ -6,7 +6,7 @@ import * as serviceWorker from './serviceWorker'
 
 ReactDOM.render(
     
-    <Main page="profile" />,
+    <Main page="home" />,
   document.getElementById('root')
 )
 

@@ -2,7 +2,7 @@ import React from "react"
 import UploadMap from "./uploadMap"
 
 
-class TreeForm extends React.Component {
+class UploadForm extends React.Component {
   constructor() {
     super()
     this.state = {
@@ -18,7 +18,7 @@ class TreeForm extends React.Component {
   
   }
   
-
+/* Get user location
 componentDidMount() {
   // Get location of user
   const success = (position) => {
@@ -38,7 +38,7 @@ componentDidMount() {
 
   navigator.geolocation.getCurrentPosition(success, error)
 }
-    
+    */
   
 
     
@@ -82,7 +82,7 @@ componentDidMount() {
         <h2> Enter a description: </h2>
         <textarea style={criptstyle} placeholder="Enter a description" name="description" onChange={this.handleChange} value={this.state.description}></textarea>
         <h2> Locate the tree: </h2>
-        <UploadMap height="100vh" width="100%" lat={this.state.lat} lng={this.state.lng} zoom={this.state.zoom} username={this.props.username} type={this.state.type} description={this.state.description}/>
+        <UploadMap height="100vh" width="100%" lat={this.state.lat} lng={this.state.lng} zoom={this.state.zoom} username={this.props.username} name={this.state.name} description={this.state.description}/>
       </div>
     )
     }
@@ -95,4 +95,4 @@ componentDidMount() {
     
 }
 
-export default TreeForm
+export default UploadForm

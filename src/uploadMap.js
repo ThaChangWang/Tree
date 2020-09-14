@@ -1,6 +1,6 @@
 import React from 'react';
 import GoogleMapReact from 'google-map-react';
-import UploadImage from "./uploadImage"
+import UploadTree from "./uploadTree"
 import UploadMarker from "./uploadMarker"
 import { db } from "./firebase"
 import treeImg from "./images/tree.png"
@@ -58,8 +58,7 @@ class UploadMap extends React.Component {
         >
 
       {displayTrees.length > 0 ? displayTrees.map(tree => {
-        console.log(tree)
-        return <UploadMarker lat={tree.props.latitude} lng={tree.props.longitude} key={tree.id} imageUrl={tree.imageUrl} />
+        return <UploadMarker key={tree.psudeoId} lat={tree.props.latitude} lng={tree.props.longitude} imageUrl={tree.imageUrl} />
       }) :  null }
 
        <Marker
@@ -71,7 +70,7 @@ class UploadMap extends React.Component {
           
         </GoogleMapReact>
         <h2> Choose an image and upload: </h2>
-        <UploadImage db="publicTrees" username={this.props.username} latitude={this.state.lat} longitude={this.state.lng} name={this.props.name} description={this.props.description} />
+        <UploadTree db="publicTrees" postedBy={this.props.username} owner={null} latitude={this.state.lat} longitude={this.state.lng} name={this.props.name} description={this.props.description} />
         <br/>
       </div>
     );

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import Login from "./login"
 import Home from "./home"
-import TreeForm from "./treeForm"
+import UploadForm from "./uploadForm"
 import AdoptMap from "./adoptMap"
 import Profile from "./profile"
 import "./style.css"
@@ -156,7 +156,7 @@ function Main(props) {
 
           
 
-          <AdoptMap height="100vh" width="100%" lat={47.7511} lng={-120.7401} zoom={6} />
+          <AdoptMap username={user} height="100vh" width="100%" lat={47.7511} lng={-120.7401} zoom={6} />
 
 
 
@@ -194,7 +194,7 @@ function Main(props) {
 
 
           {user ? 
-          (<TreeForm username={user} />) :
+          (<UploadForm username={user} />) :
           (<h1> Need to sign in to upload </h1>)
           }
 
