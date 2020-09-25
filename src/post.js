@@ -7,15 +7,15 @@ function Post(props) {
 
   const [progress, setProgress] = useState(0)
   const [image, setImage] = useState(null)
+  const [description, setDescription] = useState("")
 
   const handleChange = (e) => {
     if(e.target.files[0]) {
       setImage(e.target.files[0])
-      console.log(image)
     }
   }
 
-  const handleUpload = () => {
+  const handlePost = () => {
     if (image) {
       const uploadTask = storage.ref("images/" + image.name).put(image)
 
@@ -28,15 +28,20 @@ function Post(props) {
       },
       () => {
         storage.ref("images").child(image.name).getDownloadURL().then(url => {
-          db.collection(props.db).add({
+
+          db.collection("posts").add({
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
             imageUrl: url,
-            psudeoId: Math.random().toString(36),
-            props
+            treeId: props.treeId,
+            description: description,
+            postedBy: props.postedBy,
+            comments: []
           })
+
         })
           setProgress(0)
           setImage(null)
+          setDescription("")
       }
       )
     }
@@ -46,11 +51,24 @@ function Post(props) {
 
   }
 
+  const criptstyle = {
+        color: "white",
+        backgroundColor: "black",
+        padding: "10px",
+        height: "100px",
+        width: "500px",
+        fontFamily: "Arial",
+        textAlign: "left"
+
+      }
+
     return (
       <div>
+        <textarea style={criptstyle} placeholder="Enter a description..." onChange={event => setDescription(event.target.value)} value={description}></textarea>
+        <br/>
         <progress value={progress} max="100" />
         <input type="file" onChange={handleChange}/>
-        <button onClick={handleUpload}> Upload </button>
+        <button onClick={handlePost}> Upload </button>
       </div>
     )
   

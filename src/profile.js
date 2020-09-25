@@ -1,5 +1,5 @@
 import React from "react"
-import UploadTree from "./uploadTree"
+import UpdateProfile from "./updateProfile"
 import MyTrees from "./myTrees"
 import { db } from "./firebase"
 
@@ -29,15 +29,14 @@ class Profile extends React.Component {
   }
 
   componentDidMount() {
-    db.collection("profiles").where("props.username", "==", this.props.username)
+    db.collection("profiles").where("uid", "==", this.props.uid)
     .get()
     .then((querySnapshot) => {
         let bio = ""
         let profilePic = ""
         querySnapshot.forEach((doc) => {
-            // doc.data() is never undefined for query doc snapshots
-            console.log(doc.id, " => ", doc.data())
-            bio = doc.data().props.bio
+            //console.log(doc.id, " => ", doc.data())
+            bio = doc.data().bio
             profilePic = doc.data().imageUrl
         })
         this.setState({
@@ -74,13 +73,9 @@ class Profile extends React.Component {
         <textarea style={biostyle} name="bio" value={this.state.bio} onChange={this.handleChange}></textarea>
         <br/>
         <h2> Upload a Profile Pic: </h2>
-        <UploadTree db="profiles" username={this.props.username} bio={this.state.bio} />
+        <UpdateProfile setPage={this.props.setPage} setMessage={this.props.setMessage} uid={this.props.uid} username={this.props.username} bio={this.state.bio} />
         <br/>
-        <button onClick={this.setEdit}> Back To Profile </button>
-
-        
-
-        
+        <button onClick={this.setEdit}> Back To Profile </button>     
       </div>
       )
 
@@ -94,7 +89,7 @@ class Profile extends React.Component {
         <br/>
         <img src={this.state.profilePic} alt="" height="500" width="500" />
         <br/>
-        <h4> {this.state.bio} </h4>
+        <h2> {this.state.bio} </h2>
         <br/>
         <button onClick={this.setEdit}> Edit Profile </button>
         <br/>

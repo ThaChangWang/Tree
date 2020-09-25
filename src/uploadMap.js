@@ -58,7 +58,7 @@ class UploadMap extends React.Component {
         >
 
       {displayTrees.length > 0 ? displayTrees.map(tree => {
-        return <UploadMarker key={tree.psudeoId} lat={tree.props.latitude} lng={tree.props.longitude} imageUrl={tree.imageUrl} />
+        return <UploadMarker key={tree.psudeoId} lat={tree.latitude} lng={tree.longitude} imageUrl={tree.imageUrl} />
       }) :  null }
 
        <Marker
@@ -70,7 +70,7 @@ class UploadMap extends React.Component {
           
         </GoogleMapReact>
         <h2> Choose an image and upload: </h2>
-        <UploadTree db="publicTrees" postedBy={this.props.username} owner={null} latitude={this.state.lat} longitude={this.state.lng} name={this.props.name} description={this.props.description} />
+        <UploadTree postedBy={this.props.username} owner={null} latitude={this.state.lat} longitude={this.state.lng} name={this.props.name} description={this.props.description} />
         <br/>
       </div>
     );

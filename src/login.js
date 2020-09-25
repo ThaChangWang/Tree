@@ -1,6 +1,6 @@
 import React from "react"
 
-import { auth } from "./firebase"
+import { auth, db } from "./firebase"
 
 
 class Login extends React.Component {
@@ -33,12 +33,19 @@ class Login extends React.Component {
 
     auth.createUserWithEmailAndPassword(this.state.signEmail, this.state.signPassword)
     .then((authUser) => {
+      db.collection("profiles").add({
+            imageUrl: null,
+            uid: authUser.user.uid,
+            bio: null
+          })
+
       return authUser.user.updateProfile({
         displayName: this.state.signUsername,
-        publicTrees: []
       })
     })
     .catch((error) => alert(error.message))
+
+    
 
   }
 
@@ -62,6 +69,7 @@ class Login extends React.Component {
 
     return (
       <div>
+        <h1> Sign Up: </h1>
         <form style={formStyle}>
           Display Name:
           <input type="email" name="signUsername" value={this.state.signUsername} onChange={this.handleChange} />
@@ -77,6 +85,7 @@ class Login extends React.Component {
 
         <br/>
 
+        <h1> Sign In: </h1>
         <form style={formStyle}>
           Email:
           <input type="email" name="logEmail" value={this.state.logEmail} onChange={this.handleChange} />

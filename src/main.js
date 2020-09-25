@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react"
+import { Button } from "@material-ui/core"
 import Login from "./login"
 import Home from "./home"
 import UploadForm from "./uploadForm"
@@ -13,12 +14,15 @@ import { auth } from "./firebase"
 function Main(props) {
 
   const [page, setPage] = useState(props.page)
+  const [message, setMessage] = useState(null)
   const [user, setUser] = useState(null)
+  const [userId, setUserId] = useState(null)
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(function(authUser)  {
       if (authUser) {
         setUser(authUser.displayName)
+        setUserId(authUser.uid)
       } else {
         setUser(null)
       }
@@ -56,7 +60,7 @@ function Main(props) {
 
           <div style={headerstyle}>
 
-          <button style={buttonstyle} onClick={() => setPage("home")}>home</button>
+          <Button style={buttonstyle} onClick={() => [setPage("home"), setMessage(null)]}>home</button>
           <button style={buttonstyle} onClick={() => setPage("find")}>find</button>
           <button style={buttonstyle} onClick={() => setPage("upload")}>upload</button>
 
@@ -77,6 +81,7 @@ function Main(props) {
 
           </div>
 
+          <h2> {message} </h2>
 
           <Home />
 
@@ -88,13 +93,14 @@ function Main(props) {
 
     else if (page === "login") {
 
+
       return (
         <div>
 
           <div style={headerstyle}>
 
 
-          <button style={buttonstyle} onClick={() => setPage("home")}>home</button>
+          <button style={buttonstyle} onClick={() => [setPage("home"), setMessage(null)]}>home</button>
           <button style={buttonstyle} onClick={() => setPage("find")}>find</button>
           <button style={buttonstyle} onClick={() => setPage("upload")}>upload</button>
 
@@ -126,13 +132,12 @@ function Main(props) {
 
     else if (page === "find") {
 
-
       return (
         <div>
 
           <div style={headerstyle}>
 
-          <button style={buttonstyle} onClick={() => setPage("home")}>home</button>
+          <button style={buttonstyle} onClick={() => [setPage("home"), setMessage(null)]}>home</button>
           <button style={buttonstyle} onClick={() => setPage("find")}>find</button>
           <button style={buttonstyle} onClick={() => setPage("upload")}>upload</button>
 
@@ -166,12 +171,13 @@ function Main(props) {
 
     else if (page === "upload") {
 
+
       return (
         <div>
 
           <div style={headerstyle}>
 
-          <button style={buttonstyle} onClick={() => setPage("home")}>home</button>
+          <button style={buttonstyle} onClick={() => [setPage("home"), setMessage(null)]}>home</button>
           <button style={buttonstyle} onClick={() => setPage("find")}>find</button>
           <button style={buttonstyle} onClick={() => setPage("upload")}>upload</button>
 
@@ -206,13 +212,14 @@ function Main(props) {
 
     else if (page === "profile") {
 
+
       return (
         <div>
 
           <div style={headerstyle}>
 
 
-          <button style={buttonstyle} onClick={() => setPage("home")}>home</button>
+          <button style={buttonstyle} onClick={() => [setPage("home"), setMessage(null)]}>home</button>
           <button style={buttonstyle} onClick={() => setPage("find")}>find</button>
           <button style={buttonstyle} onClick={() => setPage("upload")}>upload</button>
 
@@ -234,7 +241,7 @@ function Main(props) {
           </div>
 
 
-         <Profile username={user}/>
+         <Profile setPage={setPage} setMessage={setMessage} uid={userId} username={user}/>
 
         </div>
       )

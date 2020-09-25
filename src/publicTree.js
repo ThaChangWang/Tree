@@ -7,37 +7,44 @@ class PublicTree extends React.Component {
   constructor() {
     super()
     this.state = {
-      fullPage: false
+      fullPage: false,
+      tree: null
     }
     this.updateOwner = this.updateOwner.bind(this)
     
   }
 
-updateOwner = (owner) => {
-  db.collection("publicTrees").where("psudeoId", "==", this.props.tree.psudeoId)
-    .get()
-    .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-            // doc.data() is never undefined for query doc snapshots
-            console.log(doc.id, " => ", doc.data())
-            db.collection("publicTrees").doc(doc.id).update({
-              props: {
-                db: doc.data().props.db,
-                description: doc.data().props.description,
-                latitude: doc.data().props.latitude,
-                longitude: doc.data().props.longitude,
-                name: doc.data().props.name,
-                owner: owner,
-                postedBy: doc.data().props.postedBy
-              }
-            })
-        })
-    })
-    .catch(function(error) {
-        console.log("Error getting documents: ", error)
-    })
+  componentDidMount() {
+    db.collection("publicTrees").onSnapshot(snapshot => {
+      let thisTree = null
 
-}
+      snapshot.docs.forEach(doc => {
+        if(doc.data().psudeoId === this.props.psudeoId) {
+          thisTree = doc.data()
+        }
+      })
+
+      this.setState({
+        tree: thisTree
+      })
+    })
+  }
+
+  updateOwner = (owner) => {
+    db.collection("publicTrees").where("psudeoId", "==", this.props.psudeoId)
+      .get()
+      .then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+              db.collection("publicTrees").doc(doc.id).update({
+                owner: owner,
+              })
+          })
+      })
+      .catch(function(error) {
+          console.log("Error getting documents: ", error)
+      })
+
+  }
 
 
 
@@ -55,31 +62,50 @@ updateOwner = (owner) => {
 
       if (this.state.fullPage) {
         return (
-          <FullTreePage username={this.props.username} tree={this.props.tree}/>
+          <div>
+            <FullTreePage username={this.props.username} tree={this.state.tree}/>
+            <button onClick={() => this.setState({fullPage: false})}> Close Full Page </button>
+          </div>
         )
 
       }
 
       else {
-        return (
-          <div style={treestyle}>
-            <h2>{this.props.tree.props.name}</h2>
-            <br/>
-              <button onClick={() => this.setState({fullPage: true})}> View Full Page </button>
-              {this.props.tree.props.owner ? 
-                null :
-                <button onClick={() => this.updateOwner(this.props.username)}> Adopt Tree </button>}
-              {this.props.tree.props.owner === this.props.username ? 
-                <button onClick={() => this.updateOwner(null)}> Release from Care </button> :
-                null}    
 
-                <div>
-                <img src={this.props.tree.imageUrl} alt="" height={this.props.height} width={this.props.width} />
-                <h3> {this.props.tree.props.description} </h3>
-                </div>
-              <h4> Posted by: {this.props.tree.props.postedBy} </h4>
+        let tree = this.state.tree
+
+        if(tree) {
+
+          return (
+          <div>
+            <h2>{tree.name}</h2>
+            <button onClick={() => this.setState({fullPage: true})}> View Full Page </button>
+            {tree.owner ? 
+              null :
+              <button onClick={() => this.updateOwner(this.props.username)}> Adopt Tree </button>}
+            {tree.owner === this.props.username ? 
+              <button onClick={() => this.updateOwner(null)}> Release from Care </button> :
+              null}    
+
+            <div style={treestyle}>
+              <img src={tree.imageUrl} alt="" height={this.props.height} width={this.props.width} />
+              <h3> {tree.description} </h3>
+            </div>
+            <h4> Posted by: {tree.postedBy} </h4>
           </div>
         )
+          
+        }
+
+        else{
+
+          return (
+            <h4> Loading Tree... </h4>
+          )
+          
+        }
+
+        
       }
 
       

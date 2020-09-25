@@ -7,7 +7,7 @@ function Comment(props) {
 
   const [progress, setProgress] = useState(0)
   const [image, setImage] = useState(null)
-  const [description, setDescription] = useState("")
+  const [comment, setComment] = useState("")
 
   const handleChange = (e) => {
     if(e.target.files[0]) {
@@ -16,7 +16,8 @@ function Comment(props) {
     }
   }
 
-  const handleUpload = () => {
+  const handleComment = () => {
+
     if (image) {
       const uploadTask = storage.ref("images/" + image.name).put(image)
 
@@ -29,29 +30,73 @@ function Comment(props) {
       },
       () => {
         storage.ref("images").child(image.name).getDownloadURL().then(url => {
-          db.collection("comments").add({
-            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+
+          let comments = props.post.comments
+
+          let postComment = {
             imageUrl: url,
-            description: description,
-            props
+            timestamp: firebase.firestore.FieldValue.serverTimestamp().toString(),
+            postedBy: props.username,
+            comment: comment
+          }
+
+          comments.push(postComment)
+
+          db.collection("posts").where("psudeoId", "==", props.post.psudeoId)
+          .get()
+          .then((querySnapshot) => {
+              querySnapshot.forEach((doc) => {
+                  //console.log(doc.id, " => ", doc.data())
+                  db.collection("posts").doc(doc.id).update({
+                    comments: comments
+                  })
+
+              })
+              
+
           })
-        })
+          .catch(function(error) {
+              console.log("Error getting documents: ", error)
+          })
           setProgress(0)
           setImage(null)
-          setDescription("")
-      }
-      )
+          setComment("")
+      })
+    })
     }
+
+
     else {
-      db.collection("comments").add({
-            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      let comments = props.post.comments
+
+          let postComment = {
             imageUrl: null,
-            description: description,
-            props
+            timestamp: firebase.firestore.FieldValue.serverTimestamp().toString(),
+            postedBy: props.username,
+            comment: comment
+          }
+
+          comments.push(postComment)
+
+          db.collection("posts").where("psudeoId", "==", props.post.psudeoId)
+          .get()
+          .then((querySnapshot) => {
+              querySnapshot.forEach((doc) => {
+                  //console.log(doc.id, " => ", doc.data())
+                  db.collection("posts").doc(doc.id).update({
+                    comments: comments
+                  })
+
+              })
+              
+
           })
-      setProgress(0)
-      setImage(null)
-      setDescription("")
+          .catch(function(error) {
+              console.log("Error getting documents: ", error)
+          })
+          setProgress(0)
+          setImage(null)
+          setComment("")
     }
 
   }
@@ -69,11 +114,11 @@ function Comment(props) {
 
     return (
       <div>
-        <textarea style={criptstyle} placeholder="Enter a description..." onChange={event => setDescription(event.target.value)} value={description}></textarea>
+        <textarea style={criptstyle} placeholder="Enter a comment..." onChange={event => setComment(event.target.value)} value={comment}></textarea>
         <br/>
         <progress value={progress} max="100"/>
         <input type="file" onChange={handleChange}/>
-        <button onClick={handleUpload}> Upload </button>
+        <button onClick={handleComment}> Upload </button>
       </div>
     )
   

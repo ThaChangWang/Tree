@@ -8,14 +8,13 @@ class FullTreePage extends React.Component {
   constructor() {
     super()
     this.state = {
-      description: "",
       posts: []
     }
     this.handleChange = this.handleChange.bind(this)
   }
 
-  componentDidMount() {
-    db.collection("posts").where("props.treeId", "==", this.props.tree.psudeoId)
+  /*componentDidMount() {
+    db.collection("posts").where("treeId", "==", this.props.tree.psudeoId)
     .get()
     .then((querySnapshot) => {
         let posts = []
@@ -32,7 +31,27 @@ class FullTreePage extends React.Component {
     .catch(function(error) {
         console.log("Error getting documents: ", error)
     })
+  }*/
+
+  componentDidMount() {
+    db.collection("posts").orderBy("timestamp", "desc").onSnapshot(snapshot => {
+      console.log(snapshot.docs.map(doc => doc.data()))
+      let incomingPosts = []
+
+      snapshot.docs.forEach(doc => {
+        if(doc.data().treeId === this.props.tree.psudeoId) {
+          incomingPosts.push(doc.data())
+        }
+      })
+
+      console.log(incomingPosts)
+
+      this.setState({
+        posts: incomingPosts
+      })
+    })
   }
+
 
   handleChange(event) {
 
@@ -40,6 +59,8 @@ class FullTreePage extends React.Component {
 
     this.setState({[name]: value})
   }
+
+
 
 
   render() {
@@ -54,32 +75,24 @@ class FullTreePage extends React.Component {
 
       }
 
-      const criptstyle = {
-        color: "white",
-        backgroundColor: "black",
-        padding: "10px",
-        height: "100px",
-        width: "500px",
-        fontFamily: "Arial",
-        textAlign: "left"
-
-      }
+      
 
     let posts = this.state.posts
 
     return (
       <div style={treestyle}>
         <div>
-          {this.props.username === this.props.tree.props.owner ? 
+          {this.props.username === this.props.tree.owner ? 
           [<h2> Make a Post </h2>,
-          <textarea style={criptstyle} placeholder="Enter a description..." name="description" onChange={this.handleChange} value={this.state.description}></textarea>,
-          <Post db="posts" description={this.state.description} treeId={this.props.tree.psudeoId} />] :
+          <Post postedBy={this.props.username} treeId={this.props.tree.psudeoId} />] :
           <h2> Must be Owner to Post on Tree </h2>}
         </div>
         <div>
+          <br/>
           {posts.length > 0 ? posts.map(post => {
-            return [<PostDisplay post={post} />,
-            <Comment postId={post.psudeoId} />]
+            console.log(post)
+            return [<PostDisplay key={Math.random().toString(36)} username={this.props.username} post={post} />,
+            <Comment key={Math.random().toString(36)} username={this.props.username} post={post} />]
           }) :
           null }
 

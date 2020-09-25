@@ -28,11 +28,16 @@ function UploadTree(props) {
       },
       () => {
         storage.ref("images").child(image.name).getDownloadURL().then(url => {
-          db.collection(props.db).add({
+          db.collection("publicTrees").add({
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
             imageUrl: url,
             psudeoId: Math.random().toString(36),
-            props
+            description: props.description,
+            latitude: props.latitude,
+            longitude: props.longitude,
+            name: props.name,
+            owner: props.owner,
+            postedBy: props.postedBy
           })
         })
           setProgress(0)

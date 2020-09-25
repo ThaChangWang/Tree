@@ -10,7 +10,7 @@ class AdoptMarker extends React.Component {
 
     let adoptstyle
       
-    if (this.props.tree.props.owner) {
+    if (this.props.tree.owner) {
       adoptstyle = {
         color: "white",
         backgroundColor: "blue",

@@ -12,13 +12,12 @@ class MyTrees extends React.Component {
   }
 
   componentDidMount() {
-    db.collection("publicTrees").where("props.owner", "==", this.props.username)
+    db.collection("publicTrees").where("owner", "==", this.props.username)
     .get()
     .then((querySnapshot) => {
         let myTrees = []
         querySnapshot.forEach((doc) => {
-            // doc.data() is never undefined for query doc snapshots
-            console.log(doc.id, " => ", doc.data())
+            //console.log(doc.id, " => ", doc.data())
             myTrees.push(doc.data())
         })
         this.setState({
@@ -39,7 +38,7 @@ class MyTrees extends React.Component {
        return (
       <div>
         {myTrees.length > 0 ? myTrees.map(tree => {
-          return <PublicTree key={tree.psudeoId} username={this.props.username} tree={tree} height="200" width="200" />
+          return <PublicTree key={tree.psudeoId} username={this.props.username} psudeoId={tree.psudeoId} height="200" width="200" />
         }) :
         <h2> No Trees </h2>}
       </div>
