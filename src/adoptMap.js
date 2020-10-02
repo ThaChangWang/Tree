@@ -4,6 +4,9 @@ import { db } from "./firebase"
 import AdoptMarker from "./adoptMarker"
 import PublicTree from "./publicTree"
 
+import { Button } from "@material-ui/core"
+
+
 
 let isMounted = true
 
@@ -53,7 +56,8 @@ class AdoptMap extends React.Component {
       return (
         <div>
         <PublicTree username={this.props.username} psudeoId={this.state.tree.psudeoId} height="500" width="500" />
-        <button onClick={() => this.setTree(null)}> Return to Map </button>
+        <br/>
+        <Button variant="outlined" color="secondary" onClick={() => this.setTree(null)}> Return to Map </Button>
         </div>
       )
 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { Button } from "@material-ui/core"
+import { makeStyles } from "@material-ui/core/styles"
 import Login from "./login"
 import Home from "./home"
 import UploadForm from "./uploadForm"
@@ -9,7 +10,14 @@ import "./style.css"
 
 import { auth } from "./firebase"
 
-
+const useStyles = makeStyles({
+  buttonStyle: {
+    backgroundColor: "green"
+  },
+  clickedButtonStyle: {
+    backgroundColor: "black"
+  }
+})
 
 function Main(props) {
 
@@ -17,6 +25,8 @@ function Main(props) {
   const [message, setMessage] = useState(null)
   const [user, setUser] = useState(null)
   const [userId, setUserId] = useState(null)
+
+  const classes = useStyles()
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(function(authUser)  {
@@ -35,19 +45,8 @@ function Main(props) {
 
   }, [])
 
-    const buttonstyle = {
-      color: "white",
-      backgroundColor: "black",
-      padding: "10px",
-      fontFamily: "Arial",
-      textAlign: "center"
-    }
-    
+
     const headerstyle = {
-      color: "white",
-      backgroundColor: "lightgreen",
-      padding: "10px",
-      fontFamily: "Arial",
       textAlign: "center"
     }
 
@@ -60,23 +59,20 @@ function Main(props) {
 
           <div style={headerstyle}>
 
-          <Button style={buttonstyle} onClick={() => [setPage("home"), setMessage(null)]}>home</button>
-          <button style={buttonstyle} onClick={() => setPage("find")}>find</button>
-          <button style={buttonstyle} onClick={() => setPage("upload")}>upload</button>
+
+
+          <Button className={classes.clickedButtonStyle} variant="outlined" color="secondary" onClick={() => [setPage("home"), setMessage(null)]}>home</Button>
+          <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("find")}>find</Button>
+          <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("upload")}>upload</Button>
 
           {user ? 
-          (<button style={buttonstyle} onClick={() => setPage("profile")}>profile</button>) :
+          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("profile")}>profile</Button>) :
           null
           }
 
           {user ? 
-          (<button style={buttonstyle} onClick={() => auth.signOut()}>logout</button>) :
-          (<button style={buttonstyle} onClick={() => setPage("login")}>login</button>)
-          }
-
-          {user ? 
-          (<h1> Hello {user}</h1>) :
-          (<h1> Not signed in </h1>)
+          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => auth.signOut()}>logout</Button>) :
+          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("login")}>login</Button>)
           }
 
           </div>
@@ -100,23 +96,18 @@ function Main(props) {
           <div style={headerstyle}>
 
 
-          <button style={buttonstyle} onClick={() => [setPage("home"), setMessage(null)]}>home</button>
-          <button style={buttonstyle} onClick={() => setPage("find")}>find</button>
-          <button style={buttonstyle} onClick={() => setPage("upload")}>upload</button>
+          <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => [setPage("home"), setMessage(null)]}>home</Button>
+          <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("find")}>find</Button>
+          <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("upload")}>upload</Button>
 
           {user ? 
-          (<button style={buttonstyle} onClick={() => setPage("profile")}>profile</button>) :
+          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("profile")}>profile</Button>) :
           null
           }
 
           {user ? 
-          (<button style={buttonstyle} onClick={() => auth.signOut()}>logout</button>) :
-          (<button style={buttonstyle} onClick={() => setPage("login")}>login</button>)
-          }
-
-          {user ? 
-          (<h1> Hello {user}</h1>) :
-          (<h1> Not signed in </h1>)
+          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => auth.signOut()}>logout</Button>) :
+          (<Button className={classes.clickedButtonStyle} variant="outlined" color="secondary" onClick={() => setPage("login")}>login</Button>)
           }
 
           </div>
@@ -137,24 +128,20 @@ function Main(props) {
 
           <div style={headerstyle}>
 
-          <button style={buttonstyle} onClick={() => [setPage("home"), setMessage(null)]}>home</button>
-          <button style={buttonstyle} onClick={() => setPage("find")}>find</button>
-          <button style={buttonstyle} onClick={() => setPage("upload")}>upload</button>
+          <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => [setPage("home"), setMessage(null)]}>home</Button>
+          <Button className={classes.clickedButtonStyle} variant="outlined" color="secondary" onClick={() => setPage("find")}>find</Button>
+          <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("upload")}>upload</Button>
 
           {user ? 
-          (<button style={buttonstyle} onClick={() => setPage("profile")}>profile</button>) :
+          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("profile")}>profile</Button>) :
           null
           }
 
           {user ? 
-          (<button style={buttonstyle} onClick={() => auth.signOut()}>logout</button>) :
-          (<button style={buttonstyle} onClick={() => setPage("login")}>login</button>)
+          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => auth.signOut()}>logout</Button>) :
+          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("login")}>login</Button>)
           }
 
-          {user ? 
-          (<h1> Hello {user}</h1>) :
-          (<h1> Not signed in </h1>)
-          }
 
           </div>
 
@@ -177,24 +164,20 @@ function Main(props) {
 
           <div style={headerstyle}>
 
-          <button style={buttonstyle} onClick={() => [setPage("home"), setMessage(null)]}>home</button>
-          <button style={buttonstyle} onClick={() => setPage("find")}>find</button>
-          <button style={buttonstyle} onClick={() => setPage("upload")}>upload</button>
+          <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => [setPage("home"), setMessage(null)]}>home</Button>
+          <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("find")}>find</Button>
+          <Button className={classes.clickedButtonStyle} variant="outlined" color="secondary" onClick={() => setPage("upload")}>upload</Button>
 
           {user ? 
-          (<button style={buttonstyle} onClick={() => setPage("profile")}>profile</button>) :
+          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("profile")}>profile</Button>) :
           null
           }
 
           {user ? 
-          (<button style={buttonstyle} onClick={() => auth.signOut()}>logout</button>) :
-          (<button style={buttonstyle} onClick={() => setPage("login")}>login</button>)
+          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => auth.signOut()}>logout</Button>) :
+          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("login")}>login</Button>)
           }
 
-          {user ? 
-          (<h1> Hello {user}</h1>) :
-          (<h1> Not signed in </h1>)
-          }
 
           </div>
 
@@ -219,24 +202,20 @@ function Main(props) {
           <div style={headerstyle}>
 
 
-          <button style={buttonstyle} onClick={() => [setPage("home"), setMessage(null)]}>home</button>
-          <button style={buttonstyle} onClick={() => setPage("find")}>find</button>
-          <button style={buttonstyle} onClick={() => setPage("upload")}>upload</button>
+          <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => [setPage("home"), setMessage(null)]}>home</Button>
+          <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("find")}>find</Button>
+          <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("upload")}>upload</Button>
 
           {user ? 
-          (<button style={buttonstyle} onClick={() => setPage("profile")}>profile</button>) :
+          (<Button className={classes.clickedButtonStyle} variant="outlined" color="secondary" onClick={() => setPage("profile")}>profile</Button>) :
           null
           }
 
           {user ? 
-          (<button style={buttonstyle} onClick={() => auth.signOut()}>logout</button>) :
-          (<button style={buttonstyle} onClick={() => setPage("login")}>login</button>)
+          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => auth.signOut()}>logout</Button>) :
+          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("login")}>login</Button>)
           }
 
-          {user ? 
-          (<h1> Hello {user}</h1>) :
-          (<h1> Not signed in </h1>)
-          }
 
           </div>
 
@@ -252,6 +231,5 @@ function Main(props) {
     
   }
     
-
 
 export default Main

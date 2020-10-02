@@ -3,6 +3,10 @@ import UpdateProfile from "./updateProfile"
 import MyTrees from "./myTrees"
 import { db } from "./firebase"
 
+import Grid from "@material-ui/core/Grid"
+
+import { Button, Typography } from "@material-ui/core"
+
 class Profile extends React.Component {
   constructor() {
     super()
@@ -52,7 +56,12 @@ class Profile extends React.Component {
 
   
 
+  
+
+  
+
   render() {
+
 
     const biostyle = {
         color: "white",
@@ -63,6 +72,10 @@ class Profile extends React.Component {
         fontFamily: "Arial",
         textAlign: "left"
 
+      }
+
+      const profilestyle = {
+        backgroundColor: "#FAEBD7"
       }
 
     if (this.state.editing) {
@@ -84,17 +97,27 @@ class Profile extends React.Component {
     else {
 
       return (
-      <div>
-        <h2> {this.props.username} </h2>
-        <br/>
-        <img src={this.state.profilePic} alt="" height="500" width="500" />
-        <br/>
-        <h2> {this.state.bio} </h2>
-        <br/>
-        <button onClick={this.setEdit}> Edit Profile </button>
-        <br/>
-        <h2> My Trees: </h2>
+      <div style={profilestyle}>
+        
+        <Typography variant="h3" align="center" color="secondary"> {this.props.username} </Typography>
+        <hr/>
+        <Grid container spacing={12}>
+          <Grid item xs={6}>
+            <img src={this.state.profilePic} alt="" height="500px" width="500px" />
+          </Grid>
+          <Grid item xs={6}>
+            <Typography variant="h3" align="left" color="secondary"> $$$$$ </Typography>
+          </Grid>
+        </Grid>
+        <Typography variant="h5" align="left" color="secondary"> {this.state.bio} </Typography>
+        <Button variant="outlined" color="secondary" onClick={this.setEdit}> Edit Profile </Button>
+
+        <hr/>
+        <Typography variant="h3" align="center" color="secondary"> My Trees </Typography>
+        <hr/>
         <MyTrees username={this.props.username}/>
+
+        
       </div>
       )
       

@@ -38,7 +38,7 @@ class MyTrees extends React.Component {
        return (
       <div>
         {myTrees.length > 0 ? myTrees.map(tree => {
-          return <PublicTree key={tree.psudeoId} username={this.props.username} psudeoId={tree.psudeoId} height="200" width="200" />
+          return <PublicTree key={tree.psudeoId} username={this.props.username} psudeoId={tree.psudeoId} height="300" width="300" />
         }) :
         <h2> No Trees </h2>}
       </div>

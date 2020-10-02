@@ -1,13 +1,20 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Main from './main'
+import Theme from "./theme"
+import { ThemeProvider } from "@material-ui/core/styles"
+
 import * as serviceWorker from './serviceWorker'
 
-
 ReactDOM.render(
-    
-    <Main page="home" />,
-  document.getElementById('root')
+
+  <React.StrictMode>
+    <ThemeProvider theme={Theme} >
+      <Main page="home" />
+    </ThemeProvider>
+  </React.StrictMode>,
+  document.getElementById("root")
+
 )
 
 // If you want your app to work offline and load faster, you can change

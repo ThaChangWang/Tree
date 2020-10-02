@@ -47,6 +47,7 @@ class PostDisplay extends React.Component {
     return (
       <div>
         <div>
+          <hr/>
           <img src={this.props.post.imageUrl} alt="" height="400" width="400" /> 
           <h3> {this.props.post.description} </h3>
           <h2> Posted By: {this.props.post.postedBy} </h2>
@@ -54,14 +55,15 @@ class PostDisplay extends React.Component {
         <div style={commentstyle}>
           {comments.length > 0 ? comments.map(comment => {
             return [comment.imageUrl ? 
-             <img src={comment.imageUrl} alt="" height="100" width="100" /> :
-             null,
-            <h2> {comment.postedBy} : {comment.comment} </h2>]
+              [<hr/>,
+              <img src={comment.imageUrl} alt="" height="100" width="100" />] :
+              <hr/>,
+            <h2> {comment.postedBy} : {comment.comment} </h2>,
+            <hr/>]
           }) :
           null }
         </div>
-
-
+        <hr/>
       </div>
     )
   }

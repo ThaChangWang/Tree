@@ -2,6 +2,8 @@ import React from "react"
 import FullTreePage from "./fullTreePage"
 import { db } from "./firebase"
 
+import { Button, Typography } from "@material-ui/core"
+
 
 class PublicTree extends React.Component {
   constructor() {
@@ -52,7 +54,7 @@ class PublicTree extends React.Component {
 
     const treestyle = {
         color: "white",
-        backgroundColor: "black",
+        backgroundColor: "#7FFFD4",
         padding: "10px",
         fontFamily: "Arial",
         textAlign: "left",
@@ -64,7 +66,7 @@ class PublicTree extends React.Component {
         return (
           <div>
             <FullTreePage username={this.props.username} tree={this.state.tree}/>
-            <button onClick={() => this.setState({fullPage: false})}> Close Full Page </button>
+            <Button onClick={() => this.setState({fullPage: false})}> Close Full Page </Button>
           </div>
         )
 
@@ -77,22 +79,27 @@ class PublicTree extends React.Component {
         if(tree) {
 
           return (
-          <div>
-            <h2>{tree.name}</h2>
-            <button onClick={() => this.setState({fullPage: true})}> View Full Page </button>
+          <div style={treestyle}>
+            <hr/>
+            <Typography variant="h2" color="secondary">{tree.name}</Typography>
+            <Button variant="outlined" color="secondary" onClick={() => this.setState({fullPage: true})}> View Full Page </Button>
             {tree.owner ? 
               null :
-              <button onClick={() => this.updateOwner(this.props.username)}> Adopt Tree </button>}
+              <Button variant="outlined" color="secondary" onClick={() => this.updateOwner(this.props.username)}> Adopt Tree </Button>}
             {tree.owner === this.props.username ? 
-              <button onClick={() => this.updateOwner(null)}> Release from Care </button> :
-              null}    
+              <Button variant="outlined" color="secondary" onClick={() => this.updateOwner(null)}> Release from Care </Button> :
+              null}
 
-            <div style={treestyle}>
-              <img src={tree.imageUrl} alt="" height={this.props.height} width={this.props.width} />
-              <h3> {tree.description} </h3>
+            <div>
+            <br/>
+            <img src={tree.imageUrl} alt="" height={this.props.height} width={this.props.width} />
+            <Typography variant="h4" color="secondary"> {tree.description} </Typography>
             </div>
-            <h4> Posted by: {tree.postedBy} </h4>
+
+            <Typography variant="h5" color="secondary"> Posted by: {tree.postedBy} </Typography>
+            <hr/>
           </div>
+          
         )
           
         }

@@ -4,6 +4,9 @@ import PostDisplay from "./postDisplay"
 import Comment from "./comment"
 import { db } from "./firebase"
 
+import { Typography } from "@material-ui/core"
+
+
 class FullTreePage extends React.Component {
   constructor() {
     super()
@@ -66,13 +69,8 @@ class FullTreePage extends React.Component {
   render() {
 
     const treestyle = {
-        color: "white",
-        backgroundColor: "black",
-        padding: "10px",
-        fontFamily: "Arial",
-        textAlign: "center",
-        display: "contain"
-
+        backgroundColor: "#7FFFD4",
+        textAlign: "center"
       }
 
       
@@ -83,15 +81,16 @@ class FullTreePage extends React.Component {
       <div style={treestyle}>
         <div>
           {this.props.username === this.props.tree.owner ? 
-          [<h2> Make a Post </h2>,
+          [<Typography variant="h2" color="secondary"> Make a Post </Typography>,
           <Post postedBy={this.props.username} treeId={this.props.tree.psudeoId} />] :
-          <h2> Must be Owner to Post on Tree </h2>}
+          <Typography variant="h2" color="secondary"> Must be Owner to Post on Tree </Typography>}
         </div>
         <div>
           <br/>
           {posts.length > 0 ? posts.map(post => {
             console.log(post)
             return [<PostDisplay key={Math.random().toString(36)} username={this.props.username} post={post} />,
+            <Typography variant="h4" color="secondary"> Comment </Typography>,
             <Comment key={Math.random().toString(36)} username={this.props.username} post={post} />]
           }) :
           null }
