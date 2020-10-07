@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 
 import firebase from "firebase"
-import { db, storage } from "./firebase"
+import { db, storage } from "../firebase"
 
 function Post(props) {
 
@@ -34,6 +34,7 @@ function Post(props) {
             imageUrl: url,
             treeId: props.treeId,
             description: description,
+            psudeoId: Math.random().toString(36),
             postedBy: props.postedBy,
             comments: []
           })

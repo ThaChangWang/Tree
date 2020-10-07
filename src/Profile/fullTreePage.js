@@ -2,7 +2,7 @@ import React from "react"
 import Post from "./post"
 import PostDisplay from "./postDisplay"
 import Comment from "./comment"
-import { db } from "./firebase"
+import { db } from "../firebase"
 
 import { Typography } from "@material-ui/core"
 
@@ -69,7 +69,7 @@ class FullTreePage extends React.Component {
   render() {
 
     const treestyle = {
-        backgroundColor: "#7FFFD4",
+        backgroundColor: "#90EE90",
         textAlign: "center"
       }
 
@@ -90,7 +90,7 @@ class FullTreePage extends React.Component {
           {posts.length > 0 ? posts.map(post => {
             console.log(post)
             return [<PostDisplay key={Math.random().toString(36)} username={this.props.username} post={post} />,
-            <Typography variant="h4" color="secondary"> Comment </Typography>,
+            <Typography key={Math.random().toString(36)} variant="h4" color="secondary"> Comment </Typography>,
             <Comment key={Math.random().toString(36)} username={this.props.username} post={post} />]
           }) :
           null }

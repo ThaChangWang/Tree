@@ -1,35 +1,10 @@
 import React from "react"
 
-//import { db } from "./firebase"
-
-
 class PostDisplay extends React.Component {
   constructor() {
     super()
-    this.state = {
-      //comments: []
-    }
+    this.state = {}
   }
-
-  /*componentDidMount() {
-    db.collection("comments").where("postId", "==", this.props.post.psudeoId)
-    .get()
-    .then((querySnapshot) => {
-        let comments = []
-        querySnapshot.forEach((doc) => {
-            // doc.data() is never undefined for query doc snapshots
-            console.log(doc.id, " => ", doc.data())
-            comments.push(doc.data())
-        })
-        this.setState({
-              comments: comments
-            })
-
-    })
-    .catch(function(error) {
-        console.log("Error getting documents: ", error)
-    })
-  }*/
 
 
   render() {
@@ -56,7 +31,7 @@ class PostDisplay extends React.Component {
           {comments.length > 0 ? comments.map(comment => {
             return [comment.imageUrl ? 
               [<hr/>,
-              <img src={comment.imageUrl} alt="" height="100" width="100" />] :
+              <img key={Math.random().toString(36)} src={comment.imageUrl} alt="" height="200" width="200" />] :
               <hr/>,
             <h2> {comment.postedBy} : {comment.comment} </h2>,
             <hr/>]

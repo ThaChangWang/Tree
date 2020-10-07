@@ -1,8 +1,8 @@
 import React from 'react'
 import GoogleMapReact from 'google-map-react'
-import { db } from "./firebase"
+import { db } from "../firebase"
 import AdoptMarker from "./adoptMarker"
-import PublicTree from "./publicTree"
+import PublicTree from "../Profile/publicTree"
 
 import { Button } from "@material-ui/core"
 

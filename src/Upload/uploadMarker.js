@@ -1,9 +1,6 @@
 import React from "react"
 
 
-
-
-
 class UploadMarker extends React.Component {
 
   render() {

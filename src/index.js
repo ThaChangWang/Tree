@@ -8,11 +8,9 @@ import * as serviceWorker from './serviceWorker'
 
 ReactDOM.render(
 
-  <React.StrictMode>
     <ThemeProvider theme={Theme} >
       <Main page="home" />
-    </ThemeProvider>
-  </React.StrictMode>,
+    </ThemeProvider>,
   document.getElementById("root")
 
 )

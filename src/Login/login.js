@@ -1,6 +1,6 @@
 import React from "react"
 
-import { auth, db } from "./firebase"
+import { auth, db } from "../firebase"
 
 import Grid from "@material-ui/core/Grid"
 import { Typography } from "@material-ui/core"
@@ -13,6 +13,10 @@ class Login extends React.Component {
       signUsername: "",
       signEmail: "",
       signPassword: "",
+      signConfPassword: "",
+
+      message: "",
+
       logEmail: "",
       logPassword: ""
     }
@@ -34,19 +38,46 @@ class Login extends React.Component {
   signUp(event) {
     event.preventDefault()
 
-    auth.createUserWithEmailAndPassword(this.state.signEmail, this.state.signPassword)
-    .then((authUser) => {
-      db.collection("profiles").add({
-            imageUrl: null,
-            uid: authUser.user.uid,
-            bio: null
+    if (this.state.signPassword === this.state.signConfPassword) {
+
+      if (this.state.signPassword.length > 6) {
+
+        auth.createUserWithEmailAndPassword(this.state.signEmail, this.state.signPassword)
+        .then((authUser) => {
+          db.collection("profiles").add({
+                imageUrl: null,
+                uid: authUser.user.uid,
+                bio: null
+              })
+
+          authUser.user.updateProfile({
+            displayName: this.state.signUsername,
           })
 
-      return authUser.user.updateProfile({
-        displayName: this.state.signUsername,
-      })
-    })
-    .catch((error) => alert(error.message))
+          this.setState({
+            signUsername: "",
+            signEmail: "",
+            signPassword: "",
+            signConfPassword: "",
+
+            message: "Account Created, reload page to log in",
+          })
+
+        })
+        .catch((error) => alert(error.message))
+
+
+      }
+
+      else {
+        alert("Password must be longer than 6 characters")
+      }
+
+    }
+
+    else {
+      alert("Passwords do not match")
+    }
 
     
 
@@ -57,6 +88,9 @@ class Login extends React.Component {
 
     auth.signInWithEmailAndPassword(this.state.logEmail, this.state.logPassword)
     .catch((error) => alert(error.message))
+
+    this.props.setPage("home")
+
 
   }
 
@@ -72,13 +106,14 @@ class Login extends React.Component {
 
     return (
       <div style={formStyle}>
+
         <Grid container spacing={3}>
           <Grid item xs={6}>
         <Typography variant="h3"> Sign Up: </Typography>
         <br/>
         <form>
           Display Name:
-          <input type="email" name="signUsername" value={this.state.signUsername} onChange={this.handleChange} />
+          <input type="text" name="signUsername" value={this.state.signUsername} onChange={this.handleChange} />
           <br/>
           <br/>
           Email:
@@ -87,6 +122,10 @@ class Login extends React.Component {
           <br/>
           Password:
           <input type="password" name="signPassword" value={this.state.signPassword} onChange={this.handleChange}/>
+          <br/>
+          <br/>
+          Confirm Password:
+          <input type="password" name="signConfPassword" value={this.state.signConfPassword} onChange={this.handleChange}/>
           <br/>
           <br/>
           <button type="submit" onClick={this.signUp}>sign up</button>
@@ -109,6 +148,9 @@ class Login extends React.Component {
         </form>
           </Grid>
         </Grid>
+
+        <br/>
+        <h2> {this.state.message} </h2>
         
         
       </div>

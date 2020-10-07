@@ -1,7 +1,7 @@
 import React from "react"
 import UpdateProfile from "./updateProfile"
 import MyTrees from "./myTrees"
-import { db } from "./firebase"
+import { db } from "../firebase"
 
 import Grid from "@material-ui/core/Grid"
 
@@ -86,7 +86,7 @@ class Profile extends React.Component {
         <textarea style={biostyle} name="bio" value={this.state.bio} onChange={this.handleChange}></textarea>
         <br/>
         <h2> Upload a Profile Pic: </h2>
-        <UpdateProfile setPage={this.props.setPage} setMessage={this.props.setMessage} uid={this.props.uid} username={this.props.username} bio={this.state.bio} />
+        <UpdateProfile uid={this.props.uid} username={this.props.username} bio={this.state.bio} />
         <br/>
         <button onClick={this.setEdit}> Back To Profile </button>     
       </div>

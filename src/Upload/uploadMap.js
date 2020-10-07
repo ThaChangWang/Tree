@@ -2,12 +2,12 @@ import React from 'react';
 import GoogleMapReact from 'google-map-react';
 import UploadTree from "./uploadTree"
 import UploadMarker from "./uploadMarker"
-import { db } from "./firebase"
-import treeImg from "./images/tree.png"
+import { db } from "../firebase"
+import treeImg from "../images/tree.png"
 
 const Marker = () => <div><img src={treeImg} alt="" height="50" width="50" /></div>;
 
-let isMounted = true
+let isMounted = false
 
 class UploadMap extends React.Component {
   

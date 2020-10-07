@@ -1,6 +1,6 @@
 import React from "react"
 import PublicTree from "./publicTree"
-import { db } from "./firebase"
+import { db } from "../firebase"
 
 
 class MyTrees extends React.Component {

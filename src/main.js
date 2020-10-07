@@ -1,22 +1,29 @@
 import React, { useState, useEffect } from "react"
-import { Button } from "@material-ui/core"
+import { Button, Typography } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
-import Login from "./login"
-import Home from "./home"
-import UploadForm from "./uploadForm"
-import AdoptMap from "./adoptMap"
-import Profile from "./profile"
+import Login from "./Login/login"
+import Home from "./Home/home"
+import UploadForm from "./Upload/uploadForm"
+import AdoptMap from "./Find/adoptMap"
+import Profile from "./Profile/profile"
+
+import treeImg from "./images/tree.png"
 import "./style.css"
 
 import { auth } from "./firebase"
 
 const useStyles = makeStyles({
   buttonStyle: {
-    backgroundColor: "green"
+    backgroundColor: "#9ccc65"
   },
   clickedButtonStyle: {
-    backgroundColor: "black"
+    backgroundColor: "black",
+    color: "white"
+  },
+  title: {
+    display: "inline"
   }
+
 })
 
 function Main(props) {
@@ -59,14 +66,19 @@ function Main(props) {
 
           <div style={headerstyle}>
 
+          <img src={treeImg} alt="" height="50" width="50" /> 
+          <Typography className={classes.title} gutterBottom variant="h2" align="center" color="secondary"> Public Tree </Typography>
+          <img src={treeImg} alt="" height="50" width="50" />
 
+          <br/>
+          <br/>
 
           <Button className={classes.clickedButtonStyle} variant="outlined" color="secondary" onClick={() => [setPage("home"), setMessage(null)]}>home</Button>
           <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("find")}>find</Button>
           <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("upload")}>upload</Button>
 
           {user ? 
-          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("profile")}>profile</Button>) :
+          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("profile")}>{user}</Button>) :
           null
           }
 
@@ -95,13 +107,19 @@ function Main(props) {
 
           <div style={headerstyle}>
 
+          <img src={treeImg} alt="" height="50" width="50" />
+          <Typography className={classes.title} gutterBottom variant="h2" align="center" color="secondary"> Public Tree </Typography>
+          <img src={treeImg} alt="" height="50" width="50" />
+
+          <br/>
+          <br/>
 
           <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => [setPage("home"), setMessage(null)]}>home</Button>
           <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("find")}>find</Button>
           <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("upload")}>upload</Button>
 
           {user ? 
-          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("profile")}>profile</Button>) :
+          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("profile")}>{user}</Button>) :
           null
           }
 
@@ -112,8 +130,9 @@ function Main(props) {
 
           </div>
 
+          <br/>
 
-          <Login />
+          <Login setPage={setPage} setMessage={setMessage}/>
 
         </div>
       )
@@ -128,12 +147,19 @@ function Main(props) {
 
           <div style={headerstyle}>
 
+          <img src={treeImg} alt="" height="50" width="50" />
+          <Typography className={classes.title} gutterBottom variant="h2" align="center" color="secondary"> Public Tree </Typography>
+          <img src={treeImg} alt="" height="50" width="50" />
+
+          <br/>
+          <br/>
+
           <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => [setPage("home"), setMessage(null)]}>home</Button>
           <Button className={classes.clickedButtonStyle} variant="outlined" color="secondary" onClick={() => setPage("find")}>find</Button>
           <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("upload")}>upload</Button>
 
           {user ? 
-          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("profile")}>profile</Button>) :
+          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("profile")}>{user}</Button>) :
           null
           }
 
@@ -146,7 +172,7 @@ function Main(props) {
           </div>
 
 
-          
+          <br/>
 
           <AdoptMap username={user} height="100vh" width="100%" lat={47.7511} lng={-120.7401} zoom={6} />
 
@@ -164,12 +190,19 @@ function Main(props) {
 
           <div style={headerstyle}>
 
+          <img src={treeImg} alt="" height="50" width="50" />
+          <Typography className={classes.title} gutterBottom variant="h2" align="center" color="secondary"> Public Tree </Typography>
+          <img src={treeImg} alt="" height="50" width="50" />
+
+          <br/>
+          <br/>
+
           <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => [setPage("home"), setMessage(null)]}>home</Button>
           <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("find")}>find</Button>
           <Button className={classes.clickedButtonStyle} variant="outlined" color="secondary" onClick={() => setPage("upload")}>upload</Button>
 
           {user ? 
-          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("profile")}>profile</Button>) :
+          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("profile")}>{user}</Button>) :
           null
           }
 
@@ -201,13 +234,20 @@ function Main(props) {
 
           <div style={headerstyle}>
 
+          <img src={treeImg} alt="" height="50" width="50" />
+          <Typography className={classes.title} gutterBottom variant="h2" align="center" color="secondary"> Public Tree </Typography>
+          <img src={treeImg} alt="" height="50" width="50" />
+
+          <br/>
+          <br/>
+
 
           <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => [setPage("home"), setMessage(null)]}>home</Button>
           <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("find")}>find</Button>
           <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("upload")}>upload</Button>
 
           {user ? 
-          (<Button className={classes.clickedButtonStyle} variant="outlined" color="secondary" onClick={() => setPage("profile")}>profile</Button>) :
+          (<Button className={classes.clickedButtonStyle} variant="outlined" color="secondary" onClick={() => setPage("profile")}>{user}</Button>) :
           null
           }
 
@@ -219,8 +259,9 @@ function Main(props) {
 
           </div>
 
+        <br/>
 
-         <Profile setPage={setPage} setMessage={setMessage} uid={userId} username={user}/>
+        <Profile uid={userId} username={user}/>
 
         </div>
       )

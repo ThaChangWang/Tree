@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 
 import firebase from "firebase"
-import { db, storage } from "./firebase"
+import { db, storage } from "../firebase"
 
 function UploadTree(props) {
 

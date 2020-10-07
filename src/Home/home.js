@@ -1,14 +1,10 @@
 import React from "react"
 
 
-class Home extends React.Component {
-  constructor() {
-    super()
-    this.state = {}
-  }
+function Home() {
 
 
-  render() {
+
 
     const mystyle = {
       color: "white",
@@ -26,6 +22,5 @@ class Home extends React.Component {
       </div>
     )
   }
-}
 
 export default Home

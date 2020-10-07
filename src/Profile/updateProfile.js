@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 
-import { db, storage } from "./firebase"
+import { db, storage } from "../firebase"
 
 function UpdateProfile(props) {
 
@@ -39,8 +39,6 @@ function UpdateProfile(props) {
                     bio: props.bio
                   })
               })
-              props.setMessage("Update Success")
-              props.setPage("home")
           })
           .catch(function(error) {
               console.log("Error getting documents: ", error)
