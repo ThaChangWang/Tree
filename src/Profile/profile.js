@@ -109,7 +109,10 @@ class Profile extends React.Component {
             <Typography variant="h3" align="left" color="secondary"> $$$$$ </Typography>
           </Grid>
         </Grid>
+        
+        <Typography variant="h3" align="left" color="secondary"> Bio: </Typography>
         <Typography variant="h5" align="left" color="secondary"> {this.state.bio} </Typography>
+        <br/>
         <Button variant="outlined" color="secondary" onClick={this.setEdit}> Edit Profile </Button>
 
         <hr/>

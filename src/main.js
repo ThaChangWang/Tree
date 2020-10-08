@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { Button, Typography } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
-import Login from "./Login/login"
+import SignUp from "./Login/signUp"
 import Home from "./Home/home"
 import UploadForm from "./Upload/uploadForm"
 import AdoptMap from "./Find/adoptMap"
@@ -58,6 +58,7 @@ function Main(props) {
     }
 
     console.log(user)
+    console.log(userId)
 
     if (page === "home") {
 
@@ -75,7 +76,11 @@ function Main(props) {
 
           <Button className={classes.clickedButtonStyle} variant="outlined" color="secondary" onClick={() => [setPage("home"), setMessage(null)]}>home</Button>
           <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("find")}>find</Button>
-          <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("upload")}>upload</Button>
+          
+          {user ? 
+          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("upload")}>upload</Button>) :
+          null
+          }
 
           {user ? 
           (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("profile")}>{user}</Button>) :
@@ -116,7 +121,10 @@ function Main(props) {
 
           <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => [setPage("home"), setMessage(null)]}>home</Button>
           <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("find")}>find</Button>
-          <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("upload")}>upload</Button>
+          {user ? 
+          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("upload")}>upload</Button>) :
+          null
+          }
 
           {user ? 
           (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("profile")}>{user}</Button>) :
@@ -132,7 +140,7 @@ function Main(props) {
 
           <br/>
 
-          <Login setPage={setPage} setMessage={setMessage}/>
+          <SignUp setUser={setUser}/>
 
         </div>
       )
@@ -156,7 +164,10 @@ function Main(props) {
 
           <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => [setPage("home"), setMessage(null)]}>home</Button>
           <Button className={classes.clickedButtonStyle} variant="outlined" color="secondary" onClick={() => setPage("find")}>find</Button>
-          <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("upload")}>upload</Button>
+          {user ? 
+          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("upload")}>upload</Button>) :
+          null
+          }
 
           {user ? 
           (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("profile")}>{user}</Button>) :
@@ -244,7 +255,10 @@ function Main(props) {
 
           <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => [setPage("home"), setMessage(null)]}>home</Button>
           <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("find")}>find</Button>
-          <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("upload")}>upload</Button>
+          {user ? 
+          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("upload")}>upload</Button>) :
+          null
+          }
 
           {user ? 
           (<Button className={classes.clickedButtonStyle} variant="outlined" color="secondary" onClick={() => setPage("profile")}>{user}</Button>) :
