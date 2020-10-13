@@ -55,7 +55,7 @@ class AdoptMap extends React.Component {
         console.log(this.state.tree)
       return (
         <div>
-        <PublicTree username={this.props.username} psudeoId={this.state.tree.psudeoId} height="500" width="500" />
+        <PublicTree uid={this.props.uid} username={this.props.username} psudeoId={this.state.tree.psudeoId} height="500" width="500" />
         <br/>
         <Button variant="outlined" color="secondary" onClick={() => this.setTree(null)}> Return to Map </Button>
         </div>

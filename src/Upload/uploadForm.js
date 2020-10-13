@@ -82,7 +82,7 @@ componentDidMount() {
         <h2> Enter a description: </h2>
         <textarea style={criptstyle} placeholder="Enter a description" name="description" onChange={this.handleChange} value={this.state.description}></textarea>
         <h2> Locate the tree: </h2>
-        <UploadMap height="100vh" width="100%" lat={this.state.lat} lng={this.state.lng} zoom={this.state.zoom} username={this.props.username} name={this.state.name} description={this.state.description}/>
+        <UploadMap height="100vh" width="100%" lat={this.state.lat} lng={this.state.lng} zoom={this.state.zoom} uid={this.props.uid} username={this.props.username} name={this.state.name} description={this.state.description}/>
       </div>
     )
     }

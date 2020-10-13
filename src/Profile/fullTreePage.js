@@ -38,7 +38,6 @@ class FullTreePage extends React.Component {
 
   componentDidMount() {
     db.collection("posts").orderBy("timestamp", "desc").onSnapshot(snapshot => {
-      console.log(snapshot.docs.map(doc => doc.data()))
       let incomingPosts = []
 
       snapshot.docs.forEach(doc => {
@@ -80,7 +79,7 @@ class FullTreePage extends React.Component {
     return (
       <div style={treestyle}>
         <div>
-          {this.props.username === this.props.tree.owner ? 
+          {this.props.uid === this.props.tree.owner ? 
           [<Typography variant="h2" color="secondary"> Make a Post </Typography>,
           <Post postedBy={this.props.username} treeId={this.props.tree.psudeoId} />] :
           <Typography variant="h2" color="secondary"> Must be Owner to Post on Tree </Typography>}

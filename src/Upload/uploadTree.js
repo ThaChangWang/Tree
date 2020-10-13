@@ -36,7 +36,7 @@ function UploadTree(props) {
             latitude: props.latitude,
             longitude: props.longitude,
             name: props.name,
-            owner: props.owner,
+            owner: props.uid,
             postedBy: props.postedBy
           })
         })

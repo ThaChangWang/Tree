@@ -25,6 +25,7 @@ class UploadMap extends React.Component {
     isMounted = true
     db.collection("publicTrees").onSnapshot(snapshot => {
       if(isMounted) {
+        console.log(snapshot.docs.map(doc => doc.data()))
         this.setState({publicTrees: snapshot.docs.map(doc => doc.data())})
       }
     })
@@ -70,7 +71,7 @@ class UploadMap extends React.Component {
           
         </GoogleMapReact>
         <h2> Choose an image and upload: </h2>
-        <UploadTree postedBy={this.props.username} owner={null} latitude={this.state.lat} longitude={this.state.lng} name={this.props.name} description={this.props.description} />
+        <UploadTree postedBy={this.props.username} owner={null} latitude={this.state.lat} longitude={this.state.lng} uid={this.props.uid} name={this.props.name} description={this.props.description} />
         <br/>
       </div>
     );

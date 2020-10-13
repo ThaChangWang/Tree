@@ -84,7 +84,6 @@ class Login extends React.Component {
   }
 
   signIn(event) {
-    event.preventDefault()
 
     auth.signInWithEmailAndPassword(this.state.logEmail, this.state.logPassword)
     .catch((error) => alert(error.message))

@@ -4,8 +4,6 @@ import React from "react"
 function Home() {
 
 
-
-
     const mystyle = {
       color: "white",
       backgroundColor: "green",

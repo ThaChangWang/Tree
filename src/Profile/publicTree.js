@@ -61,7 +61,7 @@ class PublicTree extends React.Component {
       if (this.state.fullPage) {
         return (
           <div>
-            <FullTreePage username={this.props.username} tree={this.state.tree}/>
+            <FullTreePage uid={this.props.uid} username={this.props.username} tree={this.state.tree}/>
             <Button onClick={() => this.setState({fullPage: false})}> Close Full Page </Button>
           </div>
         )
@@ -74,8 +74,6 @@ class PublicTree extends React.Component {
 
         if(tree) {
 
-          console.log(this.props)
-
           if (this.props.username) {
 
             return (
@@ -86,9 +84,9 @@ class PublicTree extends React.Component {
                 
                 {tree.owner ? 
                   null :
-                  <Button variant="outlined" color="secondary" onClick={() => this.updateOwner(this.props.username)}> Adopt Tree </Button>}
+                  <Button variant="outlined" color="secondary" onClick={() => this.updateOwner(this.props.uid)}> Adopt Tree </Button>}
 
-                {tree.owner === this.props.username ? 
+                {tree.owner === this.props.uid ? 
                   <Button variant="outlined" color="secondary" onClick={() => this.updateOwner(null)}> Release from Care </Button> :
                   null}
 

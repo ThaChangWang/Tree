@@ -2,37 +2,50 @@ import React from 'react';
 import { auth, db } from "../firebase"
 
 import { Formik, Field, Form } from 'formik';
-import { Button, LinearProgress, Typography, Box } from '@material-ui/core'
+import { Button, Typography, Box } from '@material-ui/core'
 import { TextField } from 'formik-material-ui';
 
-const signUp = (formData) => {
+
+
+
+ 
+function SignUp(props) {
+
+  const signUp = (formData) => {
 
     console.log(formData)
 
   auth.createUserWithEmailAndPassword(formData.email, formData.password)
   .then((authUser) => {
+
+    console.log(authUser)
+
     db.collection("profiles").add({
           imageUrl: null,
           uid: authUser.user.uid,
           bio: null
         })
 
-    authUser.user.updateProfile({
-      displayName: formData.displayName,
+  return authUser.user.updateProfile({
+      displayName: formData.displayName
     })
+
+    
 
   })
   .catch((error) => alert(error.message))
+
+  props.setPage("home")
     
 }
 
-const signupstyle = {
-  backgroundColor: "#FAEBD7",
+  const signupstyle = {
+  backgroundColor: "#FAEBD7"
 }
- 
-const SignUp = () => (
 
-  <div style={signupstyle}>
+  return (
+
+    <div style={signupstyle}>
     <Typography variant="h2" color="secondary"> Sign Up: </Typography>
     <Formik
       initialValues = {{ 
@@ -92,7 +105,7 @@ const SignUp = () => (
         /* and other goodies */
       }) => (
       <Form onSubmit={handleSubmit}>
-        <Box margin={2}>
+        <Box margin={3}>
           <Field
             component={TextField}
             type="text"
@@ -101,7 +114,7 @@ const SignUp = () => (
           />
         </Box>
         {errors.displayName && touched.displayName}
-        <Box margin={2}>
+        <Box margin={3}>
           <Field
             component={TextField}
             type="email"
@@ -110,7 +123,7 @@ const SignUp = () => (
           />
         </Box>
         {errors.email && touched.email}
-        <Box margin={2}>
+        <Box margin={3}>
           <Field
             component={TextField}
             type="password"
@@ -119,7 +132,7 @@ const SignUp = () => (
           />
         </Box>
         {errors.password && touched.password}
-        <Box margin={2}>
+        <Box margin={3}>
           <Field
             component={TextField}
             type="password"
@@ -134,5 +147,9 @@ const SignUp = () => (
     </Formik>
   </div>
 );
+
+}
+
+
 
 export default SignUp

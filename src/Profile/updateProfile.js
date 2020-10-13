@@ -8,7 +8,7 @@ function UpdateProfile(props) {
   const [image, setImage] = useState(null)
 
   const handleChange = (e) => {
-    if(e.target.files[0]) {
+    if (e.target.files[0]) {
       setImage(e.target.files[0])
       console.log(image)
     }
@@ -44,6 +44,8 @@ function UpdateProfile(props) {
               console.log("Error getting documents: ", error)
           })
               })
+
+          props.setPage("home")
             }
         )
     }
@@ -58,12 +60,12 @@ function UpdateProfile(props) {
                     bio: props.bio
                   })
               })
-              props.setMessage("Update Success")
-              props.setPage("home")
           })
           .catch(function(error) {
               console.log("Error getting documents: ", error)
           })
+
+          props.setPage("profile")
 
     }
   }

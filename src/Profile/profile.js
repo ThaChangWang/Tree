@@ -1,5 +1,5 @@
 import React from "react"
-import UpdateProfile from "./updateProfile"
+import EditProfile from "./editProfile"
 import MyTrees from "./myTrees"
 import { db } from "../firebase"
 
@@ -7,12 +7,13 @@ import Grid from "@material-ui/core/Grid"
 
 import { Button, Typography } from "@material-ui/core"
 
+let isMounted = false
+
 class Profile extends React.Component {
   constructor() {
     super()
     this.state = {
-      profilePic: "",
-      bio: "",
+      profile: null,
       editing: false
     }
     this.setEdit = this.setEdit.bind(this)
@@ -33,46 +34,46 @@ class Profile extends React.Component {
   }
 
   componentDidMount() {
-    db.collection("profiles").where("uid", "==", this.props.uid)
-    .get()
-    .then((querySnapshot) => {
-        let bio = ""
-        let profilePic = ""
-        querySnapshot.forEach((doc) => {
-            //console.log(doc.id, " => ", doc.data())
-            bio = doc.data().bio
-            profilePic = doc.data().imageUrl
-        })
-        this.setState({
-              bio: bio,
-              profilePic: profilePic
-            })
 
-    })
-    .catch(function(error) {
-        console.log("Error getting documents: ", error)
-    })
+    /*isMounted = true
+    db.collection("profiles").onSnapshot(snapshot => {
+      if(isMounted) {
+        console.log(snapshot.docs.map(doc => doc.data()))
+
+        snapshot.docs.forEach(doc => {
+        if (doc.data().uid === this.props.uid) {
+          this.setState({
+            profile: doc.data(),
+            editing: false
+          })
+        }
+      })
+      }
+    })*/
+    isMounted = true
+    db.collection("profiles").where("uid", "==", this.props.uid)
+    .onSnapshot(querySnapshot => {
+        querySnapshot.forEach(doc => {
+            console.log(doc.data())
+            if (isMounted) {
+              this.setState({
+              profile: doc.data(),
+              editing: false
+              })
+            }
+            
+        })
+    });
+
+  }
+
+  componentWillUnmount(){
+    isMounted = false
   }
 
   
 
-  
-
-  
-
   render() {
-
-
-    const biostyle = {
-        color: "white",
-        backgroundColor: "black",
-        padding: "10px",
-        height: "100px",
-        width: "500px",
-        fontFamily: "Arial",
-        textAlign: "left"
-
-      }
 
       const profilestyle = {
         backgroundColor: "#FAEBD7"
@@ -82,28 +83,23 @@ class Profile extends React.Component {
 
       return (
       <div>
-        <h2> Enter a Bio: </h2>
-        <textarea style={biostyle} name="bio" value={this.state.bio} onChange={this.handleChange}></textarea>
-        <br/>
-        <h2> Upload a Profile Pic: </h2>
-        <UpdateProfile uid={this.props.uid} username={this.props.username} bio={this.state.bio} />
-        <br/>
-        <button onClick={this.setEdit}> Back To Profile </button>     
+        <EditProfile bio={this.state.profile.bio} setEdit={this.setEdit} uid={this.props.uid}/> 
+        <Button variant="outlined" color="secondary" onClick={this.setEdit}> Back to Profile </Button>   
       </div>
       )
 
     }
 
-    else {
+    else if (this.state.profile) {
 
       return (
       <div style={profilestyle}>
         
         <Typography variant="h3" align="center" color="secondary"> {this.props.username} </Typography>
         <hr/>
-        <Grid container spacing={12}>
+        <Grid container spacing={4}>
           <Grid item xs={6}>
-            <img src={this.state.profilePic} alt="" height="500px" width="500px" />
+            <img src={this.state.profile.imageUrl} alt="" height="500px" width="500px" />
           </Grid>
           <Grid item xs={6}>
             <Typography variant="h3" align="left" color="secondary"> $$$$$ </Typography>
@@ -111,19 +107,29 @@ class Profile extends React.Component {
         </Grid>
         
         <Typography variant="h3" align="left" color="secondary"> Bio: </Typography>
-        <Typography variant="h5" align="left" color="secondary"> {this.state.bio} </Typography>
+        <Typography variant="h5" align="left" color="secondary"> {this.state.profile.bio} </Typography>
         <br/>
         <Button variant="outlined" color="secondary" onClick={this.setEdit}> Edit Profile </Button>
 
         <hr/>
         <Typography variant="h3" align="center" color="secondary"> My Trees </Typography>
         <hr/>
-        <MyTrees username={this.props.username}/>
+        <MyTrees uid={this.props.uid} username={this.props.username}/>
 
         
       </div>
       )
       
+    }
+
+    else {
+
+      return (
+        <div>
+          <Typography variant="h2" align="left" color="secondary"> Loading... </Typography>
+        </div>
+      )
+
     }
     
   }
