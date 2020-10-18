@@ -54,7 +54,8 @@ class PublicTree extends React.Component {
 
     const treestyle = {
         backgroundColor: "#90EE90",
-        textAlign: "left"
+        textAlign: "left",
+        paddingLeft: "20px"
 
       }
 
@@ -78,7 +79,6 @@ class PublicTree extends React.Component {
 
             return (
               <div style={treestyle}>
-                <hr/>
                 <Typography variant="h2" color="secondary">{tree.name}</Typography>
                 <Button variant="outlined" color="secondary" onClick={() => this.setState({fullPage: true})}> View Full Page </Button>
                 
@@ -97,7 +97,6 @@ class PublicTree extends React.Component {
                 </div>
 
                 <Typography variant="h5" color="secondary"> Posted by: {tree.postedBy} </Typography>
-                <hr/>
               </div>
           
         )

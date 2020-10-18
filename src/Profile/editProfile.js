@@ -2,12 +2,20 @@ import React, { useState } from 'react';
 import { db, storage } from "../firebase"
 
 import { Formik, Form } from 'formik';
-import { Button, Typography, TextField, Input, CircularProgress } from '@material-ui/core'
+import { Button, Typography, TextField, Input, CircularProgress, makeStyles } from '@material-ui/core'
 
+const useStyles = makeStyles((theme) => ({
+  
+  root: {
+      margin: theme.spacing(1),
+      width: '75ch'
+  }
+}))
  
 function EditProfile(props) {
 
   const [progress, setProgress] = useState(0)
+  const classes = useStyles()
 
   const handleUpload = (formData) => {
 
@@ -72,7 +80,7 @@ function EditProfile(props) {
   return (
 
     <div>
-    <Typography variant="h2" color="secondary"> Edit </Typography>
+    <Typography variant="h2" color="secondary"> Edit Profile: </Typography>
     <Formik
       initialValues = {{ 
         bio: props.bio,
@@ -103,24 +111,33 @@ function EditProfile(props) {
         setFieldValue
         /* and other goodies */
       }) => (
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit} className={classes.root} noValidate autoComplete="off" >
+      <Typography variant="h5" color="secondary"> Biography: </Typography>
 
       <TextField
           label="Biography"
           name="bio"
           defaultValue={props.bio}
           multiline
+          className={classes.root}
           rows={8}
           variant="outlined"
           onChange={handleChange}
         />
+
         
       <div>
+        <br/>
+        <br/>
+        <Typography variant="h5" color="secondary"> Profile Picture: </Typography>
         <Input id="image" name="image" type="file"
           onChange={(event) => {
             setFieldValue("image", event.target.files[0]);
           }} />
           <CircularProgress variant="static" value={progress} />
+
+          <br/>
+          <br/>
 
       </div>
 

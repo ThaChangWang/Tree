@@ -16,26 +16,6 @@ class FullTreePage extends React.Component {
     this.handleChange = this.handleChange.bind(this)
   }
 
-  /*componentDidMount() {
-    db.collection("posts").where("treeId", "==", this.props.tree.psudeoId)
-    .get()
-    .then((querySnapshot) => {
-        let posts = []
-        querySnapshot.forEach((doc) => {
-            // doc.data() is never undefined for query doc snapshots
-            console.log(doc.id, " => ", doc.data())
-            posts.push(doc.data())
-        })
-        this.setState({
-              posts: posts
-            })
-
-    })
-    .catch(function(error) {
-        console.log("Error getting documents: ", error)
-    })
-  }*/
-
   componentDidMount() {
     db.collection("posts").orderBy("timestamp", "desc").onSnapshot(snapshot => {
       let incomingPosts = []
@@ -69,7 +49,6 @@ class FullTreePage extends React.Component {
 
     const treestyle = {
         backgroundColor: "#90EE90",
-        textAlign: "center"
       }
 
       
@@ -80,19 +59,20 @@ class FullTreePage extends React.Component {
       <div style={treestyle}>
         <div>
           {this.props.uid === this.props.tree.owner ? 
-          [<Typography variant="h2" color="secondary"> Make a Post </Typography>,
-          <Post postedBy={this.props.username} treeId={this.props.tree.psudeoId} />] :
-          <Typography variant="h2" color="secondary"> Must be Owner to Post on Tree </Typography>}
+          <Post postedBy={this.props.username} treeId={this.props.tree.psudeoId} uid={this.props.uid} /> :
+          null 
+          }
         </div>
         <div>
+          
           <br/>
           {posts.length > 0 ? posts.map(post => {
             console.log(post)
-            return [<PostDisplay key={Math.random().toString(36)} username={this.props.username} post={post} />,
+            return [<PostDisplay key={Math.random().toString(36)} post={post} />,
             <Typography key={Math.random().toString(36)} variant="h4" color="secondary"> Comment </Typography>,
             <Comment key={Math.random().toString(36)} username={this.props.username} post={post} />]
           }) :
-          null }
+            <Typography variant="h4" color="secondary"> No Posts on Tree </Typography>}
 
         </div>
       </div>

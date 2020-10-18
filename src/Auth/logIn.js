@@ -2,14 +2,23 @@ import React from 'react';
 import { auth } from "../firebase"
 
 import { Formik, Field, Form } from 'formik';
-import { Button, Typography, Box } from '@material-ui/core'
+import { Button, Typography, Box, makeStyles } from '@material-ui/core'
 import { TextField } from 'formik-material-ui';
 
 
+const useStyles = makeStyles((theme) => ({
+  
+  root: {
+    width: "30ch"
+  }
 
+}))
 
  
 function LogIn(props) {
+
+  const classes = useStyles()
+
 
   const logIn = (formData) => {
 
@@ -69,6 +78,7 @@ function LogIn(props) {
         <Box margin={5}>
           <Field
             component={TextField}
+            className={classes.root}
             type="email"
             label="Email"
             name="email"
@@ -79,6 +89,7 @@ function LogIn(props) {
         <Box margin={5}>
           <Field
             component={TextField}
+            className={classes.root}
             type="password"
             label="Password"
             name="password"

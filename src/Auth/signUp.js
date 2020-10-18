@@ -2,14 +2,20 @@ import React from 'react';
 import { auth, db } from "../firebase"
 
 import { Formik, Field, Form } from 'formik';
-import { Button, Typography, Box } from '@material-ui/core'
+import { Button, Typography, Box, makeStyles } from '@material-ui/core'
 import { TextField } from 'formik-material-ui';
 
+const useStyles = makeStyles((theme) => ({
+  
+  root: {
+    width: "30ch"
+  }
 
-
-
+}))
  
 function SignUp(props) {
+
+  const classes = useStyles()
 
   const signUp = (formData) => {
 
@@ -104,43 +110,43 @@ function SignUp(props) {
         isSubmitting,
         /* and other goodies */
       }) => (
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit} autoComplete="off">
         <Box margin={3}>
           <Field
             component={TextField}
+            className={classes.root}
             type="text"
             label="Display Name"
             name="displayName"
           />
         </Box>
-        {errors.displayName && touched.displayName}
         <Box margin={3}>
           <Field
             component={TextField}
+            className={classes.root}
             type="email"
             label="Email"
             name="email"
           />
         </Box>
-        {errors.email && touched.email}
         <Box margin={3}>
           <Field
             component={TextField}
+            className={classes.root}
             type="password"
             label="Password"
             name="password"
           />
         </Box>
-        {errors.password && touched.password}
         <Box margin={3}>
           <Field
             component={TextField}
+            className={classes.root}
             type="password"
             label="Confirm Password"
             name="confPassword"
           />
         </Box>
-        {errors.confPassword && touched.confPassword}
         <Button type="submit" color="secondary" variant="outlined" disabled={isSubmitting}> Submit </Button>
       </Form>
       )}

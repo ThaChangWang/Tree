@@ -3,15 +3,27 @@ import { db } from "../firebase"
 
 import firebase from "firebase"
 
-import { Formik, Field, Form } from 'formik';
-import { Button, Typography, Box } from '@material-ui/core'
-import { TextField } from 'formik-material-ui';
+import { Formik, Form } from 'formik';
+import { Button, Typography, Box, TextField, makeStyles } from '@material-ui/core'
 
-
-
+const useStyles = makeStyles((theme) => ({
+  error: {
+    color: "red"
+  },
+  email: {
+    margin: theme.spacing(1),
+    width: "30ch"
+  },
+  message: {
+    margin: theme.spacing(1),
+    width: '75ch'
+  }
+}))
 
  
 function Feedback(props) {
+
+  const classes = useStyles()
 
   const feedback = (formData) => {
 
@@ -33,7 +45,7 @@ function Feedback(props) {
   return (
 
     <div style={signupstyle}>
-    <Typography variant="h3" color="secondary"> Questions/Comments/Issues/Ideas?: </Typography>
+    <Typography variant="h3" color="secondary"> Feedback: </Typography>
     <Formik
       initialValues = {{  
         email: "", 
@@ -43,8 +55,10 @@ function Feedback(props) {
       validate = {values => {
         const errors = {};
 
+        console.log(values)
+
         if (!values.message) {
-          errors.message = "Required"
+          errors.message = "Please enter a message"
         }
 
         return errors
@@ -53,41 +67,51 @@ function Feedback(props) {
       onSubmit = {(values, { setSubmitting, resetForm }) => {
         setTimeout(() => {
           feedback(values)
-          resetForm({})
           setSubmitting(false)
+          resetForm({})
+          props.setMessage("Message recieved!")
+          props.setPage("home")
+
         }, 400);
       }}
     >
       {({
         values,
         errors,
-        touched,
         handleChange,
         handleSubmit,
         isSubmitting,
         /* and other goodies */
       }) => (
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit} autoComplete="off">
+        
         <Box margin={7}>
-          <Field
-            component={TextField}
-            type="email"
-            label="Email"
-            name="email"
-          />
-        </Box>
-        {errors.email && touched.email}
-        <Box margin={7}>
-          <Field
-            component={TextField}
+          <TextField
+            className={classes.message}
+            multiline
+            rows={4}
+            variant="outlined"
             type="text"
             label="Message"
             name="message"
+            onChange={handleChange}
           />
         </Box>
-        {errors.message && touched.message}
+
+        <Box margin={7}>
+          <TextField
+            className={classes.email}
+            type="text"
+            label="Return Email (Optional)"
+            name="email"
+            onChange={handleChange}
+          />
+        </Box>
+
+        <Typography className={classes.error} > {errors.message} </Typography>
+        <br/>
        
-        <Button type="submit" color="secondary" variant="outlined" disabled={isSubmitting}> Submit </Button>
+        <Button type="submit" color="secondary" variant="outlined" disabled={isSubmitting}> Send </Button>
       </Form>
       )}
     </Formik>

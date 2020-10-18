@@ -3,9 +3,7 @@ import EditProfile from "./editProfile"
 import MyTrees from "./myTrees"
 import { db } from "../firebase"
 
-import Grid from "@material-ui/core/Grid"
-
-import { Button, Typography } from "@material-ui/core"
+import { Button, Typography, Grid } from "@material-ui/core"
 
 let isMounted = false
 
@@ -35,21 +33,6 @@ class Profile extends React.Component {
 
   componentDidMount() {
 
-    /*isMounted = true
-    db.collection("profiles").onSnapshot(snapshot => {
-      if(isMounted) {
-        console.log(snapshot.docs.map(doc => doc.data()))
-
-        snapshot.docs.forEach(doc => {
-        if (doc.data().uid === this.props.uid) {
-          this.setState({
-            profile: doc.data(),
-            editing: false
-          })
-        }
-      })
-      }
-    })*/
     isMounted = true
     db.collection("profiles").where("uid", "==", this.props.uid)
     .onSnapshot(querySnapshot => {
@@ -83,7 +66,9 @@ class Profile extends React.Component {
 
       return (
       <div>
-        <EditProfile bio={this.state.profile.bio} setEdit={this.setEdit} uid={this.props.uid}/> 
+        <EditProfile bio={this.state.profile.bio} setEdit={this.setEdit} uid={this.props.uid}/>
+        <br/>
+        <hr/>
         <Button variant="outlined" color="secondary" onClick={this.setEdit}> Back to Profile </Button>   
       </div>
       )

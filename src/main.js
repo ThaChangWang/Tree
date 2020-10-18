@@ -8,7 +8,7 @@ import SignUp from "./Auth/signUp"
 import LogIn from "./Auth/logIn"
 import Home from "./Home/home"
 import Feedback from "./Home/feedback"
-import UploadForm from "./Upload/uploadForm"
+import UploadTreeForm from "./Upload/uploadTreeForm"
 import AdoptMap from "./Find/adoptMap"
 import Profile from "./Profile/profile"
 
@@ -18,6 +18,9 @@ import "./style.css"
 import { auth } from "./firebase"
 
 const useStyles = makeStyles({
+  message: {
+    color: "green"
+  },
   buttonStyle: {
     backgroundColor: "#9ccc65"
   },
@@ -111,80 +114,24 @@ function Main(props) {
           (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("login")}>login</Button>)
           }
 
+          {user ? 
+          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("feedback")}>feedback</Button>) :
+          null
+          }
+
           </div>
 
-          <Typography variant="h2" align="center" color="secondary"> {message} </Typography>>
+          <Typography className={classes.message}> {message} </Typography>
 
           <Home />
 
-          {user ? 
-          <Feedback username={user.displayName} /> :
-          null
-          }
-
         </div>
       )
       
       
-    }
-
-    else if (page === "login") {
-
-
-      return (
-        <div>
-
-          <div style={headerstyle}>
-
-          <img src={treeImg} alt="" height="50" width="50" />
-          <Typography className={classes.title} gutterBottom variant="h2" align="center" color="secondary"> Public Tree </Typography>
-          <img src={treeImg} alt="" height="50" width="50" />
-
-          <br/>
-          <br/>
-
-          <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => [setPage("home"), setMessage(null)]}>home</Button>
-
-          {user ? 
-          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("find")}>find</Button>) :
-          null
-          }
-
-          {user ? 
-          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("upload")}>upload</Button>) :
-          null
-          }
-
-          {user ? 
-          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("profile")}>{user.displayName}</Button>) :
-          null
-          }
-
-          {user ? 
-          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => [auth.signOut(), setPage("home")]}>logout</Button>) :
-          (<Button className={classes.clickedButtonStyle} variant="outlined" color="secondary" onClick={() => setPage("login")}>login</Button>)
-          }
-
-          </div>
-
-          <br/>
-
-          <Grid container spacing={3}>
-            <Grid item xs={6}>
-              <SignUp setPage={setPage}/>
-            </Grid>
-            <Grid item xs={6}>
-              <LogIn setPage={setPage}/>
-            </Grid>
-
-          </Grid>
-
-        </div>
-      )
     }
 
     
-
     else if (page === "find") {
 
       return (
@@ -219,6 +166,11 @@ function Main(props) {
           {user ? 
           (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => [auth.signOut(), setPage("home")]}>logout</Button>) :
           (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("login")}>login</Button>)
+          }
+
+          {user ? 
+          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("feedback")}>feedback</Button>) :
+          null
           }
 
 
@@ -272,16 +224,15 @@ function Main(props) {
           (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("login")}>login</Button>)
           }
 
-
-          </div>
-
-
           {user ? 
-          (<UploadForm uid={user.uid} username={user.displayName} />) :
-          (<h1> Need to sign in to upload </h1>)
+          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("feedback")}>feedback</Button>) :
+          null
           }
 
 
+          </div>
+
+          <UploadTreeForm uid={user.uid} username={user.displayName} setPage={setPage} setMessage={setMessage} />
 
         </div>
       )
@@ -325,12 +276,130 @@ function Main(props) {
           (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("login")}>login</Button>)
           }
 
+          {user ? 
+          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("feedback")}>feedback</Button>) :
+          null
+          }
+
 
           </div>
 
         <br/>
 
         <Profile uid={user.uid} username={user.displayName} setPage={setPage}/>
+
+        </div>
+      )
+    }
+
+    else if (page === "login") {
+
+
+      return (
+        <div>
+
+          <div style={headerstyle}>
+
+          <img src={treeImg} alt="" height="50" width="50" />
+          <Typography className={classes.title} gutterBottom variant="h2" align="center" color="secondary"> Public Tree </Typography>
+          <img src={treeImg} alt="" height="50" width="50" />
+
+          <br/>
+          <br/>
+
+          <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => [setPage("home"), setMessage(null)]}>home</Button>
+
+          {user ? 
+          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("find")}>find</Button>) :
+          null
+          }
+
+          {user ? 
+          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("upload")}>upload</Button>) :
+          null
+          }
+
+          {user ? 
+          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("profile")}>{user.displayName}</Button>) :
+          null
+          }
+
+          {user ? 
+          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => [auth.signOut(), setPage("home")]}>logout</Button>) :
+          (<Button className={classes.clickedButtonStyle} variant="outlined" color="secondary" onClick={() => setPage("login")}>login</Button>)
+          }
+
+          {user ? 
+          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("feedback")}>feedback</Button>) :
+          null
+          }
+
+          </div>
+
+          <br/>
+
+          <Grid container spacing={3}>
+            <Grid item xs={6}>
+              <SignUp setPage={setPage}/>
+            </Grid>
+            <Grid item xs={6}>
+              <LogIn setPage={setPage}/>
+            </Grid>
+
+          </Grid>
+
+        </div>
+      )
+    }
+
+    else if (page === "feedback") {
+
+
+      return (
+        <div>
+
+          <div style={headerstyle}>
+
+          <img src={treeImg} alt="" height="50" width="50" />
+          <Typography className={classes.title} gutterBottom variant="h2" align="center" color="secondary"> Public Tree </Typography>
+          <img src={treeImg} alt="" height="50" width="50" />
+
+          <br/>
+          <br/>
+
+          <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => [setPage("home"), setMessage(null)]}>home</Button>
+
+          {user ? 
+          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("find")}>find</Button>) :
+          null
+          }
+
+          {user ? 
+          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("upload")}>upload</Button>) :
+          null
+          }
+
+          {user ? 
+          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("profile")}>{user.displayName}</Button>) :
+          null
+          }
+
+          {user ? 
+          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => [auth.signOut(), setPage("home")]}>logout</Button>) :
+          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("login")}>login</Button>)
+          }
+
+          {user ? 
+          (<Button className={classes.clickedButtonStyle} variant="outlined" color="secondary" onClick={() => setPage("feedback")}>feedback</Button>) :
+          null
+          }
+
+          </div>
+
+          <br/>
+
+          <Feedback username={user.displayName} setPage={setPage} setMessage={setMessage}/>
+
 
         </div>
       )
