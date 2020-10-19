@@ -2,6 +2,9 @@ import React from "react"
 import PublicTree from "./publicTree"
 import { db } from "../firebase"
 
+import { Typography } from '@material-ui/core'
+
+
 
 class MyTrees extends React.Component {
   constructor() {
@@ -41,7 +44,7 @@ class MyTrees extends React.Component {
           return [<PublicTree uid={this.props.uid} key={tree.psudeoId} username={this.props.username} psudeoId={tree.psudeoId} height="300" width="300" />,
           <hr/>]
         }) :
-        <h2> No Trees </h2>}
+        <Typography variant="h5" color="secondary"> No Trees </Typography>}
       </div>
     )
 }

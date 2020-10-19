@@ -6,6 +6,7 @@ import { db } from "../firebase"
 
 import { Typography } from "@material-ui/core"
 
+let isMounted = false
 
 class FullTreePage extends React.Component {
   constructor() {
@@ -17,6 +18,7 @@ class FullTreePage extends React.Component {
   }
 
   componentDidMount() {
+    isMounted = true
     db.collection("posts").orderBy("timestamp", "desc").onSnapshot(snapshot => {
       let incomingPosts = []
 
@@ -28,10 +30,17 @@ class FullTreePage extends React.Component {
 
       console.log(incomingPosts)
 
-      this.setState({
+      if (isMounted) {
+        this.setState({
         posts: incomingPosts
       })
+      }
+      
     })
+  }
+
+  componentWillUnmount(){
+    isMounted = false
   }
 
 

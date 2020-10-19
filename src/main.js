@@ -48,12 +48,6 @@ function Main(props) {
       if (authUser) {
         console.log(authUser)
         setUser(authUser)
-
-        /*if (!authUser.displayName) {
-          return authUser.updateProfile({
-            displayName: username
-          })
-        }*/
        
       } 
       else {
@@ -72,8 +66,6 @@ function Main(props) {
     const headerstyle = {
       textAlign: "center"
     }
-
-
 
     if (page === "home") {
 

@@ -43,7 +43,8 @@ function PostDisplay(props) {
 
     })
 
-   }, )
+
+   }, [props.post.psudeoId])
 
     return (
       <div>
@@ -70,8 +71,8 @@ function PostDisplay(props) {
               [<hr/>,
               <img key={Math.random().toString(36)} src={comment.imageUrl} alt="" height="200" width="200" />] :
               <hr/>,
-            <Typography variant="h6" color="secondary"> {comment.postedBy} : {comment.comment} </Typography>,
-            <Typography align="right" variant="h6" color="secondary"> {commentDate + " @ " + commentTime} </Typography>,
+            <Typography key={Math.random().toString(36)} variant="h6" color="secondary"> {comment.postedBy} : {comment.comment} </Typography>,
+            <Typography key={Math.random().toString(36)} align="right" variant="h6" color="secondary"> {commentDate + " @ " + commentTime} </Typography>,
             <hr/>]
           }) :
           null }

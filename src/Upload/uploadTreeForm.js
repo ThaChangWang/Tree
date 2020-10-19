@@ -65,6 +65,8 @@ function UploadTreeForm(props) {
 
   useEffect(() => {
 
+    console.log("hello")
+
   db.collection("publicTrees").onSnapshot(snapshot => {
 
         console.log(snapshot.docs.map(doc => doc.data()))

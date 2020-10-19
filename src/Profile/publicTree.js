@@ -4,6 +4,7 @@ import { db } from "../firebase"
 
 import { Button, Typography } from "@material-ui/core"
 
+let isMounted = false
 
 class PublicTree extends React.Component {
   constructor() {
@@ -17,6 +18,7 @@ class PublicTree extends React.Component {
   }
 
   componentDidMount() {
+    isMounted = true
     db.collection("publicTrees").onSnapshot(snapshot => {
       let thisTree = null
 
@@ -25,11 +27,18 @@ class PublicTree extends React.Component {
           thisTree = doc.data()
         }
       })
-
-      this.setState({
-        tree: thisTree
+      
+      if (isMounted) {
+        this.setState({
+          tree: thisTree
       })
+      }
+      
     })
+  }
+
+  componentWillUnmount(){
+    isMounted = false
   }
 
   updateOwner = (owner) => {
@@ -77,6 +86,14 @@ class PublicTree extends React.Component {
 
           if (this.props.username) {
 
+            let date = ""
+            let time = ""
+            
+            if (tree.timestamp) {
+              date = tree.timestamp.toDate().toLocaleDateString()
+              time = tree.timestamp.toDate().toLocaleTimeString()
+            } 
+
             return (
               <div style={treestyle}>
                 <Typography variant="h2" color="secondary">{tree.name}</Typography>
@@ -97,6 +114,7 @@ class PublicTree extends React.Component {
                 </div>
 
                 <Typography variant="h5" color="secondary"> Posted by: {tree.postedBy} </Typography>
+                <Typography variant="h5" color="secondary" align="right"> {date + " " + time} </Typography>
               </div>
           
         )
@@ -118,6 +136,7 @@ class PublicTree extends React.Component {
                 </div>
 
                 <Typography variant="h5" color="secondary"> Posted by: {tree.postedBy} </Typography>
+                <Typography variant="h5" color="secondary"> {tree.time} </Typography>
                 <hr/>
               </div>
           
@@ -132,7 +151,7 @@ class PublicTree extends React.Component {
         else{
 
           return (
-            <h4> Loading Tree... </h4>
+            <Typography variant="h3" color="secondary"> Loading Tree... If you are able to read through this entire message then something went wrong </Typography>
           )
           
         }

@@ -4,6 +4,7 @@ import MyTrees from "./myTrees"
 import { db } from "../firebase"
 
 import { Button, Typography, Grid } from "@material-ui/core"
+import profilePic from "../images/profilePic.png"
 
 let isMounted = false
 
@@ -59,7 +60,8 @@ class Profile extends React.Component {
   render() {
 
       const profilestyle = {
-        backgroundColor: "#FAEBD7"
+        backgroundColor: "#FAEBD7",
+        paddingLeft: "20px"
       }
 
     if (this.state.editing) {
@@ -83,11 +85,15 @@ class Profile extends React.Component {
         <Typography variant="h3" align="center" color="secondary"> {this.props.username} </Typography>
         <hr/>
         <Grid container spacing={4}>
-          <Grid item xs={6}>
-            <img src={this.state.profile.imageUrl} alt="" height="500px" width="500px" />
+          <Grid item style={profilestyle} xs={6}>
+            {this.state.profile.imageUrl ? 
+              <img src={this.state.profile.imageUrl} alt="" height="500px" width="500px" /> :
+              <img src={profilePic} alt="" height="500px" width="500px" />
+            }
+            
           </Grid>
           <Grid item xs={6}>
-            <Typography variant="h3" align="left" color="secondary"> $$$$$ </Typography>
+            <Typography variant="h3" align="left" color="secondary"> Souvenirs </Typography>
           </Grid>
         </Grid>
         
