@@ -60,30 +60,39 @@ class FullTreePage extends React.Component {
         backgroundColor: "#90EE90",
       }
 
-      
+    const poststyle = {
+     border: "5px solid brown",
+   }
 
     let posts = this.state.posts
 
     return (
       <div style={treestyle}>
+
         <div>
           {this.props.uid === this.props.tree.owner ? 
           <Post postedBy={this.props.username} treeId={this.props.tree.psudeoId} uid={this.props.uid} /> :
           null 
           }
         </div>
+
         <div>
           
           <br/>
+          <hr/>
+            <Typography variant="h3" color="secondary" align="center"> Posts: </Typography>
+          <hr/>
           {posts.length > 0 ? posts.map(post => {
             console.log(post)
-            return [<PostDisplay key={Math.random().toString(36)} post={post} />,
-            <Typography key={Math.random().toString(36)} variant="h4" color="secondary"> Comment </Typography>,
-            <Comment key={Math.random().toString(36)} username={this.props.username} post={post} />]
+            return <div style={poststyle}>
+            <PostDisplay key={Math.random().toString(36)} post={post} />
+            <Comment key={Math.random().toString(36)} username={this.props.username} post={post} />
+            </div>
           }) :
             <Typography variant="h4" color="secondary"> No Posts on Tree </Typography>}
 
         </div>
+
       </div>
     )
   }

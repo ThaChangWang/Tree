@@ -116,6 +116,7 @@ function Comment(props) {
         /* and other goodies */
       }) => (
       <Form onSubmit={handleSubmit} autoComplete="off" className={classes.root} >
+      <Typography variant="h4" color="secondary"> Comment </Typography>
       <br/>
       <Grid container spacing={4}>
           <Grid item xs={6}>

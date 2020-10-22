@@ -135,10 +135,6 @@ function Post(props) {
 
       <Button type="submit" color="secondary" variant="outlined" disabled={isSubmitting}> Submit </Button>
 
-      <hr/>
-        <Typography className={classes.root} variant="h3" color="secondary"> Posts: </Typography>
-      <hr/>
-
       </Form>
 
       

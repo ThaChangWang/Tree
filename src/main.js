@@ -46,7 +46,6 @@ function Main(props) {
     const unsubscribe = auth.onAuthStateChanged(function(authUser)  {
 
       if (authUser) {
-        console.log(authUser)
         setUser(authUser)
        
       } 
@@ -68,9 +67,6 @@ function Main(props) {
     }
 
     if (page === "home") {
-
-      console.log(user)
-
 
       return (
         <div>
@@ -113,9 +109,12 @@ function Main(props) {
 
           </div>
 
-          <Typography className={classes.message}> {message} </Typography>
+          <Typography variant="h5" className={classes.message}> {message} </Typography>
 
-          <Home />
+          {user ?
+          <Home uid={user.uid} username={user.displayName} /> :
+          null
+          }
 
         </div>
       )

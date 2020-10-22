@@ -5,11 +5,10 @@ import { db } from "../firebase"
 import { Typography, makeStyles } from "@material-ui/core"
 
 const useStyles = makeStyles((theme) => ({
-  description: {
-    margin: theme.spacing(1),
+  root: {
+    margin: theme.spacing(1)
   },
   comment: {
-    margin: theme.spacing(1),
     backgroundColor: "#4fc3f7"
   },
 }))
@@ -46,9 +45,17 @@ function PostDisplay(props) {
 
    }, [props.post.psudeoId])
 
+   
+
+   const commentstyle = {
+      paddingLeft: "10px",
+      paddingRight: "10px",
+      border: "5px solid blue"
+   }
+
     return (
-      <div>
-        <div className={classes.description}>
+      <div className={classes.root}>
+        <div>
           <hr/>
           <img src={props.post.imageUrl} alt="" height="400" width="400" /> 
           <Typography variant="h4" color="secondary" > {props.post.description} </Typography>
@@ -56,7 +63,7 @@ function PostDisplay(props) {
           <Typography align="right" variant="h5" color="secondary"> {date + " @ " + time} </Typography>
           
         </div>
-        <div className={classes.comment}>
+        <div style={commentstyle} className={classes.comment}>
           {comments.length > 0 ? comments.map(comment => {
 
             let commentDate = ""
@@ -69,15 +76,14 @@ function PostDisplay(props) {
 
             return [comment.imageUrl ? 
               [<hr/>,
-              <img key={Math.random().toString(36)} src={comment.imageUrl} alt="" height="200" width="200" />] :
+              <img src={comment.imageUrl} alt="" height="200" width="200" />] :
               <hr/>,
-            <Typography key={Math.random().toString(36)} variant="h6" color="secondary"> {comment.postedBy} : {comment.comment} </Typography>,
-            <Typography key={Math.random().toString(36)} align="right" variant="h6" color="secondary"> {commentDate + " @ " + commentTime} </Typography>,
+            <Typography variant="h6" color="secondary"> {comment.postedBy} : {comment.comment} </Typography>,
+            <Typography align="right" variant="h6" color="secondary"> {commentDate + " @ " + commentTime} </Typography>,
             <hr/>]
           }) :
-          null }
+          <Typography variant="h5" color="secondary" align="center"> No comments </Typography> }
         </div>
-        <hr/>
       </div>
     )
   }

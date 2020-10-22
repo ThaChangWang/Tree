@@ -64,15 +64,18 @@ class PublicTree extends React.Component {
     const treestyle = {
         backgroundColor: "#90EE90",
         textAlign: "left",
-        paddingLeft: "20px"
+        paddingLeft: "20px",
+        paddingRight: "20px",
+        border: "5px solid purple"
 
       }
 
       if (this.state.fullPage) {
         return (
-          <div>
+          <div style={treestyle}>
             <FullTreePage uid={this.props.uid} username={this.props.username} tree={this.state.tree}/>
-            <Button onClick={() => this.setState({fullPage: false})}> Close Full Page </Button>
+            <hr/>
+            <Button variant="outlined" color="secondary" onClick={() => this.setState({fullPage: false})}> Close Full Page </Button>
           </div>
         )
 
