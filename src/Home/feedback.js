@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { db } from "../firebase"
 
 import firebase from "firebase"
@@ -7,6 +7,9 @@ import { Formik, Form } from 'formik';
 import { Button, Typography, Box, TextField, makeStyles } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
+  confirm: {
+    color: "green"
+  },
   error: {
     color: "red"
   },
@@ -24,10 +27,9 @@ const useStyles = makeStyles((theme) => ({
 function Feedback(props) {
 
   const classes = useStyles()
+  const [confirm, setConfirm] = useState("")
 
   const feedback = (formData) => {
-
-    console.log(formData)
 
     db.collection("feedback").add({
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
@@ -39,7 +41,8 @@ function Feedback(props) {
 }
 
   const signupstyle = {
-  backgroundColor: "#FAEBD7"
+  backgroundColor: "#FAEBD7",
+  paddingLeft: "10px"
 }
 
   return (
@@ -55,11 +58,11 @@ function Feedback(props) {
       validate = {values => {
         const errors = {};
 
-        console.log(values)
-
         if (!values.message) {
           errors.message = "Please enter a message"
         }
+
+        setConfirm("")
 
         return errors
       }}
@@ -69,8 +72,7 @@ function Feedback(props) {
           feedback(values)
           setSubmitting(false)
           resetForm({})
-          props.setMessage("Message recieved!")
-          props.setPage("home")
+          setConfirm("Feedback recieved, thank you.")
 
         }, 400);
       }}
@@ -109,6 +111,7 @@ function Feedback(props) {
         </Box>
 
         <Typography className={classes.error} > {errors.message} </Typography>
+        <Typography className={classes.confirm} > {confirm} </Typography>
         <br/>
        
         <Button type="submit" color="secondary" variant="outlined" disabled={isSubmitting}> Send </Button>

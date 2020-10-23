@@ -28,8 +28,6 @@ class FullTreePage extends React.Component {
         }
       })
 
-      console.log(incomingPosts)
-
       if (isMounted) {
         this.setState({
         posts: incomingPosts
@@ -83,10 +81,9 @@ class FullTreePage extends React.Component {
             <Typography variant="h3" color="secondary" align="center"> Posts: </Typography>
           <hr/>
           {posts.length > 0 ? posts.map(post => {
-            console.log(post)
-            return <div style={poststyle}>
-            <PostDisplay key={Math.random().toString(36)} post={post} />
-            <Comment key={Math.random().toString(36)} username={this.props.username} post={post} />
+            return <div key={post.psudeoId} style={poststyle}>
+            <PostDisplay post={post} />
+            <Comment username={this.props.username} post={post} />
             </div>
           }) :
             <Typography variant="h4" color="secondary"> No Posts on Tree </Typography>}

@@ -5,7 +5,7 @@ import { Typography } from '@material-ui/core'
 
 
 
-function Quote(props) {
+function QuoteDay(props) {
 
   const [quote, setQuote] = useState("")
 
@@ -23,7 +23,8 @@ function Quote(props) {
   }, [props.random])
 
   const quotestyle = {
-    backgroundColor: "#FAEBD7"
+    backgroundColor: "#FAEBD7",
+    border: "4px solid red"
   }
 
   return (
@@ -35,4 +36,4 @@ function Quote(props) {
   )
 }
 
-export default Quote
+export default QuoteDay

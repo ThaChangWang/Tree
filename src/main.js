@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react"
 
-import { Button, Typography } from "@material-ui/core"
-import { makeStyles } from "@material-ui/core/styles"
-import Grid from "@material-ui/core/Grid"
+import { Button, Typography, Grid, makeStyles } from "@material-ui/core"
 
 import SignUp from "./Auth/signUp"
 import LogIn from "./Auth/logIn"
@@ -18,9 +16,7 @@ import "./style.css"
 import { auth } from "./firebase"
 
 const useStyles = makeStyles({
-  message: {
-    color: "green"
-  },
+  
   buttonStyle: {
     backgroundColor: "#9ccc65"
   },
@@ -37,7 +33,6 @@ const useStyles = makeStyles({
 function Main(props) {
 
   const [page, setPage] = useState(props.page)
-  const [message, setMessage] = useState(null)
   const [user, setUser] = useState(null)
 
   const classes = useStyles()
@@ -80,7 +75,7 @@ function Main(props) {
           <br/>
           <br/>
 
-          <Button className={classes.clickedButtonStyle} variant="outlined" color="secondary" onClick={() => [setPage("home"), setMessage(null)]}>home</Button>
+          <Button className={classes.clickedButtonStyle} variant="outlined" color="secondary" onClick={() => setPage("home")}>home</Button>
 
           {user ? 
           (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("find")}>find</Button>) :
@@ -109,11 +104,9 @@ function Main(props) {
 
           </div>
 
-          <Typography variant="h5" className={classes.message}> {message} </Typography>
-
           {user ?
-          <Home uid={user.uid} username={user.displayName} /> :
-          null
+          <Home uid={user.uid} username={user.displayName} loggedIn={true} /> :
+          <Home loggedIn={false} />
           }
 
         </div>
@@ -137,7 +130,7 @@ function Main(props) {
           <br/>
           <br/>
 
-          <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => [setPage("home"), setMessage(null)]}>home</Button>
+          <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("home")}>home</Button>
 
           {user ? 
           (<Button className={classes.clickedButtonStyle} variant="outlined" color="secondary" onClick={() => setPage("find")}>find</Button>) :
@@ -170,7 +163,7 @@ function Main(props) {
 
           <br/>
 
-          <AdoptMap uid={user.uid} username={user.displayName} height="100vh" width="100%" lat={47.7511} lng={-120.7401} zoom={6} />
+          <AdoptMap uid={user.uid} username={user.displayName} />
 
 
 
@@ -193,7 +186,7 @@ function Main(props) {
           <br/>
           <br/>
 
-          <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => [setPage("home"), setMessage(null)]}>home</Button>
+          <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("home")}>home</Button>
 
           {user ? 
           (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("find")}>find</Button>) :
@@ -223,7 +216,7 @@ function Main(props) {
 
           </div>
 
-          <UploadTreeForm uid={user.uid} username={user.displayName} setPage={setPage} setMessage={setMessage} />
+          <UploadTreeForm uid={user.uid} username={user.displayName} />
 
         </div>
       )
@@ -245,7 +238,7 @@ function Main(props) {
           <br/>
 
 
-          <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => [setPage("home"), setMessage(null)]}>home</Button>
+          <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("home")}>home</Button>
 
           {user ? 
           (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("find")}>find</Button>) :
@@ -298,7 +291,7 @@ function Main(props) {
           <br/>
           <br/>
 
-          <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => [setPage("home"), setMessage(null)]}>home</Button>
+          <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("home")}>home</Button>
 
           {user ? 
           (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("find")}>find</Button>) :
@@ -336,7 +329,6 @@ function Main(props) {
             <Grid item xs={6}>
               <LogIn setPage={setPage}/>
             </Grid>
-
           </Grid>
 
         </div>
@@ -358,7 +350,7 @@ function Main(props) {
           <br/>
           <br/>
 
-          <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => [setPage("home"), setMessage(null)]}>home</Button>
+          <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("home")}>home</Button>
 
           {user ? 
           (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("find")}>find</Button>) :
@@ -389,7 +381,7 @@ function Main(props) {
 
           <br/>
 
-          <Feedback username={user.displayName} setPage={setPage} setMessage={setMessage}/>
+          <Feedback username={user.displayName} />
 
 
         </div>

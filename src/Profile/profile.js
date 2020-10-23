@@ -38,7 +38,6 @@ class Profile extends React.Component {
     db.collection("profiles").where("uid", "==", this.props.uid)
     .onSnapshot(querySnapshot => {
         querySnapshot.forEach(doc => {
-            console.log(doc.data())
             if (isMounted) {
               this.setState({
               profile: doc.data(),
@@ -61,7 +60,8 @@ class Profile extends React.Component {
 
       const profilestyle = {
         backgroundColor: "#FAEBD7",
-        paddingLeft: "20px"
+        paddingLeft: "20px",
+        paddingRight: "20px"
       }
 
     if (this.state.editing) {
@@ -70,7 +70,6 @@ class Profile extends React.Component {
       <div>
         <EditProfile bio={this.state.profile.bio} setEdit={this.setEdit} uid={this.props.uid}/>
         <br/>
-        <hr/>
         <Button variant="outlined" color="secondary" onClick={this.setEdit}> Back to Profile </Button>   
       </div>
       )
@@ -97,7 +96,6 @@ class Profile extends React.Component {
           </Grid>
         </Grid>
         
-        <Typography variant="h3" align="left" color="secondary"> Bio: </Typography>
         <Typography variant="h5" align="left" color="secondary"> {this.state.profile.bio} </Typography>
         <br/>
         <Button variant="outlined" color="secondary" onClick={this.setEdit}> Edit Profile </Button>

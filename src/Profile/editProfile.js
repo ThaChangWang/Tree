@@ -19,8 +19,6 @@ function EditProfile(props) {
 
   const handleUpload = (formData) => {
 
-    console.log(formData)
-
     if (formData.image) {
       const uploadTask = storage.ref("images/" + formData.image.name + "-" + props.uid).put(formData.image)
 
@@ -37,8 +35,6 @@ function EditProfile(props) {
           .get()
           .then((querySnapshot) => {
               querySnapshot.forEach((doc) => {
-                  // doc.data() is never undefined for query doc snapshots
-                  console.log(doc.id, " => ", doc.data())
                   db.collection("profiles").doc(doc.id).update({
                     imageUrl: url,
                     bio: formData.bio
@@ -59,7 +55,6 @@ function EditProfile(props) {
           .get()
           .then((querySnapshot) => {
               querySnapshot.forEach((doc) => {
-                  // doc.data() is never undefined for query doc snapshots
                   console.log(doc.id, " => ", doc.data())
                   db.collection("profiles").doc(doc.id).update({
                     bio: formData.bio

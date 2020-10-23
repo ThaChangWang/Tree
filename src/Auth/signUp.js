@@ -24,8 +24,6 @@ function SignUp(props) {
   auth.createUserWithEmailAndPassword(formData.email, formData.password)
   .then((authUser) => {
 
-    console.log(authUser)
-
     db.collection("profiles").add({
           imageUrl: null,
           uid: authUser.user.uid,

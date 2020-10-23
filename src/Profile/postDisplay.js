@@ -29,7 +29,7 @@ function PostDisplay(props) {
 
     useEffect(() => {
 
-    db.collection("comments").orderBy("timestamp", "desc").onSnapshot(snapshot => {
+    const unsubscribe = db.collection("comments").orderBy("timestamp", "desc").onSnapshot(snapshot => {
       let incomingComments = []
 
       snapshot.docs.forEach(doc => {
@@ -42,6 +42,9 @@ function PostDisplay(props) {
 
     })
 
+    return () => {
+      unsubscribe()
+    }
 
    }, [props.post.psudeoId])
 
@@ -74,13 +77,28 @@ function PostDisplay(props) {
               commentTime = comment.timestamp.toDate().toLocaleTimeString()
             } 
 
-            return [comment.imageUrl ? 
-              [<hr/>,
-              <img src={comment.imageUrl} alt="" height="200" width="200" />] :
-              <hr/>,
-            <Typography variant="h6" color="secondary"> {comment.postedBy} : {comment.comment} </Typography>,
-            <Typography align="right" variant="h6" color="secondary"> {commentDate + " @ " + commentTime} </Typography>,
-            <hr/>]
+            if (comment.imageUrl) {
+              return (
+                <div key={comment.psudeoId}>
+                  <hr/>
+                  
+                  <Typography variant="h6" color="secondary"> <b>{comment.postedBy}:</b> {comment.comment} </Typography>
+                  <Typography align="right" variant="h6" color="secondary"> {commentDate + " @ " + commentTime} </Typography>
+                  <img src={comment.imageUrl} alt="" height="200" width="200" />
+                </div>
+            )
+            }
+
+            else {
+              return (
+                <div key={comment.psudeoId}>
+                <hr/>
+                <Typography variant="h6" color="secondary"> <b>{comment.postedBy}:</b> {comment.comment} </Typography>
+                <Typography align="right" variant="h6" color="secondary"> {commentDate + " @ " + commentTime} </Typography>
+                </div>
+              )
+            }
+            
           }) :
           <Typography variant="h5" color="secondary" align="center"> No comments </Typography> }
         </div>

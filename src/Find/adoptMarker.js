@@ -1,28 +1,30 @@
 import React from "react"
 
-
-
-
-
 class AdoptMarker extends React.Component {
 
   render() {
 
     let adoptstyle
-      
-    if (this.props.tree.owner) {
+
+    if (this.props.tree.owner === this.props.uid) {
       adoptstyle = {
         color: "white",
         backgroundColor: "blue",
-        fontFamily: "Arial",
+        textAlign: "center"
+      }
+    }
+      
+    else if (this.props.tree.owner) {
+      adoptstyle = {
+        color: "white",
+        backgroundColor: "green",
         textAlign: "center"
       }
     }
     else {
       adoptstyle = {
-        color: "white",
-        backgroundColor: "green",
-        fontFamily: "Arial",
+        color: "brown",
+        backgroundColor: "yellow",
         textAlign: "center"
       }
     }

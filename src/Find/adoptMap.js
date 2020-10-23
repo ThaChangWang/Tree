@@ -4,9 +4,7 @@ import { db } from "../firebase"
 import AdoptMarker from "./adoptMarker"
 import PublicTree from "../Profile/publicTree"
 
-import { Button } from "@material-ui/core"
-
-
+import { Button, Typography, Grid } from "@material-ui/core"
 
 let isMounted = true
 
@@ -17,18 +15,14 @@ class AdoptMap extends React.Component {
     this.state = {
       publicTrees: [],
       tree: null
-
     }
     this.setTree = this.setTree.bind(this)
-
-
   }
 
   setTree(tree) {
     this.setState({
       tree: tree
       })
-
   }
 
 
@@ -39,7 +33,6 @@ class AdoptMap extends React.Component {
         this.setState({publicTrees: snapshot.docs.map(doc => doc.data())})
       }
     })
-    
   }
 
   componentWillUnmount(){
@@ -52,40 +45,67 @@ class AdoptMap extends React.Component {
     var displayTrees = this.state.publicTrees
 
     if(this.state.tree) {
-        console.log(this.state.tree)
       return (
         <div>
-        <PublicTree uid={this.props.uid} username={this.props.username} psudeoId={this.state.tree.psudeoId} height="500" width="500" />
-        <br/>
-        <Button variant="outlined" color="secondary" onClick={() => this.setTree(null)}> Return to Map </Button>
+          <PublicTree uid={this.props.uid} username={this.props.username} psudeoId={this.state.tree.psudeoId} height="500" width="500" />
+          <br/>
+          <Button variant="outlined" color="secondary" onClick={() => this.setTree(null)}> Return to Map </Button>
         </div>
       )
 
     }
 
     else {
+
+      let ownstyle = {
+        color: "white",
+        backgroundColor: "blue",
+        textAlign: "center"
+      }
+
+      let ownedstyle = {
+        color: "white",
+        backgroundColor: "green",
+        textAlign: "center"
+      }
+
+      let notownedstyle = {
+        color: "brown",
+        backgroundColor: "yellow",
+        textAlign: "center"
+      }
+
       return (
-      // Important! Always set the container height explicitly
-      <div style={{ height: this.props.height, width: this.props.width }}>
-        <GoogleMapReact
-          bootstrapURLKeys={{ key: "AIzaSyBiB3iNngJM_kFWKxSv9a30O3fww7YTiWA"}}
-          center={{lat : this.props.lat, lng : this.props.lng}}
-          zoom={this.props.zoom}
-        >
-       {displayTrees.length > 0 ? displayTrees.map(tree => {
-        console.log(tree)
-        return <AdoptMarker lat={tree.latitude} lng={tree.longitude} key={tree.psudeoId} function={this.setTree} tree={tree} />
-      }) :  null }
-        
-        </GoogleMapReact>
-      </div>
+        <div>
+          <Grid container spacing={3}>
+            <Grid item xs={4}>
+              <Typography style={ownedstyle} variant="h4"> Owned </Typography>
+            </Grid>
+            <Grid item xs={4}>
+              <Typography style={ownstyle} variant="h4"> Owned by You </Typography>
+            </Grid>
+            <Grid item xs={4}>
+              <Typography style={notownedstyle} variant="h4"> Needs Adoption </Typography>
+            </Grid>
+          </Grid>
+          <div style={{ height: "100vh",  width: "100%" }}>
+            <GoogleMapReact
+              bootstrapURLKeys={{ key: "AIzaSyBiB3iNngJM_kFWKxSv9a30O3fww7YTiWA"}}
+              center={{lat : 47.7511, lng : -120.7401}}
+              zoom={6}
+            >
+          {displayTrees.length > 0 ? displayTrees.map(tree => {
+            return <AdoptMarker key={tree.psudeoId} uid={this.props.uid} lat={tree.latitude} lng={tree.longitude} function={this.setTree} tree={tree} />
+          }) :  null }
+            
+            </GoogleMapReact>
+          </div>
+        </div>
     )
     }
     
     
   }
 }
-
-
 
 export default AdoptMap;

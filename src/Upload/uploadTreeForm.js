@@ -13,6 +13,9 @@ import { Button, Typography, TextField, Input, CircularProgress, Box, makeStyles
 const Marker = () => <div><img src={treeImg} alt="" height="50" width="50" /></div>;
 
 const useStyles = makeStyles((theme) => ({
+  confirm: {
+    color: "green"
+  },
   error: {
     color: "red"
   },
@@ -30,11 +33,11 @@ function UploadTreeForm(props) {
 
   const [progress, setProgress] = useState(0)
   const [displayTrees, setDisplayTrees] = useState([])
+  const [confirm, setConfirm] = useState("")
+
   const classes = useStyles()
 
   const handleUpload = (formData) => {
-
-    console.log(formData)
 
     const uploadTask = storage.ref("images/" + formData.image.name + "-" + props.uid).put(formData.image)
 
@@ -65,12 +68,14 @@ function UploadTreeForm(props) {
 
   useEffect(() => {
 
-  db.collection("publicTrees").onSnapshot(snapshot => {
-
-        console.log(snapshot.docs.map(doc => doc.data()))
+  const unsubscribe = db.collection("publicTrees").onSnapshot(snapshot => {
         setDisplayTrees(snapshot.docs.map(doc => doc.data()))
 
     })
+
+    return () => {
+      unsubscribe()
+    }
 
   }, [])
 
@@ -107,7 +112,8 @@ function UploadTreeForm(props) {
           errors.lat = "Locate your tree on the Google Map above"
         }
       
-
+      setConfirm("")
+      
       return errors
     }}
 
@@ -117,8 +123,8 @@ function UploadTreeForm(props) {
           handleUpload(values)
           setSubmitting(false)
           resetForm({})
-          props.setMessage("Tree Upload Success!")
-          props.setPage("home")
+          setConfirm("Tree upload success.")
+
         }, 400);
       }}
     >
@@ -215,7 +221,8 @@ function UploadTreeForm(props) {
       <Typography className={classes.error}> {errors.description} </Typography>
       <Typography className={classes.error}> {errors.lat} </Typography>
       <Typography className={classes.error}> {errors.image} </Typography>
-      
+      <Typography className={classes.confirm}> {confirm} </Typography>
+
       <br/>
 
       <Button type="submit" color="secondary" variant="outlined" disabled={isSubmitting}> Submit </Button>

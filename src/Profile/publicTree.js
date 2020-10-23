@@ -75,7 +75,7 @@ class PublicTree extends React.Component {
           <div style={treestyle}>
             <FullTreePage uid={this.props.uid} username={this.props.username} tree={this.state.tree}/>
             <hr/>
-            <Button variant="outlined" color="secondary" onClick={() => this.setState({fullPage: false})}> Close Full Page </Button>
+            <Button variant="outlined" color="secondary" onClick={() => this.setState({fullPage: false})}> Close Posts </Button>
           </div>
         )
 
@@ -100,7 +100,7 @@ class PublicTree extends React.Component {
             return (
               <div style={treestyle}>
                 <Typography variant="h2" color="secondary">{tree.name}</Typography>
-                <Button variant="outlined" color="secondary" onClick={() => this.setState({fullPage: true})}> View Full Page </Button>
+                <Button variant="outlined" color="secondary" onClick={() => this.setState({fullPage: true})}> View Posts </Button>
                 
                 {tree.owner ? 
                   null :

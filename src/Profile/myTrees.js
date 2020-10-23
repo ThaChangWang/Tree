@@ -20,7 +20,6 @@ class MyTrees extends React.Component {
     .then((querySnapshot) => {
         let myTrees = []
         querySnapshot.forEach((doc) => {
-            //console.log(doc.id, " => ", doc.data())
             myTrees.push(doc.data())
         })
         this.setState({
@@ -41,8 +40,13 @@ class MyTrees extends React.Component {
        return (
       <div>
         {myTrees.length > 0 ? myTrees.map(tree => {
-          return [<PublicTree uid={this.props.uid} key={tree.psudeoId} username={this.props.username} psudeoId={tree.psudeoId} height="300" width="300" />,
-          <hr/>]
+          return (
+            <div key={tree.psudeoId}>
+            <PublicTree uid={this.props.uid} key={tree.psudeoId} username={this.props.username} psudeoId={tree.psudeoId} height="300" width="300" />,
+            <hr/>
+          </div>
+          )
+          
         }) :
         <Typography variant="h5" color="secondary"> No Trees </Typography>}
       </div>
