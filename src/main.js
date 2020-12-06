@@ -69,7 +69,7 @@ function Main(props) {
           <div style={headerstyle}>
 
           <img src={treeImg} alt="" height="50" width="50" /> 
-          <Typography className={classes.title} gutterBottom variant="h2" align="center" color="secondary"> Public Tree </Typography>
+          <Typography className={classes.title} gutterBottom variant="h2" align="center" color="secondary"> Community Tree </Typography>
           <img src={treeImg} alt="" height="50" width="50" />
 
           <br/>
@@ -124,7 +124,7 @@ function Main(props) {
           <div style={headerstyle}>
 
           <img src={treeImg} alt="" height="50" width="50" />
-          <Typography className={classes.title} gutterBottom variant="h2" align="center" color="secondary"> Public Tree </Typography>
+          <Typography className={classes.title} gutterBottom variant="h2" align="center" color="secondary"> Community Tree </Typography>
           <img src={treeImg} alt="" height="50" width="50" />
 
           <br/>
@@ -180,7 +180,7 @@ function Main(props) {
           <div style={headerstyle}>
 
           <img src={treeImg} alt="" height="50" width="50" />
-          <Typography className={classes.title} gutterBottom variant="h2" align="center" color="secondary"> Public Tree </Typography>
+          <Typography className={classes.title} gutterBottom variant="h2" align="center" color="secondary"> Community Tree </Typography>
           <img src={treeImg} alt="" height="50" width="50" />
 
           <br/>
@@ -231,7 +231,7 @@ function Main(props) {
           <div style={headerstyle}>
 
           <img src={treeImg} alt="" height="50" width="50" />
-          <Typography className={classes.title} gutterBottom variant="h2" align="center" color="secondary"> Public Tree </Typography>
+          <Typography className={classes.title} gutterBottom variant="h2" align="center" color="secondary"> Community Tree </Typography>
           <img src={treeImg} alt="" height="50" width="50" />
 
           <br/>
@@ -285,7 +285,7 @@ function Main(props) {
           <div style={headerstyle}>
 
           <img src={treeImg} alt="" height="50" width="50" />
-          <Typography className={classes.title} gutterBottom variant="h2" align="center" color="secondary"> Public Tree </Typography>
+          <Typography className={classes.title} gutterBottom variant="h2" align="center" color="secondary"> Community Tree </Typography>
           <img src={treeImg} alt="" height="50" width="50" />
 
           <br/>
@@ -344,7 +344,7 @@ function Main(props) {
           <div style={headerstyle}>
 
           <img src={treeImg} alt="" height="50" width="50" />
-          <Typography className={classes.title} gutterBottom variant="h2" align="center" color="secondary"> Public Tree </Typography>
+          <Typography className={classes.title} gutterBottom variant="h2" align="center" color="secondary"> Community Tree </Typography>
           <img src={treeImg} alt="" height="50" width="50" />
 
           <br/>

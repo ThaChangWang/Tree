@@ -47,7 +47,7 @@ class AdoptMap extends React.Component {
     if(this.state.tree) {
       return (
         <div>
-          <PublicTree uid={this.props.uid} username={this.props.username} psudeoId={this.state.tree.psudeoId} height="500" width="500" />
+          <PublicTree uid={this.props.uid} username={this.props.username} psudeoId={this.state.tree.psudeoId} width="500" />
           <br/>
           <Button variant="outlined" color="secondary" onClick={() => this.setTree(null)}> Return to Map </Button>
         </div>
@@ -91,8 +91,8 @@ class AdoptMap extends React.Component {
           <div style={{ height: "100vh",  width: "100%" }}>
             <GoogleMapReact
               bootstrapURLKeys={{ key: "AIzaSyBiB3iNngJM_kFWKxSv9a30O3fww7YTiWA"}}
-              center={{lat : 47.7511, lng : -120.7401}}
-              zoom={6}
+              center={{lat : 48.0401, lng : -122.4063}}
+              zoom={10}
             >
           {displayTrees.length > 0 ? displayTrees.map(tree => {
             return <AdoptMarker key={tree.psudeoId} uid={this.props.uid} lat={tree.latitude} lng={tree.longitude} function={this.setTree} tree={tree} />

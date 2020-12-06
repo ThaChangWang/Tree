@@ -112,7 +112,7 @@ class PublicTree extends React.Component {
 
                 <div>
                 <br/>
-                <img src={tree.imageUrl} alt="" height={this.props.height} width={this.props.width} />
+                <img src={tree.imageUrl} alt="" width={this.props.width} />
                 <Typography variant="h4" color="secondary"> {tree.description} </Typography>
                 </div>
 
@@ -134,7 +134,7 @@ class PublicTree extends React.Component {
                 
                 <div>
                 <br/>
-                <img src={tree.imageUrl} alt="" height={this.props.height} width={this.props.width} />
+                <img src={tree.imageUrl} alt="" width={this.props.width} />
                 <Typography variant="h4" color="secondary"> {tree.description} </Typography>
                 </div>
 

@@ -174,8 +174,8 @@ function UploadTreeForm(props) {
         <br/>
         <GoogleMapReact
           bootstrapURLKeys={{ key: "AIzaSyBiB3iNngJM_kFWKxSv9a30O3fww7YTiWA"}}
-          center={{lat : 47.7511, lng : -120.7401}}
-          zoom={6}
+          center={{lat : 48.0401, lng : -122.4063}}
+          zoom={10}
           onClick={(event) => {
 
             setFieldValue("lat", event.lat)

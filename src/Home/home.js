@@ -47,14 +47,13 @@ function Home(props) {
 
       return (
       <div>
-      <br/>
+      <br />
         {dateNum ? 
         <QuoteDay random={dateNum}/> :
         null
         }
-        <hr/>
         {dateNum ?
-          <Grid container spacing={1}>
+          <Grid container spacing={0}>
           <Grid item xs={5}>
             <div style={messagestyle}>
               <Typography variant="h5" color="secondary" align="left"> Welcome to Public Tree! </Typography>
@@ -99,9 +98,8 @@ function Home(props) {
         <QuoteDay random={dateNum}/> :
         null
         }
-        <hr/>
           <div style={messagestyle}>
-            <Typography variant="h5" color="secondary" align="left"> Welcome to Public Tree! </Typography>
+            <Typography variant="h5" color="secondary" align="left"> Welcome to Community Tree! </Typography>
             <br/>
             <Typography variant="h5" color="secondary" align="left"> Our goal is to provide people with a vehicle to adopt and care for public trees in their communities. </Typography>
             <br/>
@@ -113,7 +111,7 @@ function Home(props) {
             <br/>
             <Typography variant="h5" color="secondary" align="left"> Peace, </Typography>
             <br/>
-            <Typography variant="h5" color="secondary" align="left"> Public Tree </Typography>
+            <Typography variant="h5" color="secondary" align="left"> Community Tree </Typography>
           </div>
         
       </div>

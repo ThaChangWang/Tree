@@ -31,7 +31,7 @@ class AdoptMarker extends React.Component {
 
     return (
       <div>
-        <img src={this.props.tree.imageUrl} alt="" height="50" width="50" />
+        <img src={this.props.tree.imageUrl} alt="" width="50" />
         <button style={adoptstyle} onClick={() => this.props.function(this.props.tree)}> View Tree </button>
       </div>
     )

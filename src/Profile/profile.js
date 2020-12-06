@@ -92,7 +92,7 @@ class Profile extends React.Component {
             
           </Grid>
           <Grid item xs={6}>
-            <Typography variant="h3" align="left" color="secondary"> Souvenirs </Typography>
+            <Typography variant="h3" align="left" color="secondary"> Acorns: {this.state.profile.acorns} </Typography>
           </Grid>
         </Grid>
         
