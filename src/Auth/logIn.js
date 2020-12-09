@@ -9,7 +9,7 @@ import { TextField } from 'formik-material-ui';
 const useStyles = makeStyles((theme) => ({
   
   root: {
-    width: "30ch"
+    width: "80%"
   }
 
 }))
@@ -30,8 +30,11 @@ function LogIn(props) {
 }
 
   const signupstyle = {
-  backgroundColor: "#FAEBD7"
-}
+    backgroundColor: "#FAEBD7",
+    border: "4px solid brown",
+    paddingLeft: "10px",
+    paddingRight: "10px"
+  }
 
   return (
 

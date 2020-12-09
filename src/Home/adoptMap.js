@@ -4,7 +4,7 @@ import { db } from "../firebase"
 import AdoptMarker from "./adoptMarker"
 import PublicTree from "../Profile/publicTree"
 
-import { Button, Typography, Grid } from "@material-ui/core"
+import { Button } from "@material-ui/core"
 
 let isMounted = true
 
@@ -57,37 +57,8 @@ class AdoptMap extends React.Component {
 
     else {
 
-      let ownstyle = {
-        color: "white",
-        backgroundColor: "blue",
-        textAlign: "center"
-      }
-
-      let ownedstyle = {
-        color: "white",
-        backgroundColor: "green",
-        textAlign: "center"
-      }
-
-      let notownedstyle = {
-        color: "brown",
-        backgroundColor: "yellow",
-        textAlign: "center"
-      }
-
       return (
         <div>
-          <Grid container spacing={3}>
-            <Grid item xs={4}>
-              <Typography style={ownedstyle} variant="h4"> Owned </Typography>
-            </Grid>
-            <Grid item xs={4}>
-              <Typography style={ownstyle} variant="h4"> Owned by You </Typography>
-            </Grid>
-            <Grid item xs={4}>
-              <Typography style={notownedstyle} variant="h4"> Needs Adoption </Typography>
-            </Grid>
-          </Grid>
           <div style={{ height: "100vh",  width: "100%" }}>
             <GoogleMapReact
               bootstrapURLKeys={{ key: "AIzaSyBiB3iNngJM_kFWKxSv9a30O3fww7YTiWA"}}

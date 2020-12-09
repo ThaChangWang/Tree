@@ -27,7 +27,7 @@ function TreeDay(props) {
   return (
     <div>
       {tree ? 
-      <PublicTree uid={props.uid} username={props.username} psudeoId={tree.psudeoId} height="300" width="300" /> :
+      <PublicTree uid={props.uid} username={props.username} psudeoId={tree.psudeoId} width="250" /> :
       null}
     </div>
   )

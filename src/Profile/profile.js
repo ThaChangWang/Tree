@@ -60,8 +60,9 @@ class Profile extends React.Component {
 
       const profilestyle = {
         backgroundColor: "#FAEBD7",
-        paddingLeft: "20px",
-        paddingRight: "20px"
+        border: "4px solid brown",
+        paddingLeft: "10px",
+        paddingRight: "10px"
       }
 
     if (this.state.editing) {
@@ -84,10 +85,10 @@ class Profile extends React.Component {
         <Typography variant="h3" align="center" color="secondary"> {this.props.username} </Typography>
         <hr/>
         <Grid container spacing={4}>
-          <Grid item style={profilestyle} xs={6}>
+          <Grid item xs={6}>
             {this.state.profile.imageUrl ? 
-              <img src={this.state.profile.imageUrl} alt="" height="500px" width="500px" /> :
-              <img src={profilePic} alt="" height="500px" width="500px" />
+              <img src={this.state.profile.imageUrl} alt="" width="100%" /> :
+              <img src={profilePic} alt="" width="100%" />
             }
             
           </Grid>
@@ -101,7 +102,7 @@ class Profile extends React.Component {
         <Button variant="outlined" color="secondary" onClick={this.setEdit}> Edit Profile </Button>
 
         <hr/>
-        <Typography variant="h3" align="center" color="secondary"> My Trees </Typography>
+        <Typography variant="h3" align="center" color="secondary"> Adopted Trees </Typography>
         <hr/>
         <MyTrees uid={this.props.uid} username={this.props.username}/>
 

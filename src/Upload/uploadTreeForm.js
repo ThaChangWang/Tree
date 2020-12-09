@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
   description: {
     margin: theme.spacing(1),
-    width: '75ch'
+    width: '80%'
   }
 }))
  
@@ -49,18 +49,28 @@ function UploadTreeForm(props) {
         alert(error.message)
       },
       () => {
+
+        let generatedId = Math.random().toString(36)
+
         storage.ref("images").child(formData.image.name + "-" + props.uid).getDownloadURL().then(url => {
-          db.collection("publicTrees").add({
+          db.collection("posts").add({
+            psudeoId: Math.random().toString(36),
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
             imageUrl: url,
-            psudeoId: Math.random().toString(36),
             description: formData.description,
-            latitude: formData.lat,
-            longitude: formData.lng,
-            name: formData.name,
-            owner: props.uid,
-            postedBy: props.username
+            postedBy: props.username,
+            treeId: generatedId
+            
           })
+        })
+
+        db.collection("publicTrees").add({          
+          psudeoId: generatedId,
+          latitude: formData.lat,
+          longitude: formData.lng,
+          name: formData.name,
+          owner: props.uid,
+          
         })
       })
 
@@ -79,10 +89,17 @@ function UploadTreeForm(props) {
 
   }, [])
 
+  const uploadstyle = {
+    backgroundColor: "#FAEBD7",
+    border: "4px solid brown",
+    paddingLeft: "10px",
+    paddingRight: "10px"
+  }
+
 
   return (
 
-    <div>
+    <div style={uploadstyle}>
     <Typography variant="h2" color="secondary"> Upload a Tree: </Typography>
     <Formik
       initialValues = {{ 

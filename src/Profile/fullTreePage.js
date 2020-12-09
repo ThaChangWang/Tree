@@ -58,10 +58,6 @@ class FullTreePage extends React.Component {
         backgroundColor: "#90EE90",
       }
 
-    const poststyle = {
-     border: "5px solid brown",
-   }
-
     let posts = this.state.posts
 
     return (
@@ -69,7 +65,7 @@ class FullTreePage extends React.Component {
 
         <div>
           {this.props.uid === this.props.tree.owner ? 
-          <Post postedBy={this.props.username} treeId={this.props.tree.psudeoId} uid={this.props.uid} /> :
+          <Post username={this.props.username} treeId={this.props.tree.psudeoId} uid={this.props.uid} /> :
           null 
           }
         </div>
@@ -78,12 +74,12 @@ class FullTreePage extends React.Component {
           
           <br/>
           <hr/>
-            <Typography variant="h3" color="secondary" align="center"> Posts: </Typography>
+            <Typography variant="h3" color="secondary" align="center"> Posts </Typography>
           <hr/>
           {posts.length > 0 ? posts.map(post => {
-            return <div key={post.psudeoId} style={poststyle}>
+            return <div key={post.psudeoId}>
             <PostDisplay post={post} />
-            <Comment username={this.props.username} post={post} />
+            <Comment uid={this.props.uid} username={this.props.username} post={post} />
             </div>
           }) :
             <Typography variant="h4" color="secondary"> No Posts on Tree </Typography>}

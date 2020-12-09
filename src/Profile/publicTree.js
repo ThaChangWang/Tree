@@ -4,6 +4,7 @@ import { db } from "../firebase"
 
 import { Button, Typography } from "@material-ui/core"
 
+
 let isMounted = false
 
 class PublicTree extends React.Component {
@@ -64,9 +65,9 @@ class PublicTree extends React.Component {
     const treestyle = {
         backgroundColor: "#90EE90",
         textAlign: "left",
-        paddingLeft: "20px",
-        paddingRight: "20px",
-        border: "5px solid purple"
+        paddingLeft: "10px",
+        paddingRight: "10px",
+        border: "4px solid brown"
 
       }
 
@@ -99,7 +100,7 @@ class PublicTree extends React.Component {
 
             return (
               <div style={treestyle}>
-                <Typography variant="h2" color="secondary">{tree.name}</Typography>
+                <Typography variant="h2" color="secondary"> {tree.name} </Typography>
                 <Button variant="outlined" color="secondary" onClick={() => this.setState({fullPage: true})}> View Posts </Button>
                 
                 {tree.owner ? 
@@ -112,7 +113,7 @@ class PublicTree extends React.Component {
 
                 <div>
                 <br/>
-                <img src={tree.imageUrl} alt="" width={this.props.width} />
+                <img src={tree.imageUrl} alt="" width="100%" />
                 <Typography variant="h4" color="secondary"> {tree.description} </Typography>
                 </div>
 
@@ -134,7 +135,7 @@ class PublicTree extends React.Component {
                 
                 <div>
                 <br/>
-                <img src={tree.imageUrl} alt="" width={this.props.width} />
+                <img src={tree.imageUrl} alt="" width="100%" />
                 <Typography variant="h4" color="secondary"> {tree.description} </Typography>
                 </div>
 

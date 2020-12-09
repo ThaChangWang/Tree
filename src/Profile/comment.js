@@ -17,11 +17,11 @@ const useStyles = makeStyles((theme) => ({
   },
   image: {
     margin: theme.spacing(3),
-    width: '25ch'
+    width: '35ch'
   },
   comment: {
     margin: theme.spacing(3),
-    width: '60ch'
+    width: '80%',
   }
 }))
  
@@ -49,8 +49,9 @@ function Comment(props) {
                   imageUrl: url,
                   timestamp: firebase.firestore.FieldValue.serverTimestamp(),
                   postedBy: props.username,
-                  psudeoId: Math.random().toString(36),
+                  postedById: props.uid,
                   comment: formData.comment,
+                  psudeoId: Math.random().toString(36),
                   postId: props.post.psudeoId
                 })
               })
@@ -64,8 +65,9 @@ function Comment(props) {
         imageUrl: null,
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         postedBy: props.username,
-        psudeoId: Math.random().toString(36),
+        postedById: props.uid,
         comment: formData.comment,
+        psudeoId: Math.random().toString(36),
         postId: props.post.psudeoId
       })
 
@@ -131,7 +133,7 @@ function Comment(props) {
 
           <div>
             <br/>
-            <Typography variant="h5" color="secondary"> Picture of Tree: </Typography>
+            <Typography variant="h5" color="secondary"> Add a Picture: </Typography>
             <Input className={classes.image} id="image" name="image" type="file"
               onChange={(event) => {
                 setFieldValue("image", event.target.files[0])

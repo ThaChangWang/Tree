@@ -45,12 +45,13 @@ function Post(props) {
       () => {
         storage.ref("images").child(formData.image.name + "-" + props.uid).getDownloadURL().then(url => {
           db.collection("posts").add({
+            psudeoId: Math.random().toString(36),
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
             imageUrl: url,
             treeId: props.treeId,
             description: formData.description,
-            psudeoId: Math.random().toString(36),
-            postedBy: props.postedBy,
+            postedBy: props.username,
+            postedById: props.uid
           })
         })
       })

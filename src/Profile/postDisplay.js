@@ -53,14 +53,13 @@ function PostDisplay(props) {
    const commentstyle = {
       paddingLeft: "10px",
       paddingRight: "10px",
-      border: "5px solid blue"
+      border: "4px solid blue"
    }
 
     return (
       <div className={classes.root}>
         <div>
-          <hr/>
-          <img src={props.post.imageUrl} alt="" height="400" width="400" /> 
+          <img src={props.post.imageUrl} alt="" width="100%" /> 
           <Typography variant="h4" color="secondary" > {props.post.description} </Typography>
           <Typography variant="h5" color="secondary"> Posted By: {props.post.postedBy} </Typography>
           <Typography align="right" variant="h5" color="secondary"> {date + " @ " + time} </Typography>
@@ -80,11 +79,11 @@ function PostDisplay(props) {
             if (comment.imageUrl) {
               return (
                 <div key={comment.psudeoId}>
-                  <hr/>
                   
                   <Typography variant="h6" color="secondary"> <b>{comment.postedBy}:</b> {comment.comment} </Typography>
+                  <img src={comment.imageUrl} alt="" width="50%" />
                   <Typography align="right" variant="h6" color="secondary"> {commentDate + " @ " + commentTime} </Typography>
-                  <img src={comment.imageUrl} alt="" height="200" width="200" />
+                  
                 </div>
             )
             }
@@ -92,7 +91,6 @@ function PostDisplay(props) {
             else {
               return (
                 <div key={comment.psudeoId}>
-                <hr/>
                 <Typography variant="h6" color="secondary"> <b>{comment.postedBy}:</b> {comment.comment} </Typography>
                 <Typography align="right" variant="h6" color="secondary"> {commentDate + " @ " + commentTime} </Typography>
                 </div>

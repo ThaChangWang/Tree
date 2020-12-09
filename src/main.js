@@ -7,7 +7,6 @@ import LogIn from "./Auth/logIn"
 import Home from "./Home/home"
 import Feedback from "./Home/feedback"
 import UploadTreeForm from "./Upload/uploadTreeForm"
-import AdoptMap from "./Find/adoptMap"
 import Profile from "./Profile/profile"
 
 import treeImg from "./images/tree.png"
@@ -56,7 +55,6 @@ function Main(props) {
 
   }, [user])
 
-
     const headerstyle = {
       textAlign: "center"
     }
@@ -68,19 +66,14 @@ function Main(props) {
 
           <div style={headerstyle}>
 
-          <img src={treeImg} alt="" height="50" width="50" /> 
+          <img src={treeImg} alt="" width="50" /> 
           <Typography className={classes.title} gutterBottom variant="h2" align="center" color="secondary"> Community Tree </Typography>
-          <img src={treeImg} alt="" height="50" width="50" />
+          <img src={treeImg} alt="" width="50" />
 
           <br/>
           <br/>
 
           <Button className={classes.clickedButtonStyle} variant="outlined" color="secondary" onClick={() => setPage("home")}>home</Button>
-
-          {user ? 
-          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("find")}>find</Button>) :
-          null
-          }
           
           {user ? 
           (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("upload")}>upload</Button>) :
@@ -93,13 +86,13 @@ function Main(props) {
           }
 
           {user ? 
-          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => [auth.signOut(), setPage("home")]}>logout</Button>) :
-          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("login")}>login</Button>)
-          }
-
-          {user ? 
           (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("feedback")}>feedback</Button>) :
           null
+          }
+
+           {user ? 
+          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => [auth.signOut(), setPage("home")]}>logout</Button>) :
+          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("login")}>login</Button>)
           }
 
           </div>
@@ -115,61 +108,6 @@ function Main(props) {
       
     }
 
-    
-    else if (page === "find") {
-
-      return (
-        <div>
-
-          <div style={headerstyle}>
-
-          <img src={treeImg} alt="" height="50" width="50" />
-          <Typography className={classes.title} gutterBottom variant="h2" align="center" color="secondary"> Community Tree </Typography>
-          <img src={treeImg} alt="" height="50" width="50" />
-
-          <br/>
-          <br/>
-
-          <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("home")}>home</Button>
-
-          {user ? 
-          (<Button className={classes.clickedButtonStyle} variant="outlined" color="secondary" onClick={() => setPage("find")}>find</Button>) :
-          null
-          }
-
-          {user ? 
-          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("upload")}>upload</Button>) :
-          null
-          }
-
-          {user ? 
-          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("profile")}>{user.displayName}</Button>) :
-          null
-          }
-
-          {user ? 
-          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => [auth.signOut(), setPage("home")]}>logout</Button>) :
-          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("login")}>login</Button>)
-          }
-
-          {user ? 
-          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("feedback")}>feedback</Button>) :
-          null
-          }
-
-
-          </div>
-
-
-          <br/>
-
-          <AdoptMap uid={user.uid} username={user.displayName} />
-
-
-
-        </div>
-      )
-    }
 
     else if (page === "upload") {
 
@@ -179,19 +117,14 @@ function Main(props) {
 
           <div style={headerstyle}>
 
-          <img src={treeImg} alt="" height="50" width="50" />
+          <img src={treeImg} alt="" width="50" />
           <Typography className={classes.title} gutterBottom variant="h2" align="center" color="secondary"> Community Tree </Typography>
-          <img src={treeImg} alt="" height="50" width="50" />
+          <img src={treeImg} alt="" width="50" />
 
           <br/>
           <br/>
 
           <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("home")}>home</Button>
-
-          {user ? 
-          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("find")}>find</Button>) :
-          null
-          }
           
           {user ? 
           (<Button className={classes.clickedButtonStyle} variant="outlined" color="secondary" onClick={() => setPage("upload")}>upload</Button>) :
@@ -204,18 +137,19 @@ function Main(props) {
           }
 
           {user ? 
-          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => [auth.signOut(), setPage("home")]}>logout</Button>) :
-          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("login")}>login</Button>)
-          }
-
-          {user ? 
           (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("feedback")}>feedback</Button>) :
           null
+          }
+
+           {user ? 
+          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => [auth.signOut(), setPage("home")]}>logout</Button>) :
+          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("login")}>login</Button>)
           }
 
 
           </div>
 
+          <br />
           <UploadTreeForm uid={user.uid} username={user.displayName} />
 
         </div>
@@ -230,20 +164,15 @@ function Main(props) {
 
           <div style={headerstyle}>
 
-          <img src={treeImg} alt="" height="50" width="50" />
+          <img src={treeImg} alt="" width="50" />
           <Typography className={classes.title} gutterBottom variant="h2" align="center" color="secondary"> Community Tree </Typography>
-          <img src={treeImg} alt="" height="50" width="50" />
+          <img src={treeImg} alt="" width="50" />
 
           <br/>
           <br/>
 
 
           <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("home")}>home</Button>
-
-          {user ? 
-          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("find")}>find</Button>) :
-          null
-          }
 
           {user ? 
           (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("upload")}>upload</Button>) :
@@ -256,13 +185,13 @@ function Main(props) {
           }
 
           {user ? 
-          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => [auth.signOut(), setPage("home")]}>logout</Button>) :
-          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("login")}>login</Button>)
-          }
-
-          {user ? 
           (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("feedback")}>feedback</Button>) :
           null
+          }
+
+           {user ? 
+          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => [auth.signOut(), setPage("home")]}>logout</Button>) :
+          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("login")}>login</Button>)
           }
 
 
@@ -284,19 +213,14 @@ function Main(props) {
 
           <div style={headerstyle}>
 
-          <img src={treeImg} alt="" height="50" width="50" />
+          <img src={treeImg} alt="" width="50" />
           <Typography className={classes.title} gutterBottom variant="h2" align="center" color="secondary"> Community Tree </Typography>
-          <img src={treeImg} alt="" height="50" width="50" />
+          <img src={treeImg} alt="" width="50" />
 
           <br/>
           <br/>
 
           <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("home")}>home</Button>
-
-          {user ? 
-          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("find")}>find</Button>) :
-          null
-          }
 
           {user ? 
           (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("upload")}>upload</Button>) :
@@ -309,13 +233,13 @@ function Main(props) {
           }
 
           {user ? 
-          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => [auth.signOut(), setPage("home")]}>logout</Button>) :
-          (<Button className={classes.clickedButtonStyle} variant="outlined" color="secondary" onClick={() => setPage("login")}>login</Button>)
-          }
-
-          {user ? 
           (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("feedback")}>feedback</Button>) :
           null
+          }
+
+           {user ? 
+          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => [auth.signOut(), setPage("home")]}>logout</Button>) :
+          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("login")}>login</Button>)
           }
 
           </div>
@@ -343,19 +267,14 @@ function Main(props) {
 
           <div style={headerstyle}>
 
-          <img src={treeImg} alt="" height="50" width="50" />
+          <img src={treeImg} alt="" width="50" />
           <Typography className={classes.title} gutterBottom variant="h2" align="center" color="secondary"> Community Tree </Typography>
-          <img src={treeImg} alt="" height="50" width="50" />
+          <img src={treeImg} alt="" width="50" />
 
           <br/>
           <br/>
 
           <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("home")}>home</Button>
-
-          {user ? 
-          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("find")}>find</Button>) :
-          null
-          }
 
           {user ? 
           (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("upload")}>upload</Button>) :
@@ -368,13 +287,13 @@ function Main(props) {
           }
 
           {user ? 
-          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => [auth.signOut(), setPage("home")]}>logout</Button>) :
-          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("login")}>login</Button>)
-          }
-
-          {user ? 
           (<Button className={classes.clickedButtonStyle} variant="outlined" color="secondary" onClick={() => setPage("feedback")}>feedback</Button>) :
           null
+          }
+
+           {user ? 
+          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => [auth.signOut(), setPage("home")]}>logout</Button>) :
+          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("login")}>login</Button>)
           }
 
           </div>
