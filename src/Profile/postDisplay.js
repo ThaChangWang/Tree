@@ -19,6 +19,8 @@ function PostDisplay(props) {
 
     const classes = useStyles()
 
+    console.log(props.post)
+
     let date = ""
     let time = ""
     
@@ -56,6 +58,10 @@ function PostDisplay(props) {
       border: "4px solid blue"
    }
 
+   const commentsep = {
+      border: "1px solid blue"
+   }
+
     return (
       <div className={classes.root}>
         <div>
@@ -68,8 +74,13 @@ function PostDisplay(props) {
         <div style={commentstyle} className={classes.comment}>
           {comments.length > 0 ? comments.map(comment => {
 
+            console.log(comment)
+            console.log(comments)
+
             let commentDate = ""
             let commentTime = ""
+
+            
             
             if (comment.timestamp) {
               commentDate = comment.timestamp.toDate().toLocaleDateString()
@@ -79,6 +90,8 @@ function PostDisplay(props) {
             if (comment.imageUrl) {
               return (
                 <div key={comment.psudeoId}>
+
+                  {comments[0].psudeoId === comment.psudeoId ? null : <hr style={commentsep}/>}
                   
                   <Typography variant="h6" color="secondary"> <b>{comment.postedBy}:</b> {comment.comment} </Typography>
                   <img src={comment.imageUrl} alt="" width="50%" />
@@ -86,11 +99,15 @@ function PostDisplay(props) {
                   
                 </div>
             )
+
             }
 
             else {
               return (
                 <div key={comment.psudeoId}>
+
+                {comments[0].psudeoId === comment.psudeoId ? null : <hr style={commentsep}/>}
+
                 <Typography variant="h6" color="secondary"> <b>{comment.postedBy}:</b> {comment.comment} </Typography>
                 <Typography align="right" variant="h6" color="secondary"> {commentDate + " @ " + commentTime} </Typography>
                 </div>

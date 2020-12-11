@@ -25,6 +25,7 @@ function SignUp(props) {
   .then((authUser) => {
 
     db.collection("profiles").add({
+          username: formData.displayName,
           imageUrl: null,
           uid: authUser.user.uid,
           bio: null

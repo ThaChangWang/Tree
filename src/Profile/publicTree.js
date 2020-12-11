@@ -1,5 +1,6 @@
 import React from "react"
 import FullTreePage from "./fullTreePage"
+import ProfileLink from "./profileLink"
 import { db } from "../firebase"
 
 import { Button, Typography } from "@material-ui/core"
@@ -12,7 +13,8 @@ class PublicTree extends React.Component {
     super()
     this.state = {
       fullPage: false,
-      tree: null
+      tree: null,
+      treeId: null
     }
     this.updateOwner = this.updateOwner.bind(this)
     
@@ -22,16 +24,19 @@ class PublicTree extends React.Component {
     isMounted = true
     db.collection("publicTrees").onSnapshot(snapshot => {
       let thisTree = null
+      let thisId = null
 
       snapshot.docs.forEach(doc => {
         if(doc.data().psudeoId === this.props.psudeoId) {
           thisTree = doc.data()
+          thisId = doc.id
         }
       })
       
       if (isMounted) {
         this.setState({
-          tree: thisTree
+          tree: thisTree,
+          treeId: thisId
       })
       }
       
@@ -71,24 +76,11 @@ class PublicTree extends React.Component {
 
       }
 
-      if (this.state.fullPage) {
-        return (
-          <div style={treestyle}>
-            <FullTreePage uid={this.props.uid} username={this.props.username} tree={this.state.tree}/>
-            <hr/>
-            <Button variant="outlined" color="secondary" onClick={() => this.setState({fullPage: false})}> Close Posts </Button>
-          </div>
-        )
-
-      }
-
-      else {
+        if(this.state.tree) {
 
         let tree = this.state.tree
 
-        if(tree) {
-
-          if (this.props.username) {
+         console.log(this.state.tree.owner)
 
             let date = ""
             let time = ""
@@ -101,7 +93,6 @@ class PublicTree extends React.Component {
             return (
               <div style={treestyle}>
                 <Typography variant="h2" color="secondary"> {tree.name} </Typography>
-                <Button variant="outlined" color="secondary" onClick={() => this.setState({fullPage: true})}> View Posts </Button>
                 
                 {tree.owner ? 
                   null :
@@ -114,42 +105,28 @@ class PublicTree extends React.Component {
                 <div>
                 <br/>
                 <img src={tree.imageUrl} alt="" width="100%" />
-                <Typography variant="h4" color="secondary"> {tree.description} </Typography>
                 </div>
 
-                <Typography variant="h5" color="secondary"> Posted by: {tree.postedBy} </Typography>
-                <Typography variant="h5" color="secondary" align="right"> {date + " " + time} </Typography>
-              </div>
-          
-        )
+                <br />
 
-          }
-
-          else {
-
-            return (
-              <div style={treestyle}>
-                <hr/>
-                <Typography variant="h2" color="secondary">{tree.name}</Typography>
-                <Button variant="outlined" color="secondary" onClick={() => this.setState({fullPage: true})}> View Full Page </Button>
+                {tree.owner ? 
+                <ProfileLink ownerId={tree.owner}/> :
+                <Typography variant="h5" color="secondary" align="left"> No Owner </Typography>}
                 
-                <div>
-                <br/>
-                <img src={tree.imageUrl} alt="" width="100%" />
-                <Typography variant="h4" color="secondary"> {tree.description} </Typography>
-                </div>
+                <Typography variant="h5" color="secondary" align="right"> {date + " " + time} </Typography>
+                <Button variant="outlined" color="secondary" onClick={() => this.setState({fullPage: true})}> View Posts </Button>
+                <br />
+                <br />
 
-                <Typography variant="h5" color="secondary"> Posted by: {tree.postedBy} </Typography>
-                <Typography variant="h5" color="secondary"> {tree.time} </Typography>
-                <hr/>
+                {this.state.fullPage ? 
+                [<FullTreePage uid={this.props.uid} treeId={this.state.treeId} username={this.props.username} tree={this.state.tree}/>,
+                <hr/>,
+                <Button variant="outlined" color="secondary" onClick={() => this.setState({fullPage: false})}> Close Posts </Button>,
+                <br />] :
+                null}
               </div>
           
         )
-
-          }
-
-          
-          
         }
 
         else{
@@ -159,11 +136,6 @@ class PublicTree extends React.Component {
           )
           
         }
-
-        
-      }
-
-      
     
   }
 }

@@ -53,24 +53,32 @@ function UploadTreeForm(props) {
         let generatedId = Math.random().toString(36)
 
         storage.ref("images").child(formData.image.name + "-" + props.uid).getDownloadURL().then(url => {
-          db.collection("posts").add({
-            psudeoId: Math.random().toString(36),
+          db.collection("publicTrees").add({
+            psudeoId: generatedId,
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+            latitude: formData.lat,
+            longitude: formData.lng,
+            name: formData.name,
+            owner: props.uid,
             imageUrl: url,
-            description: formData.description,
-            postedBy: props.username,
-            treeId: generatedId
-            
-          })
-        })
+          }).then(
+            db.collection("publicTrees").where("psudeoId", "==", generatedId).get()
+            .then(function(querySnapshot) {
+              querySnapshot.forEach(function(doc) {
+              console.log(doc.id, " => ", doc.data())
 
-        db.collection("publicTrees").add({          
-          psudeoId: generatedId,
-          latitude: formData.lat,
-          longitude: formData.lng,
-          name: formData.name,
-          owner: props.uid,
-          
+                db.collection("publicTrees").doc(doc.id).collection("posts").add({
+                  psudeoId: Math.random().toString(36),
+                  postedBy: props.username,
+                  postedbyId: props.uid,
+                  timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                  imageUrl: url,
+                  description: formData.description
+                })
+
+              })
+            })
+          )
         })
       })
 
