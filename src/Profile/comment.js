@@ -45,14 +45,15 @@ function Comment(props) {
             },
             () => {
               storage.ref("images").child(formData.image.name + "-" + props.uid).getDownloadURL().then(url => {
-                db.collection("comments").add({
+                db.collection("publicTrees").doc(props.treeId).collection("posts")
+                .doc(props.postId).collection("comments").add({
                   imageUrl: url,
                   timestamp: firebase.firestore.FieldValue.serverTimestamp(),
                   postedBy: props.username,
                   postedById: props.uid,
                   comment: formData.comment,
-                  psudeoId: Math.random().toString(36),
-                  postId: props.post.psudeoId
+                  psudeoId: Math.random().toString(36)
+
                 })
               })
             })
@@ -61,14 +62,15 @@ function Comment(props) {
 
     else {
 
-      db.collection("comments").add({
+      db.collection("publicTrees").doc(props.treeId).collection("posts")
+      .doc(props.postId).collection("comments").add({
         imageUrl: null,
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         postedBy: props.username,
         postedById: props.uid,
         comment: formData.comment,
         psudeoId: Math.random().toString(36),
-        postId: props.post.psudeoId
+
       })
 
     }

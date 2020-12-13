@@ -114,7 +114,11 @@ class PublicTree extends React.Component {
                 <Typography variant="h5" color="secondary" align="left"> No Owner </Typography>}
                 
                 <Typography variant="h5" color="secondary" align="right"> {date + " " + time} </Typography>
+                {this.state.fullPage ? 
+                <Button variant="outlined" color="secondary" onClick={() => this.setState({fullPage: false})}> Close Posts </Button> :
                 <Button variant="outlined" color="secondary" onClick={() => this.setState({fullPage: true})}> View Posts </Button>
+                }
+                
                 <br />
                 <br />
 
@@ -132,7 +136,7 @@ class PublicTree extends React.Component {
         else{
 
           return (
-            <Typography variant="h3" color="secondary"> Loading Tree... If you are able to read through this entire message then something went wrong </Typography>
+            <Typography variant="h3" color="secondary"> Loading... </Typography>
           )
           
         }

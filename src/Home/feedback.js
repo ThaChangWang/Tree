@@ -15,11 +15,11 @@ const useStyles = makeStyles((theme) => ({
   },
   email: {
     margin: theme.spacing(1),
-    width: "30ch"
+    width: "50%"
   },
   message: {
     margin: theme.spacing(1),
-    width: '75ch'
+    width: '80%'
   }
 }))
 
@@ -42,7 +42,8 @@ function Feedback(props) {
 
   const signupstyle = {
   backgroundColor: "#FAEBD7",
-  paddingLeft: "10px"
+  paddingLeft: "10px",
+  border: "4px solid brown"
 }
 
   return (
@@ -115,6 +116,8 @@ function Feedback(props) {
         <br/>
        
         <Button type="submit" color="secondary" variant="outlined" disabled={isSubmitting}> Send </Button>
+        <br />
+        <br />
       </Form>
       )}
     </Formik>
