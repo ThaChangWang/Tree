@@ -49,7 +49,7 @@ function Feedback(props) {
   return (
 
     <div style={signupstyle}>
-    <Typography variant="h3" color="secondary"> Feedback: </Typography>
+    <Typography variant="h2" color="secondary"> Feedback: </Typography>
     <Formik
       initialValues = {{  
         email: "", 

@@ -101,6 +101,8 @@ function LogIn(props) {
         <br/>
         {errors.password && touched.password}
         <Button type="submit" color="secondary" variant="outlined" disabled={isSubmitting}> Submit </Button>
+        <br />
+        <br />
       </Form>
       )}
     </Formik>

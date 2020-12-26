@@ -28,7 +28,8 @@ function SignUp(props) {
           username: formData.displayName,
           imageUrl: null,
           uid: authUser.user.uid,
-          bio: null
+          bio: null,
+          acorns: 0
         })
 
   return authUser.user.updateProfile({
@@ -150,6 +151,8 @@ function SignUp(props) {
           />
         </Box>
         <Button type="submit" color="secondary" variant="outlined" disabled={isSubmitting}> Submit </Button>
+        <br />
+        <br />
       </Form>
       )}
     </Formik>

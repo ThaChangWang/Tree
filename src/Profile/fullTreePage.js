@@ -106,7 +106,7 @@ class FullTreePage extends React.Component {
         <div style={treestyle}>
 
           <div>
-            {this.props.uid === this.props.tree.owner ? 
+            {(this.props.uid === this.props.tree.owner) && this.props.main ? 
             <Post postUpdate={this.postUpdate} username={this.props.username} treeId={this.props.tree.psudeoId} uid={this.props.uid} /> :
             null 
             }
@@ -123,7 +123,6 @@ class FullTreePage extends React.Component {
               <PostDisplay post={post} treeId={this.props.treeId} postId={this.state.postIds[index]}/>
               <Comment uid={this.props.uid} username={this.props.username} post={post} treeId={this.props.treeId} postId={this.state.postIds[index]} />
               <hr style={postborder}/>
-              <br />
               </div>
             }) :
               <Typography variant="h4" color="secondary"> No Posts on Tree </Typography>}

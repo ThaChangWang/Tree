@@ -199,7 +199,7 @@ function Main(props) {
 
         <br/>
 
-        <Profile uid={user.uid} username={user.displayName} setPage={setPage}/>
+        <Profile uid={user.uid} username={user.displayName} main={true} />
 
         </div>
       )

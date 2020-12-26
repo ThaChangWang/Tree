@@ -82,7 +82,7 @@ class Profile extends React.Component {
       return (
       <div style={profilestyle}>
         
-        <Typography variant="h3" align="center" color="secondary"> {this.props.username} </Typography>
+        <Typography variant="h2" align="center" color="secondary"> {this.props.username} </Typography>
         <hr/>
         <Grid container spacing={4}>
           <Grid item xs={6}>
@@ -93,18 +93,22 @@ class Profile extends React.Component {
             
           </Grid>
           <Grid item xs={6}>
-            <Typography variant="h3" align="left" color="secondary"> Acorns: {this.state.profile.acorns} </Typography>
+            <Typography variant="h2" align="left" color="secondary"> Acorns: {this.state.profile.acorns} </Typography>
           </Grid>
         </Grid>
         
         <Typography variant="h5" align="left" color="secondary"> {this.state.profile.bio} </Typography>
         <br/>
-        <Button variant="outlined" color="secondary" onClick={this.setEdit}> Edit Profile </Button>
+        {this.props.main ?
+        <Button variant="outlined" color="secondary" onClick={this.setEdit}> Edit Profile </Button> :
+        null
+        }
+        
 
         <hr/>
-        <Typography variant="h3" align="center" color="secondary"> Adopted Trees </Typography>
+        <Typography variant="h2" align="center" color="secondary"> Adopted Trees </Typography>
         <hr/>
-        <MyTrees uid={this.props.uid} username={this.props.username}/>
+        <MyTrees uid={this.props.uid} username={this.props.username} main={this.props.main}/>
 
         
       </div>

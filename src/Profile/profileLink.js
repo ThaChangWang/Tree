@@ -1,6 +1,7 @@
 
 import React from "react"
 import { db } from "../firebase"
+import Profile from "./profile"
 
 import { Typography, Button, Avatar } from "@material-ui/core"
 
@@ -9,7 +10,8 @@ import { Typography, Button, Avatar } from "@material-ui/core"
   constructor() {
     super()
     this.state = {
-      profile: null
+      profile: null,
+      fullProfile: false
     }
     
   }
@@ -40,8 +42,12 @@ import { Typography, Button, Avatar } from "@material-ui/core"
       return (
         <div>
         <Typography variant="h5" align="left" color="secondary" display="inline"> Owner: </Typography>
-        <Button style={ownerstyle} variant="outlined" startIcon={<Avatar src={this.state.profile.imageUrl}/>}> {this.state.profile.username}
+        <Button style={ownerstyle} variant="outlined" startIcon={<Avatar src={this.state.profile.imageUrl}/>} onClick={() => this.setState({fullProfile: !this.state.fullProfile})}> {this.state.profile.username}
       </Button>
+      {this.state.fullProfile ?
+      <Profile uid={this.props.ownerId} username={this.state.profile.username} main={false} /> :
+      null
+      }
         </div>
       )
     }

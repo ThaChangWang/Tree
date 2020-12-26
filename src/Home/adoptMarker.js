@@ -1,12 +1,23 @@
 import React from "react"
 
-class AdoptMarker extends React.Component {
+import { Button, makeStyles } from "@material-ui/core"
 
-  render() {
+const useStyles = makeStyles((theme) => ({
+  
+  button: {
+   width: 5,
+   height: 20
+  }
+
+}))
+
+function AdoptMarker(props) {
+
+    const classes = useStyles()
 
     let adoptstyle
 
-    if (this.props.tree.owner === this.props.uid) {
+    if (props.tree.owner === props.uid) {
       adoptstyle = {
         color: "white",
         backgroundColor: "blue",
@@ -15,13 +26,13 @@ class AdoptMarker extends React.Component {
 
       return (
         <div>
-          <img src={this.props.tree.imageUrl} alt="" width="50" />
-          <button style={adoptstyle} onClick={() => this.props.function(this.props.tree)}> Owner </button>
+          <img src={props.tree.imageUrl} alt="" width="62" />
+          <Button variant="outlined" className={classes.button} style={adoptstyle} onClick={() => props.function(props.tree)}> Owner  </Button>
         </div>
       )
     }
       
-    else if (this.props.tree.owner) {
+    else if (props.tree.owner) {
       adoptstyle = {
         color: "white",
         backgroundColor: "green",
@@ -30,8 +41,8 @@ class AdoptMarker extends React.Component {
 
       return (
         <div>
-          <img src={this.props.tree.imageUrl} alt="" width="50" />
-          <button style={adoptstyle} onClick={() => this.props.function(this.props.tree)}> Owned </button>
+          <img src={props.tree.imageUrl} alt="" width="62" />
+          <Button variant="outlined" size="small" className={classes.button} style={adoptstyle} onClick={() => props.function(props.tree)}> Owned </Button>
         </div>
     )
     }
@@ -44,13 +55,13 @@ class AdoptMarker extends React.Component {
 
       return (
         <div>
-          <img src={this.props.tree.imageUrl} alt="" width="50" />
-          <button style={adoptstyle} onClick={() => this.props.function(this.props.tree)}> Orphan </button>
+          <img src={props.tree.imageUrl} alt="" width="62" />
+          <Button variant="outlined" className={classes.button} style={adoptstyle} onClick={() => props.function(props.tree)}> Orphan </Button>
         </div>
     )
     }
     
   }
-}
+
 
 export default AdoptMarker

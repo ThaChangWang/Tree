@@ -98,7 +98,7 @@ class PublicTree extends React.Component {
                   null :
                   <Button variant="outlined" color="secondary" onClick={() => this.updateOwner(this.props.uid)}> Adopt Tree </Button>}
 
-                {tree.owner === this.props.uid ? 
+                {(tree.owner === this.props.uid) && this.props.main ? 
                   <Button variant="outlined" color="secondary" onClick={() => this.updateOwner(null)}> Release from Care </Button> :
                   null}
 
@@ -109,9 +109,10 @@ class PublicTree extends React.Component {
 
                 <br />
 
-                {tree.owner ? 
+                {tree.owner && this.props.main ? 
                 <ProfileLink ownerId={tree.owner}/> :
-                <Typography variant="h5" color="secondary" align="left"> No Owner </Typography>}
+                null
+                }
                 
                 <Typography variant="h5" color="secondary" align="right"> {date + " " + time} </Typography>
                 {this.state.fullPage ? 
@@ -123,9 +124,9 @@ class PublicTree extends React.Component {
                 <br />
 
                 {this.state.fullPage ? 
-                [<FullTreePage uid={this.props.uid} treeId={this.state.treeId} username={this.props.username} tree={this.state.tree}/>,
-                <hr/>,
+                [<FullTreePage uid={this.props.uid} treeId={this.state.treeId} username={this.props.username} tree={this.state.tree} main={this.props.main}/>,
                 <Button variant="outlined" color="secondary" onClick={() => this.setState({fullPage: false})}> Close Posts </Button>,
+                <br />,
                 <br />] :
                 null}
               </div>
