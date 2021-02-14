@@ -70,11 +70,19 @@ function EditProfile(props) {
   }
 
 
-
+  const signupstyle = {
+      backgroundColor: "#FFFFF0",
+      borderRadius: "15px",
+      boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
+      paddingLeft: "10px",
+      paddingRight: "10px",
+      marginLeft: "10px",
+      marginRight: "10px"
+  }
 
   return (
 
-    <div>
+    <div style={signupstyle}>
     <Typography variant="h2" color="secondary"> Edit Profile: </Typography>
     <Formik
       initialValues = {{ 
@@ -138,6 +146,8 @@ function EditProfile(props) {
 
 
       <Button type="submit" color="secondary" variant="outlined" disabled={isSubmitting}> Submit </Button>
+      <br />
+      <br />
 
       </Form>
 

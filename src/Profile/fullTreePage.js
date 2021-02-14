@@ -91,7 +91,7 @@ class FullTreePage extends React.Component {
   render() {
 
     const treestyle = {
-        backgroundColor: "#90EE90",
+        backgroundColor: "#FFFFF0",
       }
 
     const postborder = {

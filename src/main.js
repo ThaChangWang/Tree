@@ -66,14 +66,21 @@ function Main(props) {
 
           <div style={headerstyle}>
 
-          <img src={treeImg} alt="" width="50" /> 
-          <Typography className={classes.title} gutterBottom variant="h2" align="center" color="secondary"> Community Tree </Typography>
-          <img src={treeImg} alt="" width="50" />
+          {user ? 
+          [<img src={treeImg} alt="" width="50" />,
+          <Typography className={classes.title} gutterBottom variant="h2" align="center" color="secondary"> Community Tree </Typography>,
+          <img src={treeImg} alt="" width="50" />] :
+          null
+          }
+          
 
           <br/>
           <br/>
 
-          <Button className={classes.clickedButtonStyle} variant="outlined" color="secondary" onClick={() => setPage("home")}>home</Button>
+          {user ?
+          <Button className={classes.clickedButtonStyle} variant="outlined" color="secondary" onClick={() => setPage("home")}>home</Button> :
+          null
+          }
           
           {user ? 
           (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("upload")}>upload</Button>) :
@@ -92,7 +99,7 @@ function Main(props) {
 
            {user ? 
           (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => [auth.signOut(), setPage("home")]}>logout</Button>) :
-          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("login")}>login</Button>)
+          null
           }
 
           </div>

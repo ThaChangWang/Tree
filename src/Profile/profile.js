@@ -3,7 +3,7 @@ import EditProfile from "./editProfile"
 import MyTrees from "./myTrees"
 import { db } from "../firebase"
 
-import { Button, Typography, Grid } from "@material-ui/core"
+import { Button, Typography, Grid, Avatar } from "@material-ui/core"
 import profilePic from "../images/profilePic.png"
 
 let isMounted = false
@@ -59,10 +59,13 @@ class Profile extends React.Component {
   render() {
 
       const profilestyle = {
-        backgroundColor: "#FAEBD7",
-        border: "4px solid brown",
+        backgroundColor: "#FFFFF0",
+        borderRadius: "15px",
+        boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
         paddingLeft: "10px",
-        paddingRight: "10px"
+        paddingRight: "10px",
+        marginLeft: "10px",
+        marginRight: "10px"
       }
 
     if (this.state.editing) {
@@ -85,19 +88,19 @@ class Profile extends React.Component {
         <Typography variant="h2" align="center" color="secondary"> {this.props.username} </Typography>
         <hr/>
         <Grid container spacing={4}>
-          <Grid item xs={6}>
+          <Grid item xs={12} sm={6}>
             {this.state.profile.imageUrl ? 
-              <img src={this.state.profile.imageUrl} alt="" width="100%" /> :
-              <img src={profilePic} alt="" width="100%" />
+              <Avatar src={this.state.profile.imageUrl} alt="" style={{ height: "250px", width: "250px" }} /> :
+              <Avatar src={profilePic} alt="" style={{ height: '200px', width: '200px' }} />
             }
             
           </Grid>
-          <Grid item xs={6}>
-            <Typography variant="h2" align="left" color="secondary"> Acorns: {this.state.profile.acorns} </Typography>
+          <Grid item xs={12} sm={6}>
+            <Typography variant="h5" align="left" color="secondary"> {this.state.profile.bio} </Typography>
+
           </Grid>
         </Grid>
         
-        <Typography variant="h5" align="left" color="secondary"> {this.state.profile.bio} </Typography>
         <br/>
         {this.props.main ?
         <Button variant="outlined" color="secondary" onClick={this.setEdit}> Edit Profile </Button> :

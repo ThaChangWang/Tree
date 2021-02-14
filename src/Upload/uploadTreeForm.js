@@ -98,10 +98,13 @@ function UploadTreeForm(props) {
   }, [])
 
   const uploadstyle = {
-    backgroundColor: "#FAEBD7",
-    border: "4px solid brown",
+    backgroundColor: "#FFFFF0",
+    borderRadius: "15px",
+    boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
     paddingLeft: "10px",
-    paddingRight: "10px"
+    paddingRight: "10px",
+    marginLeft: "10px",
+    marginRight: "10px"
   }
 
 

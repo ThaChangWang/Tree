@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react"
 import AdoptMap from "./adoptMap"
+import LogIn from "../Auth/logIn"
+import SignUp from "../Auth/signUp"
 
-import { Typography } from '@material-ui/core'
+import { Typography, Button, Grid } from '@material-ui/core'
 
 function Home(props) {
 
     const [dateNum, setDateNum] = useState(null)
+    const [newUser, setNewUser] = useState(false)
 
     useEffect(() => {
     
@@ -17,13 +20,6 @@ function Home(props) {
       setDateNum(year + month + day)
 
     }, [])
-
-    const messagestyle = {
-      backgroundColor: "#FAEBD7",
-      border: "4px solid brown",
-      paddingLeft: "10px",
-      paddingRight: "10px"
-    }
 
     console.log(dateNum)
 
@@ -42,24 +38,23 @@ function Home(props) {
 
       return (
       <div>
-      <br/>
-          <div style={messagestyle}>
-            <Typography variant="h5" color="secondary" align="left"> Welcome to Community Tree! </Typography>
-            <br/>
-            <Typography variant="h5" color="secondary" align="left"> Our goal is to provide people with a vehicle to adopt and care for public trees in their communities. </Typography>
-            <br/>
-            <Typography variant="h5" color="secondary" align="left"> Take a look around. Upload a tree in your community that needs care. Adopt a tree that you wish to help. </Typography>
-            <br/>
-            <Typography variant="h5" color="secondary" align="left"> Plant a public tree and document its life. </Typography>
-            <br/>
-            <Typography variant="h5" color="secondary" align="left"> Check back often. Make suggestions. We want to make this as user friendly as possible. </Typography>
-            <br/>
-            <Typography variant="h5" color="secondary" align="left"> Login to view the community driven site! </Typography>
-            <br/>
-            <Typography variant="h5" color="secondary" align="left"> Peace, </Typography>
-            <br/>
-            <Typography variant="h5" color="secondary" align="left"> Community Tree </Typography>
-          </div>
+        <Grid container spacing={3}>
+          <Grid item xs={12} sm={6}>
+            <Typography variant="h2" align="center" color="secondary"> Community Tree </Typography>
+            <Typography variant="h5" align="center" color="secondary"> Hug a tree in your community. </Typography>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <LogIn />
+            <br />
+            <Button color="secondary" variant="outlined" onClick={() => setNewUser(!newUser)}> New User? </Button>
+            <br />
+            {newUser ?
+            [<br />, 
+            <SignUp />] :
+            null}
+          </Grid>
+        </Grid>
+          
         
       </div>
     )
