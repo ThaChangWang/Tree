@@ -28,7 +28,7 @@ function Home(props) {
       return (
       <div>
       <br />
-        <AdoptMap uid={props.uid} username={props.username} />      
+        <AdoptMap uid={props.uid} username={props.username} setViewTree={props.setViewTree} setPage={props.setPage}/>      
       </div>
     )
 

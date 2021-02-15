@@ -1,5 +1,5 @@
 import React from "react"
-import PublicTree from "./publicTree"
+import PublicTreeCard from "./publicTreeCard"
 import { db } from "../firebase"
 
 import { Typography } from '@material-ui/core'
@@ -42,13 +42,14 @@ class MyTrees extends React.Component {
         {myTrees.length > 0 ? myTrees.map(tree => {
           return (
             <div key={tree.psudeoId}>
-            <PublicTree uid={this.props.uid} key={tree.psudeoId} username={this.props.username} psudeoId={tree.psudeoId} main={this.props.main} />,
-            <hr/>
+            <PublicTreeCard uid={this.props.uid} key={tree.psudeoId} username={this.props.username} psudeoId={tree.psudeoId} />
+            <br/>
+            <br/>
           </div>
           )
           
         }) :
-        <Typography variant="h5" color="secondary"> No Trees </Typography>}
+        null}
       </div>
     )
 }

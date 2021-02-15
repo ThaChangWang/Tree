@@ -3,21 +3,19 @@ import FullTreePage from "./fullTreePage"
 import ProfileLink from "./profileLink"
 import { db } from "../firebase"
 
-import { Button, Typography } from "@material-ui/core"
+import { Button, Typography, Avatar, Grid } from "@material-ui/core"
 
 
 let isMounted = false
 
-class PublicTree extends React.Component {
+class PublicTreeCard extends React.Component {
   constructor() {
     super()
     this.state = {
       fullPage: false,
       tree: null,
       treeId: null
-    }
-    this.updateOwner = this.updateOwner.bind(this)
-    
+    }    
   }
 
   componentDidMount() {
@@ -45,22 +43,6 @@ class PublicTree extends React.Component {
 
   componentWillUnmount(){
     isMounted = false
-  }
-
-  updateOwner = (owner) => {
-    db.collection("publicTrees").where("psudeoId", "==", this.props.psudeoId)
-      .get()
-      .then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-              db.collection("publicTrees").doc(doc.id).update({
-                owner: owner,
-              })
-          })
-      })
-      .catch(function(error) {
-          console.log("Error getting documents: ", error)
-      })
-
   }
 
 
@@ -93,28 +75,20 @@ class PublicTree extends React.Component {
 
             return (
               <div style={treestyle}>
-                <Typography variant="h2" color="secondary"> {tree.name} </Typography>
-                <br />
+                 <Grid container spacing={4}>
+                    <Grid item sm={12} md={8}>
+                      <Typography variant="h2" color="secondary"> {tree.name} </Typography>
+                    </Grid>
+                    <Grid item sm={12} md={4}>
+                      <Avatar src={tree.imageUrl} alt="" style={{ height: '400px', width: '400px', float:"right" }} />
+                    </Grid>
+                  </Grid>
                 
-                {tree.owner ? 
-                  null :
-                  <Button variant="outlined" color="secondary" onClick={() => this.updateOwner(this.props.uid)}> Adopt Tree </Button>}
-
-                {tree.owner === this.props.uid ? 
-                  <Button variant="outlined" color="secondary" onClick={() => this.updateOwner(null)}> Release from Care </Button> :
-                  null}
-
-                <div>
-                <br/>
-                <img src={tree.imageUrl} alt="" width="100%" />
-                </div>
-
                 <br />
 
-                {tree.owner ? 
-                <ProfileLink setPage={this.props.setPage} setViewProfile={this.props.setViewProfile} ownerId={tree.owner}/> :
-                null
-                }
+
+                
+                <br />
                 
                 <Typography variant="h5" color="secondary" align="right"> {date + " " + time} </Typography>
                 {this.state.fullPage ? 
@@ -147,4 +121,4 @@ class PublicTree extends React.Component {
   }
 }
 
-export default PublicTree
+export default PublicTreeCard

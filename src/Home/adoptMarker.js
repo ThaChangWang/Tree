@@ -27,7 +27,8 @@ function AdoptMarker(props) {
       return (
         <div>
           <img src={props.tree.imageUrl} alt="" width="62" />
-          <Button variant="outlined" className={classes.button} style={adoptstyle} onClick={() => props.function(props.tree)}> Owner  </Button>
+          <Button variant="outlined" className={classes.button} style={adoptstyle} onClick={() => [props.setViewTree(props.tree),
+          props.setPage("tree")]}> Owner  </Button>
         </div>
       )
     }
@@ -42,7 +43,8 @@ function AdoptMarker(props) {
       return (
         <div>
           <img src={props.tree.imageUrl} alt="" width="62" />
-          <Button variant="outlined" size="small" className={classes.button} style={adoptstyle} onClick={() => props.function(props.tree)}> Owned </Button>
+          <Button variant="outlined" size="small" className={classes.button} style={adoptstyle} onClick={() => [props.setViewTree(props.tree),
+          props.setPage("tree")]}> Owned </Button>
         </div>
     )
     }
@@ -56,7 +58,8 @@ function AdoptMarker(props) {
       return (
         <div>
           <img src={props.tree.imageUrl} alt="" width="62" />
-          <Button variant="outlined" className={classes.button} style={adoptstyle} onClick={() => props.function(props.tree)}> Orphan </Button>
+          <Button variant="outlined" className={classes.button} style={adoptstyle} onClick={() => [props.setViewTree(props.tree),
+          props.setPage("tree")]}> Orphan </Button>
         </div>
     )
     }

@@ -10,8 +10,7 @@ import { Typography, Button, Avatar } from "@material-ui/core"
   constructor() {
     super()
     this.state = {
-      profile: null,
-      fullProfile: false
+      profile: null
     }
     
   }
@@ -36,18 +35,20 @@ import { Typography, Button, Avatar } from "@material-ui/core"
     if (this.state.profile) {
 
       const ownerstyle = {
-        backgroundColor: "#FAEBD7"
+        backgroundColor: "#FFFFF0",
+        borderRadius: "15px",
+        boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
+        paddingLeft: "10px",
+        paddingRight: "10px",
+        marginLeft: "10px",
+        marginRight: "10px"
       }
 
       return (
         <div>
-        <Typography variant="h5" align="left" color="secondary" display="inline"> Owner: </Typography>
-        <Button style={ownerstyle} variant="outlined" startIcon={<Avatar src={this.state.profile.imageUrl}/>} onClick={() => this.setState({fullProfile: !this.state.fullProfile})}> {this.state.profile.username}
+        <Typography variant="h5" align="left" color="secondary" display="inline"> Hugged by: </Typography>
+        <Button style={ownerstyle} variant="outlined" startIcon={<Avatar src={this.state.profile.imageUrl}/>} onClick={() => [this.props.setViewProfile(this.state.profile), this.props.setPage("profileOther")]}> {this.state.profile.username}
       </Button>
-      {this.state.fullProfile ?
-      <Profile uid={this.props.ownerId} username={this.state.profile.username} main={false} /> :
-      null
-      }
         </div>
       )
     }
