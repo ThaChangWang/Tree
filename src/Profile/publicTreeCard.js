@@ -1,6 +1,5 @@
 import React from "react"
 import FullTreePage from "./fullTreePage"
-import ProfileLink from "./profileLink"
 import { db } from "../firebase"
 
 import { Button, Typography, Avatar, Grid } from "@material-ui/core"

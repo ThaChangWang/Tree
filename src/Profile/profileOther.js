@@ -2,7 +2,7 @@ import React from "react"
 import MyTrees from "./myTrees"
 import { db } from "../firebase"
 
-import { Button, Typography, Grid, Avatar } from "@material-ui/core"
+import { Typography, Grid, Avatar } from "@material-ui/core"
 import profilePic from "../images/profilePic.png"
 
 let isMounted = false
@@ -26,7 +26,7 @@ class ProfileOther extends React.Component {
   componentDidMount() {
 
     isMounted = true
-    db.collection("profiles").where("uid", "==", this.props.uid)
+    db.collection("profiles").where("uid", "==", this.props.ouid)
     .onSnapshot(querySnapshot => {
         querySnapshot.forEach(doc => {
             if (isMounted) {
@@ -62,7 +62,7 @@ class ProfileOther extends React.Component {
         return (
       <div style={profilestyle}>
         
-        <Typography variant="h2" align="center" color="secondary"> {this.props.username} </Typography>
+        <Typography variant="h2" align="center" color="secondary"> {this.props.ousername} </Typography>
         <hr/>
         <Grid container spacing={4}>
           <Grid item xs={12} sm={3}>
@@ -81,8 +81,9 @@ class ProfileOther extends React.Component {
         <br/>
         <hr/>
         <Typography variant="h2" align="center" color="secondary"> Adopted Trees </Typography>
-        <hr/>
-        <MyTrees uid={this.props.uid} username={this.props.username} />
+        <br/>
+        <br/>
+        <MyTrees suid={this.props.ouid} uid={this.props.uid} username={this.props.username} />
 
         
       </div>

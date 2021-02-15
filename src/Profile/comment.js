@@ -4,12 +4,16 @@ import { db, storage } from "../firebase"
 import firebase from "firebase"
 
 import { Formik, Form } from 'formik';
-import { Button, Typography, TextField, Input, CircularProgress, makeStyles } from '@material-ui/core'
+import { Button, Typography, TextField, Input, CircularProgress, Grid, makeStyles } from '@material-ui/core'
 
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    margin: theme.spacing(1)
+    backgroundColor: "#E6E6FA",
+    borderRadius: "15px",
+    boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
+    paddingLeft: "10px",
+    paddingRight: "10px"
   },
   error: {
     margin: theme.spacing(3),
@@ -17,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
   image: {
     margin: theme.spacing(3),
-    width: '35ch'
+    width: '80%'
   },
   comment: {
     margin: theme.spacing(3),
@@ -120,10 +124,10 @@ function Comment(props) {
         /* and other goodies */
       }) => (
       <Form onSubmit={handleSubmit} autoComplete="off" className={classes.root} >
-      <Typography variant="h4" color="secondary"> Comment: </Typography>
-      <br/>
-        <Typography variant="h5" color="secondary"> Enter a comment: </Typography>
-        <TextField
+      <Typography variant="h4" align="center" color="secondary"> Comment </Typography>
+      <Grid container spacing={4}>
+          <Grid item xs={12} sm={7}>
+            <TextField
             label="Comment"
             name="comment"
             multiline
@@ -131,21 +135,27 @@ function Comment(props) {
             rows={3}
             variant="outlined"
             onChange={handleChange}
-          />
-
+            />
+          </Grid>
+          <Grid item xs={12} sm={5}>
+            <Input className={classes.image} id="image" name="image" type="file"
+            onChange={(event) => {
+              setFieldValue("image", event.target.files[0])
+            }} />
+            <CircularProgress variant="static" value={progress} />
+          </Grid>
+        </Grid>
+        
           <div>
             <br/>
-            <Typography variant="h5" color="secondary"> Add a Picture: </Typography>
-            <Input className={classes.image} id="image" name="image" type="file"
-              onChange={(event) => {
-                setFieldValue("image", event.target.files[0])
-              }} />
-              <CircularProgress variant="static" value={progress} />
+           
           </div>
 
       <Typography className={classes.error}> {errors.image} </Typography>
 
       <Button type="submit" color="secondary" variant="outlined" disabled={isSubmitting}> Comment </Button>
+      <br />
+      <br />
 
       </Form>
 

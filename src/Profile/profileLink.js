@@ -1,7 +1,6 @@
 
 import React from "react"
 import { db } from "../firebase"
-import Profile from "./profile"
 
 import { Typography, Button, Avatar } from "@material-ui/core"
 

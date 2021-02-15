@@ -106,7 +106,7 @@ class PublicTree extends React.Component {
 
                 <div>
                 <br/>
-                <img src={tree.imageUrl} alt="" width="100%" />
+                <img src={tree.imageUrl} alt="" style={{ borderRadius: "15px" }} width="100%" />
                 </div>
 
                 <br />
@@ -127,6 +127,7 @@ class PublicTree extends React.Component {
 
                 {this.state.fullPage ? 
                 [<FullTreePage uid={this.props.uid} treeId={this.state.treeId} username={this.props.username} tree={this.state.tree} main={this.props.main}/>,
+                <br />,
                 <Button variant="outlined" color="secondary" onClick={() => this.setState({fullPage: false})}> Close Posts </Button>,
                 <br />,
                 <br />] :

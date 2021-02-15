@@ -17,7 +17,7 @@ import { auth } from "./firebase"
 const useStyles = makeStyles({
   
   buttonStyle: {
-    backgroundColor: "#9ccc65"
+    backgroundColor: "#FFFFF0"
   },
   clickedButtonStyle: {
     backgroundColor: "black",
@@ -358,7 +358,7 @@ function Main(props) {
           </div>
           <br />
 
-          <ProfileOther uid={viewProfile.uid} username={viewProfile.username} />
+          <ProfileOther ouid={viewProfile.uid} ousername={viewProfile.username} uid={user.uid} username={user.displayName} />
 
         </div>
       )

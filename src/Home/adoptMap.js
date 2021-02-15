@@ -3,8 +3,6 @@ import GoogleMapReact from 'google-map-react'
 import { db } from "../firebase"
 import AdoptMarker from "./adoptMarker"
 
-import { Button } from "@material-ui/core"
-
 let isMounted = true
 
 class AdoptMap extends React.Component {

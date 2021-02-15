@@ -2,10 +2,6 @@ import React from "react"
 import PublicTreeCard from "./publicTreeCard"
 import { db } from "../firebase"
 
-import { Typography } from '@material-ui/core'
-
-
-
 class MyTrees extends React.Component {
   constructor() {
     super()
@@ -15,7 +11,7 @@ class MyTrees extends React.Component {
   }
 
   componentDidMount() {
-    db.collection("publicTrees").where("owner", "==", this.props.uid)
+    db.collection("publicTrees").where("owner", "==", this.props.suid)
     .get()
     .then((querySnapshot) => {
         let myTrees = []

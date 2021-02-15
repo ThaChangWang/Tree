@@ -94,9 +94,16 @@ class FullTreePage extends React.Component {
         backgroundColor: "#FFFFF0",
       }
 
-    const postborder = {
-      border: "2px dotted brown"
+    const poststyle = {
+      backgroundColor: "#FFFFF0",
+      borderRadius: "15px",
+      boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
+      paddingLeft: "10px",
+      paddingRight: "10px"
     }
+
+
+    
 
     if (this.state.posts) {
 
@@ -106,7 +113,7 @@ class FullTreePage extends React.Component {
         <div style={treestyle}>
 
           <div>
-            {(this.props.uid === this.props.tree.owner) && this.props.main ? 
+            {this.props.uid === this.props.tree.owner ? 
             <Post postUpdate={this.postUpdate} username={this.props.username} treeId={this.props.tree.psudeoId} uid={this.props.uid} /> :
             null 
             }
@@ -115,17 +122,19 @@ class FullTreePage extends React.Component {
           <div>
             
             <br/>
-            <hr/>
               <Typography variant="h3" color="secondary" align="center"> Posts </Typography>
-            <hr/>
+            <br />
             {posts.length > 0 ? posts.map((post, index) => {
-              return <div key={post.psudeoId}>
+              return [<div style={poststyle} key={post.psudeoId}>
+              <br />
               <PostDisplay post={post} treeId={this.props.treeId} postId={this.state.postIds[index]}/>
+              <br />
               <Comment uid={this.props.uid} username={this.props.username} post={post} treeId={this.props.treeId} postId={this.state.postIds[index]} />
-              <hr style={postborder}/>
-              </div>
+              <br />
+              </div>,
+              <br />]
             }) :
-              <Typography variant="h4" color="secondary"> No Posts on Tree </Typography>}
+              null}
 
           </div>
 

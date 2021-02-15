@@ -3,7 +3,7 @@ import { db, storage } from "../firebase"
 import firebase from "firebase"
 
 import { Formik, Form } from 'formik';
-import { Button, Typography, TextField, Input, CircularProgress, makeStyles } from '@material-ui/core'
+import { Button, Typography, TextField, Input, CircularProgress, Grid, makeStyles } from '@material-ui/core'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   },
   image: {
     margin: theme.spacing(3),
-    width: '30ch'
+    width: '80%'
   },
   description: {
     margin: theme.spacing(3),
@@ -118,34 +118,34 @@ function Post(props) {
       <Form onSubmit={handleSubmit} autoComplete="off" className={classes.root} >
       <br/>
       <div>
-        <hr />
         <Typography align="center" variant="h3" color="secondary"> Post on Tree </Typography>
-        <hr />
         <br/>
-
         <br/>
-        <Typography variant="h5" color="secondary"> Picture of Tree: </Typography>
-        <Input className={classes.image} id="image" name="image" type="file"
-          onChange={(event) => {
-            setFieldValue("image", event.target.files[0])
-          }} />
-          <CircularProgress variant="static" value={progress} />
-
+        <Grid container spacing={4}>
+          <Grid item xs={12} sm={7}>
+            <TextField
+            label="Description"
+            name="description"
+            multiline
+            className={classes.description}
+            rows={8}
+            variant="outlined"
+            onChange={handleChange}
+          />
+          </Grid>
+          <Grid item xs={12} sm={5}>
+            <Input className={classes.image} id="image" name="image" type="file"
+            onChange={(event) => {
+              setFieldValue("image", event.target.files[0])
+            }} />
+            <CircularProgress variant="static" value={progress} />
+          </Grid>
+        </Grid>
+        
       </div>
       
       <br/>
-
-      <Typography variant="h5" color="secondary"> Enter a Description: </Typography>
-
-      <TextField
-          label="Description"
-          name="description"
-          multiline
-          className={classes.description}
-          rows={8}
-          variant="outlined"
-          onChange={handleChange}
-        />
+      
 
       <Typography className={classes.error}> {errors.image} </Typography>
 

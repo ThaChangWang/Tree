@@ -58,24 +58,22 @@ class PostDisplay extends React.Component {
 
    render() {
   
-
+  
    const commentstyle = {
+      backgroundColor: "#E6E6FA",
+      borderRadius: "15px",
+      boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
       paddingLeft: "10px",
-      paddingRight: "10px",
-      backgroundColor: "#87CEFA",
-      border: "4px solid blue"
+      paddingRight: "10px"
    }
 
-   const commentsep = {
-      border: "1px solid blue"
-   }
 
    let comments = this.state.comments
 
     return (
-      <div >
+      <div>
         <div>
-          <img src={this.props.post.imageUrl} alt="" width="100%" /> 
+          <img src={this.props.post.imageUrl} style={{ borderRadius: "15px" }} alt="" width="100%" /> 
           <Typography variant="h4" color="secondary" > {this.props.post.description} </Typography>
           <Typography variant="h5" color="secondary"> Posted By: {this.props.post.postedBy} </Typography>
           {this.props.post.timestamp ? 
@@ -100,7 +98,7 @@ class PostDisplay extends React.Component {
               return (
                 <div key={comment.psudeoId}>
 
-                  {comments[0].psudeoId === comment.psudeoId ? null : <hr style={commentsep}/>}
+                  {comments[0].psudeoId === comment.psudeoId ? null : <hr/>}
                   
                   <Typography variant="h6" color="secondary"> <b>{comment.postedBy}:</b> {comment.comment} </Typography>
                   <img src={comment.imageUrl} alt="" width="50%" />
@@ -115,7 +113,7 @@ class PostDisplay extends React.Component {
               return (
                 <div key={comment.psudeoId}>
 
-                {comments[0].psudeoId === comment.psudeoId ? null : <hr style={commentsep}/>}
+                {comments[0].psudeoId === comment.psudeoId ? null : <hr/>}
 
                 <Typography variant="h6" color="secondary"> <b>{comment.postedBy}:</b> {comment.comment} </Typography>
                 <Typography align="right" variant="h6" color="secondary"> {commentDate + " @ " + commentTime} </Typography>

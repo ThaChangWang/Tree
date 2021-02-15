@@ -88,29 +88,27 @@ class Profile extends React.Component {
         <Typography variant="h2" align="center" color="secondary"> {this.props.username} </Typography>
         <hr/>
         <Grid container spacing={4}>
-          <Grid item xs={12} sm={3}>
+          <Grid item xs={12} sm={4}>
             {this.state.profile.imageUrl ? 
               <Avatar src={this.state.profile.imageUrl} alt="" style={{ height: "250px", width: "250px" }} /> :
               <Avatar src={profilePic} alt="" style={{ height: '200px', width: '200px' }} />
             }
             
           </Grid>
-          <Grid item xs={12} sm={9}>
+          <Grid item xs={12} sm={8}>
             <Typography variant="h5" align="left" color="secondary"> {this.state.profile.bio} </Typography>
 
           </Grid>
         </Grid>
         
         <br/>
-        {this.props.main ?
         <Button variant="outlined" color="secondary" onClick={this.setEdit}> Edit Profile </Button> :
-        null
-        }
-        
+
+        <hr/>
         <Typography variant="h2" align="center" color="secondary"> Adopted Trees </Typography>
         <br/>
         <br/>
-        <MyTrees uid={this.props.uid} username={this.props.username} main={this.props.main}/>
+        <MyTrees suid={this.props.uid} uid={this.props.uid} username={this.props.username} />
 
         
       </div>
