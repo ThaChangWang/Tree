@@ -9,7 +9,7 @@ import { Button, Typography, TextField, Input, CircularProgress, Grid, makeStyle
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundColor: "#E6E6FA",
+    backgroundColor: "#F0F8FF",
     borderRadius: "15px",
     boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
     paddingLeft: "10px",
@@ -97,7 +97,7 @@ function Comment(props) {
       const errors = {}
 
       if (!values.image && !values.comment) {
-          errors.image = "Upload at least an image or a comment"
+          errors.image = "Upload an image or a comment"
         }
       
 
@@ -124,7 +124,6 @@ function Comment(props) {
         /* and other goodies */
       }) => (
       <Form onSubmit={handleSubmit} autoComplete="off" className={classes.root} >
-      <Typography variant="h4" align="center" color="secondary"> Comment </Typography>
       <Grid container spacing={4}>
           <Grid item xs={12} sm={7}>
             <TextField
@@ -161,6 +160,7 @@ function Comment(props) {
 
       )}
     </Formik>
+    <br />
   </div>
 )
 

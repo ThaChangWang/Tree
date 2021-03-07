@@ -2,7 +2,7 @@ import React from 'react';
 import { auth } from "../firebase"
 
 import { Formik, Field, Form } from 'formik';
-import { Button, Typography, Box, makeStyles } from '@material-ui/core'
+import { Button, Box, makeStyles } from '@material-ui/core'
 import { TextField } from 'formik-material-ui';
 
 
@@ -40,7 +40,6 @@ function LogIn(props) {
   return (
 
     <div style={signupstyle}>
-    <Typography variant="h2" color="secondary"> Log In: </Typography>
     <Formik
       initialValues = {{ 
         email: "", 
@@ -89,7 +88,6 @@ function LogIn(props) {
           />
         </Box>
         {errors.email && touched.email}
-        <br/>
         <Box margin={5}>
           <Field
             component={TextField}
@@ -99,9 +97,9 @@ function LogIn(props) {
             name="password"
           />
         </Box>
-        <br/>
+        <br />
         {errors.password && touched.password}
-        <Button type="submit" color="secondary" variant="outlined" disabled={isSubmitting}> Submit </Button>
+        <Button type="submit" color="secondary" variant="outlined" disabled={isSubmitting}> Log In </Button>
         <br />
         <br />
       </Form>

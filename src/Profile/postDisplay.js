@@ -60,7 +60,7 @@ class PostDisplay extends React.Component {
   
   
    const commentstyle = {
-      backgroundColor: "#E6E6FA",
+      backgroundColor: "#F0F8FF",
       borderRadius: "15px",
       boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
       paddingLeft: "10px",
@@ -72,17 +72,17 @@ class PostDisplay extends React.Component {
 
     return (
       <div>
+        <hr />
         <div>
-          <img src={this.props.post.imageUrl} style={{ borderRadius: "15px" }} alt="" width="100%" /> 
           <Typography variant="h4" color="secondary" > {this.props.post.description} </Typography>
+          <img src={this.props.post.imageUrl} style={{ borderRadius: "15px" }} alt="" width="100%" /> 
           <Typography variant="h5" color="secondary"> Posted By: {this.props.post.postedBy} </Typography>
           {this.props.post.timestamp ? 
-          <Typography align="right" variant="h5" color="secondary"> {this.props.post.timestamp.toDate().toLocaleDateString() + " @ " + this.props.post.timestamp.toDate().toLocaleTimeString()} </Typography> :
-          <Typography align="right" variant="h5" color="secondary"> "@ Right Now" </Typography>
+          <Typography align="right" variant="h5" color="secondary"> {this.props.post.timestamp.toDate().toLocaleDateString()} </Typography> :
+          null
           }
-          
-          
         </div>
+        <hr />
         <div style={commentstyle} >
           {comments.length > 0 ? comments.map(comment => {
 
@@ -101,7 +101,7 @@ class PostDisplay extends React.Component {
                   {comments[0].psudeoId === comment.psudeoId ? null : <hr/>}
                   
                   <Typography variant="h6" color="secondary"> <b>{comment.postedBy}:</b> {comment.comment} </Typography>
-                  <img src={comment.imageUrl} alt="" width="50%" />
+                  <img src={comment.imageUrl} alt="" style={{ borderRadius: "15px" }} width="50%" />
                   <Typography align="right" variant="h6" color="secondary"> {commentDate + " @ " + commentTime} </Typography>
                   
                 </div>
@@ -124,6 +124,8 @@ class PostDisplay extends React.Component {
           }) :
           <Typography variant="h5" color="secondary" align="center"> No comments </Typography> }
         </div>
+        <br />
+        <br />
       </div>
     )
    }

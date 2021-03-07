@@ -14,11 +14,9 @@ const useStyles = makeStyles((theme) => ({
     color: "red"
   },
   email: {
-    margin: theme.spacing(1),
     width: "50%"
   },
   message: {
-    margin: theme.spacing(1),
     width: '80%'
   }
 }))
@@ -34,11 +32,10 @@ function Feedback(props) {
     db.collection("feedback").add({
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
             username: props.username,
-            email: formData.email,
             message: formData.message
           })
     
-}
+    }
 
   const signupstyle = {
     backgroundColor: "#FFFFF0",
@@ -46,17 +43,13 @@ function Feedback(props) {
     boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
     paddingLeft: "10px",
     paddingRight: "10px",
-    marginLeft: "10px",
-    marginRight: "10px"
-}
+  }
 
   return (
 
     <div style={signupstyle}>
-    <Typography variant="h2" color="secondary"> Feedback: </Typography>
     <Formik
       initialValues = {{  
-        email: "", 
         message: ""
     }}
 
@@ -91,8 +84,9 @@ function Feedback(props) {
         /* and other goodies */
       }) => (
       <Form onSubmit={handleSubmit} autoComplete="off">
+      <br />
         
-        <Box margin={7}>
+        <Box margin={5}>
           <TextField
             className={classes.message}
             multiline
@@ -101,16 +95,6 @@ function Feedback(props) {
             type="text"
             label="Message"
             name="message"
-            onChange={handleChange}
-          />
-        </Box>
-
-        <Box margin={7}>
-          <TextField
-            className={classes.email}
-            type="text"
-            label="Return Email (Optional)"
-            name="email"
             onChange={handleChange}
           />
         </Box>

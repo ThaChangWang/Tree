@@ -25,9 +25,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "15px",
     boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
     paddingLeft: "10px",
-    paddingRight: "10px",
-    marginLeft: "10px",
-    marginRight: "10px"
+    paddingRight: "10px"
   }
 }))
  
@@ -54,7 +52,6 @@ function Post(props) {
           db.collection("publicTrees").where("psudeoId", "==", props.treeId).get()
             .then(function(querySnapshot) {
               querySnapshot.forEach(function(doc) {
-              console.log(doc.id, " => ", doc.data())
 
                 db.collection("publicTrees").doc(doc.id).update({
                   imageUrl: url,
@@ -90,7 +87,7 @@ function Post(props) {
       const errors = {}
 
       if (!values.image) {
-          errors.image = "Upload an image of your tree to post"
+          errors.image = "Upload an image"
         }
       
 
@@ -118,9 +115,7 @@ function Post(props) {
       <Form onSubmit={handleSubmit} autoComplete="off" className={classes.root} >
       <br/>
       <div>
-        <Typography align="center" variant="h3" color="secondary"> Post on Tree </Typography>
-        <br/>
-        <br/>
+
         <Grid container spacing={4}>
           <Grid item xs={12} sm={7}>
             <TextField
@@ -142,16 +137,12 @@ function Post(props) {
           </Grid>
         </Grid>
         
-      </div>
-      
-      <br/>
-      
+      </div>      
 
       <Typography className={classes.error}> {errors.image} </Typography>
 
-      <br/>
 
-      <Button type="submit" color="secondary" variant="outlined" disabled={isSubmitting}> Submit </Button>
+      <Button type="submit" color="secondary" variant="outlined" disabled={isSubmitting}> Post </Button>
 
       <br />
       <br />

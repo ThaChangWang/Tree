@@ -62,7 +62,7 @@ class ProfileOther extends React.Component {
         return (
       <div style={profilestyle}>
         
-        <Typography variant="h2" align="center" color="secondary"> {this.props.ousername} </Typography>
+        <Typography variant="h3" align="center" color="secondary"> {this.props.ousername} </Typography>
         <hr/>
         <Grid container spacing={4}>
           <Grid item xs={12} sm={3}>
@@ -80,7 +80,7 @@ class ProfileOther extends React.Component {
         
         <br/>
         <hr/>
-        <Typography variant="h2" align="center" color="secondary"> Adopted Trees </Typography>
+        <Typography variant="h3" align="center" color="secondary"> Hugging </Typography>
         <br/>
         <br/>
         <MyTrees suid={this.props.ouid} uid={this.props.uid} username={this.props.username} />

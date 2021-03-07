@@ -2,7 +2,7 @@ import React from 'react';
 import { auth, db } from "../firebase"
 
 import { Formik, Field, Form } from 'formik';
-import { Button, Typography, Box, makeStyles } from '@material-ui/core'
+import { Button, Box, makeStyles } from '@material-ui/core'
 import { TextField } from 'formik-material-ui';
 
 const useStyles = makeStyles((theme) => ({
@@ -57,7 +57,6 @@ function SignUp(props) {
 
   return (
     <div style={signupstyle}>
-    <Typography variant="h2" color="secondary"> Sign Up: </Typography>
     <Formik
       initialValues = {{ 
         displayName: "", 
@@ -116,7 +115,8 @@ function SignUp(props) {
         /* and other goodies */
       }) => (
       <Form onSubmit={handleSubmit} autoComplete="off">
-        <Box margin={3}>
+      <br />
+        <Box margin={5}>
           <Field
             component={TextField}
             className={classes.root}
@@ -125,7 +125,7 @@ function SignUp(props) {
             name="displayName"
           />
         </Box>
-        <Box margin={3}>
+        <Box margin={5}>
           <Field
             component={TextField}
             className={classes.root}
@@ -134,7 +134,7 @@ function SignUp(props) {
             name="email"
           />
         </Box>
-        <Box margin={3}>
+        <Box margin={5}>
           <Field
             component={TextField}
             className={classes.root}
@@ -143,7 +143,7 @@ function SignUp(props) {
             name="password"
           />
         </Box>
-        <Box margin={3}>
+        <Box margin={5}>
           <Field
             component={TextField}
             className={classes.root}
@@ -152,7 +152,8 @@ function SignUp(props) {
             name="confPassword"
           />
         </Box>
-        <Button type="submit" color="secondary" variant="outlined" disabled={isSubmitting}> Submit </Button>
+        <br />
+        <Button type="submit" color="secondary" variant="outlined" disabled={isSubmitting}> Sign Up </Button>
         <br />
         <br />
       </Form>

@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { db, storage } from "../firebase"
 
 import { Formik, Form } from 'formik';
-import { Button, Typography, TextField, Input, CircularProgress, makeStyles } from '@material-ui/core'
+import { Button, TextField, Input, CircularProgress, makeStyles } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
   
   root: {
       margin: theme.spacing(1),
-      width: '75ch'
+      width: "90%"
   }
 }))
  
@@ -83,7 +83,6 @@ function EditProfile(props) {
   return (
 
     <div style={signupstyle}>
-    <Typography variant="h2" color="secondary"> Edit Profile: </Typography>
     <Formik
       initialValues = {{ 
         bio: props.bio,
@@ -115,10 +114,9 @@ function EditProfile(props) {
         /* and other goodies */
       }) => (
       <Form onSubmit={handleSubmit} className={classes.root} noValidate autoComplete="off" >
-      <Typography variant="h5" color="secondary"> Biography: </Typography>
-
+      <br />
       <TextField
-          label="Biography"
+          label="Bio"
           name="bio"
           defaultValue={props.bio}
           multiline
@@ -129,10 +127,7 @@ function EditProfile(props) {
         />
 
         
-      <div>
-        <br/>
-        <br/>
-        <Typography variant="h5" color="secondary"> Profile Picture: </Typography>
+      <div style={{marginLeft: 10}}>
         <Input id="image" name="image" type="file"
           onChange={(event) => {
             setFieldValue("image", event.target.files[0]);
@@ -145,7 +140,7 @@ function EditProfile(props) {
       </div>
 
 
-      <Button type="submit" color="secondary" variant="outlined" disabled={isSubmitting}> Submit </Button>
+      <Button type="submit" color="secondary" variant="outlined" disabled={isSubmitting}> Update </Button>
       <br />
       <br />
 

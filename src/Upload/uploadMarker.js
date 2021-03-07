@@ -1,5 +1,6 @@
 import React from "react"
 
+import { Avatar } from "@material-ui/core"
 
 class UploadMarker extends React.Component {
 
@@ -7,7 +8,7 @@ class UploadMarker extends React.Component {
 
       return (
       <div>
-        <img src={this.props.imageUrl} alt="" height="50" width="50" />
+        <Avatar src={this.props.imageUrl} alt="" />
       </div>
       )
     

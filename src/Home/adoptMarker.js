@@ -1,64 +1,52 @@
 import React from "react"
 
-import { Button } from "@material-ui/core"
+import { Avatar, IconButton } from "@material-ui/core"
 
 function AdoptMarker(props) {
 
 
     let adoptstyle
 
-    if (props.tree.owner === props.uid) {
+    if (props.tree.huggedBy.includes(props.uid)) {
       adoptstyle = {
-        color: "white",
-        backgroundColor: "blue",
-        textAlign: "center",
-        width: "30px",
-        height: "20px"
+        border: "2px solid blue",
+        width: props.width,
+        height: props.width,
+        transform: `translate(${-props.width/2}px, ${-props.width/2}px)`
       }
 
-      return (
-        <div>
-          <img src={props.tree.imageUrl} alt="" width="62" />
-          <Button variant="outlined" style={adoptstyle} onClick={() => [props.setViewTree(props.tree),
-          props.setPage("tree")]}> Hugging </Button>
-        </div>
-      )
     }
-      
-    else if (props.tree.owner) {
+
+    else if (props.tree.length > 0) {
       adoptstyle = {
-        color: "white",
-        backgroundColor: "green",
-        textAlign: "center",
-        width: "30px",
-        height: "20px"
+        border: "2px solid green",
+        width: props.width,
+        height: props.width,
+        transform: `translate(${-props.width/2}px, ${-props.width/2}px)`
+
       }
 
-      return (
-        <div>
-          <img src={props.tree.imageUrl} alt="" width="62" />
-          <Button variant="outlined" style={adoptstyle} onClick={() => [props.setViewTree(props.tree),
-          props.setPage("tree")]}> Hugged </Button>
-        </div>
-    )
     }
+
     else {
       adoptstyle = {
-        color: "brown",
-        backgroundColor: "yellow",
-        textAlign: "center",
-        width: "30px",
-        height: "40px"
+        border: "2px solid red",
+        width: props.width,
+        height: props.width,
+        transform: `translate(${-props.width/2}px, ${-props.width/2}px)`
+
       }
+
+    }
 
       return (
         <div>
-          <img src={props.tree.imageUrl} alt="" width="62" />
-          <Button variant="outlined" style={adoptstyle} onClick={() => [props.setViewTree(props.tree),
-          props.setPage("tree")]}> Needs a Hug </Button>
+          <IconButton onClick={() => [props.setViewTree(props.tree),
+          props.setPage("tree")]} >
+            <Avatar src={props.tree.imageUrl} style={adoptstyle}/>
+          </IconButton>
         </div>
     )
-    }
     
   }
 

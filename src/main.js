@@ -6,10 +6,8 @@ import Home from "./Home/home"
 import Feedback from "./Home/feedback"
 import UploadTreeForm from "./Upload/uploadTreeForm"
 import Profile from "./Profile/profile"
-import ProfileOther from "./Profile/profileOther"
 import PublicTree from "./Profile/publicTree"
 
-import treeImg from "./images/tree.png"
 import "./style.css"
 
 import { auth } from "./firebase"
@@ -34,7 +32,6 @@ function Main(props) {
   const [page, setPage] = useState(props.page)
   const [user, setUser] = useState(null)
   const [viewTree, setViewTree] = useState(null)
-  const [viewProfile, setViewProfile] = useState(null)
 
   const classes = useStyles()
 
@@ -69,13 +66,10 @@ function Main(props) {
           <div style={headerstyle}>
 
           {user ? 
-          [<img src={treeImg} alt="" width="50" />,
-          <Typography className={classes.title} gutterBottom variant="h2" align="center" color="secondary"> Community Tree </Typography>,
-          <img src={treeImg} alt="" width="50" />] :
+          <Typography className={classes.title} gutterBottom variant="h2" align="center" color="secondary"> comTree </Typography> :
           null
           }
           
-
           <br/>
           <br/>
 
@@ -111,6 +105,9 @@ function Main(props) {
           <Home loggedIn={false} />
           }
 
+          <br />
+          <Typography variant="caption" display="block" align="right" color="secondary" > comTree &copy; 2021 </Typography>
+
         </div>
       )
       
@@ -126,9 +123,10 @@ function Main(props) {
 
           <div style={headerstyle}>
 
-          <img src={treeImg} alt="" width="50" />
-          <Typography className={classes.title} gutterBottom variant="h2" align="center" color="secondary"> Community Tree </Typography>
-          <img src={treeImg} alt="" width="50" />
+          {user ? 
+          <Typography className={classes.title} gutterBottom variant="h2" align="center" color="secondary"> comTree </Typography> :
+          null
+          }
 
           <br/>
           <br/>
@@ -161,6 +159,9 @@ function Main(props) {
           <br />
           <UploadTreeForm uid={user.uid} username={user.displayName} />
 
+          <br />
+          <Typography variant="caption" display="block" align="right" color="secondary" > comTree &copy; 2021 </Typography>
+
         </div>
       )
     }
@@ -173,9 +174,10 @@ function Main(props) {
 
           <div style={headerstyle}>
 
-          <img src={treeImg} alt="" width="50" />
-          <Typography className={classes.title} gutterBottom variant="h2" align="center" color="secondary"> Community Tree </Typography>
-          <img src={treeImg} alt="" width="50" />
+          {user ? 
+          <Typography className={classes.title} gutterBottom variant="h2" align="center" color="secondary"> comTree </Typography> :
+          null
+          }
 
           <br/>
           <br/>
@@ -208,7 +210,10 @@ function Main(props) {
 
         <br/>
 
-        <Profile uid={user.uid} username={user.displayName} />
+        <Profile uid={user.uid} username={user.displayName} setPage={setPage} setViewTree={setViewTree} />
+
+        <br />
+          <Typography variant="caption" display="block" align="right" color="secondary" > comTree &copy; 2021 </Typography>
 
         </div>
       )
@@ -222,9 +227,10 @@ function Main(props) {
 
           <div style={headerstyle}>
 
-          <img src={treeImg} alt="" width="50" />
-          <Typography className={classes.title} gutterBottom variant="h2" align="center" color="secondary"> Community Tree </Typography>
-          <img src={treeImg} alt="" width="50" />
+          {user ? 
+          <Typography className={classes.title} gutterBottom variant="h2" align="center" color="secondary"> comTree </Typography> :
+          null
+          }
 
           <br/>
           <br/>
@@ -257,6 +263,9 @@ function Main(props) {
 
           <Feedback username={user.displayName} />
 
+          <br />
+          <Typography variant="caption" display="block" align="right" color="secondary" > comTree &copy; 2021 </Typography>
+
 
         </div>
       )
@@ -269,10 +278,8 @@ function Main(props) {
 
           <div style={headerstyle}>
 
-          {user ? 
-          [<img src={treeImg} alt="" width="50" />,
-          <Typography className={classes.title} gutterBottom variant="h2" align="center" color="secondary"> Community Tree </Typography>,
-          <img src={treeImg} alt="" width="50" />] :
+         {user ? 
+          <Typography className={classes.title} gutterBottom variant="h2" align="center" color="secondary"> comTree </Typography> :
           null
           }
 
@@ -307,66 +314,16 @@ function Main(props) {
           </div>
           <br />
 
-          <PublicTree uid={user.uid} username={user.displayName} setViewProfile={setViewProfile} setPage={setPage} psudeoId={viewTree.psudeoId}/>
+          <PublicTree uid={user.uid} username={user.displayName} psudeoId={viewTree.psudeoId}/>
 
-        </div>
-      )
-    }
-
-    else if (page === "profileOther") {
-
-      return (
-        <div>
-
-          <div style={headerstyle}>
-
-          {user ? 
-          [<img src={treeImg} alt="" width="50" />,
-          <Typography className={classes.title} gutterBottom variant="h2" align="center" color="secondary"> Community Tree </Typography>,
-          <img src={treeImg} alt="" width="50" />] :
-          null
-          }
-
-          <br/>
-          <br/>
-
-          {user ?
-          <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("home")}>home</Button> :
-          null
-          }
-          
-          {user ? 
-          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("upload")}>upload</Button>) :
-          null
-          }
-
-          {user ? 
-          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("profile")}>{user.displayName ? user.displayName : "profile"}</Button>) :
-          null
-          }
-
-          {user ? 
-          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("feedback")}>feedback</Button>) :
-          null
-          }
-
-           {user ? 
-          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => [auth.signOut(), setPage("home")]}>logout</Button>) :
-          null
-          }
-
-          </div>
           <br />
-
-          <ProfileOther ouid={viewProfile.uid} ousername={viewProfile.username} uid={user.uid} username={user.displayName} />
+          <Typography variant="caption" display="block" align="right" color="secondary" > comTree &copy; 2021 </Typography>
 
         </div>
       )
     }
 
-    
-  
-    
+      
   }
     
 

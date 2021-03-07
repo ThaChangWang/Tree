@@ -3,7 +3,7 @@ import EditProfile from "./editProfile"
 import MyTrees from "./myTrees"
 import { db } from "../firebase"
 
-import { Button, Typography, Grid, Avatar } from "@material-ui/core"
+import { Typography, Avatar, IconButton } from "@material-ui/core"
 import profilePic from "../images/profilePic.png"
 
 let isMounted = false
@@ -64,53 +64,35 @@ class Profile extends React.Component {
         boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
         paddingLeft: "10px",
         paddingRight: "10px",
+        paddingTop: "10px",
         marginLeft: "10px",
         marginRight: "10px"
       }
 
-    if (this.state.editing) {
-
-      return (
-      <div>
-        <EditProfile bio={this.state.profile.bio} setEdit={this.setEdit} uid={this.props.uid}/>
-        <br/>
-        <Button variant="outlined" color="secondary" onClick={this.setEdit}> Back to Profile </Button>   
-      </div>
-      )
-
-    }
-
-    else if (this.state.profile) {
+    if (this.state.profile) {
 
       return (
       <div style={profilestyle}>
-        
-        <Typography variant="h2" align="center" color="secondary"> {this.props.username} </Typography>
+        <div style={{ textAlign: "center" }}>
+          {this.state.profile.imageUrl ? 
+            <IconButton onClick={() => this.setState({
+              editing: !this.state.editing
+            })} >
+            <Avatar src={this.state.profile.imageUrl} alt="" style={{ height: "60px", width: "60px", display: "inline-block" }} />
+            </IconButton> :
+            <Avatar src={profilePic} alt="" style={{ height: '60px', width: '60px', display: "inline-block", marginRight: "10px" }} />
+          }
+          <Typography variant="h4" style={{ display: "inline-block", paddingTop: "10px" }} color="secondary"> {this.props.username} </Typography>
+        </div>
+          <Typography variant="subtitle1" align="center" color="secondary"> {this.state.profile.bio} </Typography>
+        {this.state.editing ? 
+          <EditProfile bio={this.state.profile.bio} setEdit={this.setEdit} uid={this.props.uid}/> :
+          null }
+        <br />
         <hr/>
-        <Grid container spacing={4}>
-          <Grid item xs={12} sm={4}>
-            {this.state.profile.imageUrl ? 
-              <Avatar src={this.state.profile.imageUrl} alt="" style={{ height: "250px", width: "250px" }} /> :
-              <Avatar src={profilePic} alt="" style={{ height: '200px', width: '200px' }} />
-            }
-            
-          </Grid>
-          <Grid item xs={12} sm={8}>
-            <Typography variant="h5" align="left" color="secondary"> {this.state.profile.bio} </Typography>
-
-          </Grid>
-        </Grid>
-        
-        <br/>
-        <Button variant="outlined" color="secondary" onClick={this.setEdit}> Edit Profile </Button> :
-
-        <hr/>
-        <Typography variant="h2" align="center" color="secondary"> Adopted Trees </Typography>
         <br/>
         <br/>
-        <MyTrees suid={this.props.uid} uid={this.props.uid} username={this.props.username} />
-
-        
+        <MyTrees uid={this.props.uid} username={this.props.username} setPage={this.props.setPage} setViewTree={this.props.setViewTree} />
       </div>
       )
       
@@ -120,7 +102,7 @@ class Profile extends React.Component {
 
       return (
         <div>
-          <Typography variant="h2" align="left" color="secondary"> Loading... </Typography>
+          <Typography variant="h2" align="left" color="secondary">  </Typography>
         </div>
       )
 

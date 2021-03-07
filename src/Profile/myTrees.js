@@ -11,7 +11,7 @@ class MyTrees extends React.Component {
   }
 
   componentDidMount() {
-    db.collection("publicTrees").where("owner", "==", this.props.suid)
+    db.collection("publicTrees").where("huggedBy", "array-contains", this.props.uid)
     .get()
     .then((querySnapshot) => {
         let myTrees = []
@@ -37,10 +37,9 @@ class MyTrees extends React.Component {
       <div>
         {myTrees.length > 0 ? myTrees.map(tree => {
           return (
-            <div key={tree.psudeoId}>
-            <PublicTreeCard uid={this.props.uid} key={tree.psudeoId} username={this.props.username} psudeoId={tree.psudeoId} />
-            <br/>
-            <br/>
+            <div style={{display: "inline-block", paddingRight: 20, paddingBottom: 20 }} key={tree.psudeoId}>
+            <PublicTreeCard uid={this.props.uid} username={this.props.username} psudeoId={tree.psudeoId} setPage={this.props.setPage} setViewTree={this.props.setViewTree} />          
+
           </div>
           )
           

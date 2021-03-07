@@ -1,9 +1,12 @@
 import React from "react"
-import FullTreePage from "./fullTreePage"
-import ProfileLink from "./profileLink"
 import { db } from "../firebase"
+import firebase from "firebase"
 
-import { Button, Typography } from "@material-ui/core"
+import PostDisplay from "./postDisplay"
+import Post from "./post"
+import Comment from "./comment"
+
+import { Button, Typography, Avatar, IconButton } from "@material-ui/core"
 
 
 let isMounted = false
@@ -12,12 +15,16 @@ class PublicTree extends React.Component {
   constructor() {
     super()
     this.state = {
-      fullPage: false,
       tree: null,
-      treeId: null
+      treeId: null,
+      posts: [],
+      postIds: [],
+      post: null,
+      postId: null,
+      posting: false
     }
-    this.updateOwner = this.updateOwner.bind(this)
-    
+
+    this.hugTree = this.hugTree.bind(this)
   }
 
   componentDidMount() {
@@ -30,6 +37,27 @@ class PublicTree extends React.Component {
         if(doc.data().psudeoId === this.props.psudeoId) {
           thisTree = doc.data()
           thisId = doc.id
+
+          db.collection("publicTrees").doc(thisId).collection("posts")
+          .orderBy("timestamp", "desc")
+          .get().then((querySnapshot) => {
+
+            let incomingPosts = []
+            let incomingIds = []
+
+            querySnapshot.forEach(function(doc) {
+              incomingPosts.push(doc.data())
+              incomingIds.push(doc.id)
+            })
+
+            if (isMounted) {
+              this.setState({
+                posts: incomingPosts,
+                postIds: incomingIds,
+              })
+            }
+
+          })
         }
       })
       
@@ -47,21 +75,27 @@ class PublicTree extends React.Component {
     isMounted = false
   }
 
-  updateOwner = (owner) => {
-    db.collection("publicTrees").where("psudeoId", "==", this.props.psudeoId)
-      .get()
-      .then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-              db.collection("publicTrees").doc(doc.id).update({
-                owner: owner,
-              })
-          })
+  hugTree(uid) {
+
+    if (uid) {
+      db.collection("publicTrees").doc(this.state.treeId).update({
+        huggedBy: firebase.firestore.FieldValue.arrayUnion(this.props.uid)
       })
-      .catch(function(error) {
-          console.log("Error getting documents: ", error)
+    }
+
+    else {
+      db.collection("publicTrees").doc(this.state.treeId).update({
+        huggedBy: firebase.firestore.FieldValue.arrayRemove(this.props.uid)
       })
+    }
+
+      
+      
+
 
   }
+
+
 
 
 
@@ -73,64 +107,64 @@ class PublicTree extends React.Component {
       boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
       paddingLeft: "10px",
       paddingRight: "10px",
-      marginLeft: "10px",
-      marginRight: "10px"
+      textAlign: "center"
       }
 
         if(this.state.tree) {
 
-        let tree = this.state.tree
-
-         console.log(this.state.tree.owner)
-
-            let date = ""
-            let time = ""
-            
-            if (tree.timestamp) {
-              date = tree.timestamp.toDate().toLocaleDateString()
-              time = tree.timestamp.toDate().toLocaleTimeString()
-            } 
-
             return (
               <div style={treestyle}>
-                <Typography variant="h2" color="secondary"> {tree.name} </Typography>
+
+              
+
+                <Typography variant="h4" align="center" color="secondary"> {this.state.tree.name} </Typography>
                 <br />
                 
-                {tree.owner ? 
-                  null :
-                  <Button variant="outlined" color="secondary" onClick={() => this.updateOwner(this.props.uid)}> Adopt Tree </Button>}
+                {this.state.tree.huggedBy.includes(this.props.uid) ? 
+                <Button color="secondary" variant="outlined" onClick={() => {
+                  this.hugTree(null)
+                }} > Release </Button> :
+                <Button color="secondary" variant="outlined" onClick={() => {
+                  this.hugTree(this.props.uid)
+                }} > Hug </Button>
+                }
 
-                {tree.owner === this.props.uid ? 
-                  <Button variant="outlined" color="secondary" onClick={() => this.updateOwner(null)}> Release from Care </Button> :
-                  null}
+                <Button color="secondary" variant="outlined" onClick={() => {
+                  this.setState({makePost: !this.state.makePost})
+                }} > Post </Button>
 
-                <div>
-                <br/>
-                <img src={tree.imageUrl} alt="" style={{ borderRadius: "15px" }} width="100%" />
-                </div>
+                
+                
+
 
                 <br />
+                <br />
 
-                {tree.owner ? 
-                <ProfileLink setPage={this.props.setPage} setViewProfile={this.props.setViewProfile} ownerId={tree.owner}/> :
+                {this.state.makePost ?
+                <Post treeId={this.props.psudeoId} username={this.props.username} uid={this.props.uid} /> :
+                null}
+
+                {this.state.posts.length > 0 ? this.state.posts.map((post, index) => {
+                  return [<IconButton onClick={() => this.state.post ?
+                  this.state.post.psudeoId === post.psudeoId ?
+                    this.setState({post: null, postId: null}) : 
+                    this.setState({post: post, postId: this.state.postIds[index]}) :
+                    this.setState({post: post, postId: this.state.postIds[index]})
+                  } >
+          <Avatar src={post.imageUrl} alt="" style={{ height: '200px', width: '200px', float:"left" }} />
+          </IconButton>]
+                }) :
                 null
                 }
-                
-                <Typography variant="h5" color="secondary" align="right"> {date + " " + time} </Typography>
-                {this.state.fullPage ? 
-                <Button variant="outlined" color="secondary" onClick={() => this.setState({fullPage: false})}> Close Posts </Button> :
-                <Button variant="outlined" color="secondary" onClick={() => this.setState({fullPage: true})}> View Posts </Button>
-                }
-                
-                <br />
-                <br />
 
-                {this.state.fullPage ? 
-                [<FullTreePage uid={this.props.uid} treeId={this.state.treeId} username={this.props.username} tree={this.state.tree} main={this.props.main}/>,
-                <br />,
-                <Button variant="outlined" color="secondary" onClick={() => this.setState({fullPage: false})}> Close Posts </Button>,
-                <br />,
-                <br />] :
+                <br />
+                <br /> 
+               
+
+                {this.state.post ? 
+                [<PostDisplay post={this.state.post} treeId={this.state.treeId} postId={this.state.postId} />,
+                <Comment uid={this.props.uid} username={this.props.username} treeId={this.state.treeId} postId={this.state.postId} />]
+ :
                 null}
               </div>
           
@@ -140,7 +174,7 @@ class PublicTree extends React.Component {
         else{
 
           return (
-            <Typography variant="h3" color="secondary"> Loading... </Typography>
+            <Typography variant="h3" color="secondary"> </Typography>
           )
           
         }

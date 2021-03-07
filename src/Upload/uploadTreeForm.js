@@ -20,12 +20,10 @@ const useStyles = makeStyles((theme) => ({
     color: "red"
   },
   name: {
-    margin: theme.spacing(1),
     width: '40ch'
   },
   description: {
-    margin: theme.spacing(1),
-    width: '80%'
+    width: '90%'
   }
 }))
  
@@ -102,16 +100,13 @@ function UploadTreeForm(props) {
     borderRadius: "15px",
     boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
     paddingLeft: "10px",
-    paddingRight: "10px",
-    marginLeft: "10px",
-    marginRight: "10px"
+    paddingRight: "10px"
   }
 
 
   return (
 
     <div style={uploadstyle}>
-    <Typography variant="h2" color="secondary"> Upload a Tree: </Typography>
     <Formik
       initialValues = {{ 
         name: "",
@@ -133,11 +128,11 @@ function UploadTreeForm(props) {
         }
 
       if (!values.image) {
-          errors.image = "Upload an image for your tree"
+          errors.image = "Upload an image for the tree"
         }
         
       if (values.lat === 0 && values.lng === 0) {
-          errors.lat = "Locate your tree on the Google Map above"
+          errors.lat = "Click on the map to locate the tree"
         }
       
       setConfirm("")
@@ -168,9 +163,8 @@ function UploadTreeForm(props) {
       }) => (
       <Form onSubmit={handleSubmit} autoComplete="off" >
       <br/>
-      <Typography variant="h5" color="secondary"> Name the Tree: </Typography>
 
-      <Box margin={3}>
+      <Box margin={5}>
           <TextField
           label="Name"
           name="name"
@@ -178,13 +172,9 @@ function UploadTreeForm(props) {
           onChange={handleChange}
         />
       </Box>
-      
-      <br/>
-      <br/>
-      
-      <Typography variant="h5" color="secondary"> Enter a Description: </Typography>
-
-      <Box margin = {3}>
+      <br />
+            
+      <Box margin = {5}>
       <TextField
           label="Description"
           name="description"
@@ -195,11 +185,9 @@ function UploadTreeForm(props) {
           onChange={handleChange}
         />
       </Box>
+      <br />
 
       <div style={{ height: "100vh", width: "100%" }}>
-        <br/>
-        <Typography variant="h5" color="secondary"> Locate: </Typography>
-        <br/>
         <GoogleMapReact
           bootstrapURLKeys={{ key: "AIzaSyBiB3iNngJM_kFWKxSv9a30O3fww7YTiWA"}}
           center={{lat : 48.0401, lng : -122.4063}}
@@ -227,12 +215,8 @@ function UploadTreeForm(props) {
     </div>
 
         
-      <div>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <Typography variant="h5" color="secondary"> Picture of Tree: </Typography>
+      <div style={{marginLeft: 20}}>
+  
         <Input id="image" name="image" type="file"
           onChange={(event) => {
             setFieldValue("image", event.target.files[0])
@@ -253,7 +237,7 @@ function UploadTreeForm(props) {
 
       <br/>
 
-      <Button type="submit" color="secondary" variant="outlined" disabled={isSubmitting}> Submit </Button>
+      <Button type="submit" color="secondary" variant="outlined" disabled={isSubmitting}> Upload </Button>
 
       <br />
       <br />
