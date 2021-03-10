@@ -37,7 +37,7 @@ class MyTrees extends React.Component {
       <div>
         {myTrees.length > 0 ? myTrees.map(tree => {
           return (
-            <div style={{display: "inline-block", paddingRight: 20, paddingBottom: 20 }} key={tree.psudeoId}>
+            <div style={{display: "inline-block", paddingRight: 10, paddingBottom: 10 }} key={tree.psudeoId}>
             <PublicTreeCard uid={this.props.uid} username={this.props.username} psudeoId={tree.psudeoId} setPage={this.props.setPage} setViewTree={this.props.setViewTree} />          
 
           </div>

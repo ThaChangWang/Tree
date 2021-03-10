@@ -11,8 +11,7 @@ function AdoptMarker(props) {
       adoptstyle = {
         border: "2px solid blue",
         width: props.width,
-        height: props.width,
-        transform: `translate(${-props.width/2}px, ${-props.width/2}px)`
+        height: props.width
       }
 
     }
@@ -21,8 +20,8 @@ function AdoptMarker(props) {
       adoptstyle = {
         border: "2px solid green",
         width: props.width,
-        height: props.width,
-        transform: `translate(${-props.width/2}px, ${-props.width/2}px)`
+        height: props.width
+        
 
       }
 
@@ -32,8 +31,7 @@ function AdoptMarker(props) {
       adoptstyle = {
         border: "2px solid red",
         width: props.width,
-        height: props.width,
-        transform: `translate(${-props.width/2}px, ${-props.width/2}px)`
+        height: props.width
 
       }
 

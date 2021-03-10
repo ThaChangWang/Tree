@@ -5,10 +5,12 @@ import firebase from "firebase"
 import GoogleMapReact from 'google-map-react';
 import UploadMarker from "./uploadMarker"
 import treeImg from "../images/tree.png"
+import curLoc from "../images/curLoc.png"
+
 
 
 import { Formik, Form } from 'formik';
-import { Button, Typography, TextField, Input, CircularProgress, Box, makeStyles } from '@material-ui/core'
+import { Button, Typography, TextField, Input, CircularProgress, Box, Avatar, makeStyles } from '@material-ui/core'
 
 const Marker = () => <div><img src={treeImg} alt="" height="50" width="50" /></div>;
 
@@ -32,6 +34,10 @@ function UploadTreeForm(props) {
   const [progress, setProgress] = useState(0)
   const [displayTrees, setDisplayTrees] = useState([])
   const [confirm, setConfirm] = useState("")
+  const [lat, setLat] = useState(37)
+  const [lng, setLng] = useState(-95)
+  const [zoom, setZoom] = useState(1)
+  const [found, setFound] = useState(false)
 
   const classes = useStyles()
 
@@ -57,8 +63,10 @@ function UploadTreeForm(props) {
             latitude: formData.lat,
             longitude: formData.lng,
             name: formData.name,
-            owner: props.uid,
+            huggedBy: [props.uid],
             imageUrl: url,
+            watered: null,
+            fert: null
           }).then(
             db.collection("publicTrees").where("psudeoId", "==", generatedId).get()
             .then(function(querySnapshot) {
@@ -66,7 +74,6 @@ function UploadTreeForm(props) {
               console.log(doc.id, " => ", doc.data())
 
                 db.collection("publicTrees").doc(doc.id).collection("posts").add({
-                  psudeoId: Math.random().toString(36),
                   postedBy: props.username,
                   postedbyId: props.uid,
                   timestamp: firebase.firestore.FieldValue.serverTimestamp(),
@@ -86,6 +93,14 @@ function UploadTreeForm(props) {
 
   const unsubscribe = db.collection("publicTrees").onSnapshot(snapshot => {
         setDisplayTrees(snapshot.docs.map(doc => doc.data()))
+
+        navigator.geolocation.getCurrentPosition((position) => {
+          setLat(position.coords.latitude)
+          setLng(position.coords.longitude)
+          setZoom(10)
+          setFound(true)
+        
+      })
 
     })
 
@@ -190,8 +205,8 @@ function UploadTreeForm(props) {
       <div style={{ height: "100vh", width: "100%" }}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: "AIzaSyBiB3iNngJM_kFWKxSv9a30O3fww7YTiWA"}}
-          center={{lat : 48.0401, lng : -122.4063}}
-          zoom={10}
+          center={{lat : lat, lng : lng}}
+          zoom={zoom}
           onClick={(event) => {
 
             setFieldValue("lat", event.lat)
@@ -203,6 +218,14 @@ function UploadTreeForm(props) {
       {displayTrees.length > 0 ? displayTrees.map(tree => {
         return <UploadMarker key={tree.psudeoId} lat={tree.latitude} lng={tree.longitude} imageUrl={tree.imageUrl} />
       }) :  null }
+
+      {found ? 
+        <Avatar src={curLoc} alt="" lat={lat} lng={lng} style={{ width: 20, height: 20 }} /> :
+        null
+      }
+
+
+      
 
        <Marker
             lat={values.lat}
@@ -216,6 +239,7 @@ function UploadTreeForm(props) {
 
         
       <div style={{marginLeft: 20}}>
+      <br />
   
         <Input id="image" name="image" type="file"
           onChange={(event) => {

@@ -4,7 +4,7 @@ import { db } from "../firebase"
 import firebase from "firebase"
 
 import { Formik, Form } from 'formik';
-import { Button, Typography, Box, TextField, makeStyles } from '@material-ui/core'
+import { Button, Typography, Box, TextField, Link, makeStyles } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
   confirm: {
@@ -104,6 +104,8 @@ function Feedback(props) {
         <br/>
        
         <Button type="submit" color="secondary" variant="outlined" disabled={isSubmitting}> Send </Button>
+        <br />
+        <Link href="https://www.paypal.com/paypalme/andersbergquist" style={{ float:"right" }} color="secondary" variant="caption"> Donate </Link>
         <br />
         <br />
       </Form>

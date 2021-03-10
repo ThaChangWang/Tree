@@ -88,7 +88,7 @@ class AdoptMap extends React.Component {
         }) :  null }
 
         {this.state.currentLoc.found ?
-          <Avatar src={curLoc} alt="" lat={this.state.lat} lng={this.state.lng} style={{ width: width/4, height: width/4, transform: `translate(${-width/4}px, ${-width/4}px)` }} /> :
+          <Avatar src={curLoc} alt="" lat={this.state.lat} lng={this.state.lng} style={{ width: width/2, height: width/2 }} /> :
           null
           }
 
