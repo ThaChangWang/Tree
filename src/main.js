@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react"
 
-import { Button, Typography, makeStyles } from "@material-ui/core"
+import { Button, Typography, Avatar, makeStyles } from "@material-ui/core"
 
 import Home from "./Home/home"
 import Feedback from "./Home/feedback"
 import UploadTreeForm from "./Upload/uploadTreeForm"
 import Profile from "./Profile/profile"
-import PublicTree from "./Profile/publicTree"
+import PublicTree from "./Tree/publicTree"
+
+import comtree from "./images/comTreeSym.png"
 
 import "./style.css"
 
@@ -16,10 +18,6 @@ const useStyles = makeStyles({
   
   buttonStyle: {
     backgroundColor: "#FFFFF0"
-  },
-  clickedButtonStyle: {
-    backgroundColor: "black",
-    color: "white"
   },
   title: {
     display: "inline"
@@ -58,52 +56,55 @@ function Main(props) {
       textAlign: "center"
     }
 
-    if (page === "home") {
+    if (user) {
 
       return (
         <div>
 
           <div style={headerstyle}>
 
-          {user ? 
-          <Typography className={classes.title} gutterBottom variant="h2" align="center" color="secondary"> comTree </Typography> :
-          null
-          }
-          
+          <Typography className={classes.title} gutterBottom variant="h2" align="center" color="secondary">com</Typography>
+          <Avatar src={comtree} alt="" style={{ height: "68.939px", width: "45px", display: "inline-block" }} />
+          <Typography className={classes.title} gutterBottom variant="h2" align="center" color="secondary">ree</Typography>
+         
           <br/>
           <br/>
 
-          {user ?
-          <Button className={classes.clickedButtonStyle} variant="outlined" color="secondary" onClick={() => setPage("home")}>home</Button> :
-          null
-          }
-          
-          {user ? 
-          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("upload")}>upload</Button>) :
-          null
-          }
-
-          {user ? 
-          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("profile")}>{user.displayName ? user.displayName : "profile"}</Button>) :
-          null
-          }
-
-          {user ? 
-          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("feedback")}>feedback</Button>) :
-          null
-          }
-
-           {user ? 
-          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => [auth.signOut(), setPage("home")]}>logout</Button>) :
-          null
-          }
+          <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("home")}>home</Button>
+          <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("upload")}>upload</Button>
+          <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("profile")}>{user.displayName ? user.displayName : "profile"}</Button>
+          <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("feedback")}>feedback</Button>
+          <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => [auth.signOut(), setPage("home")]}>logout</Button>
 
           </div>
 
-          {user ?
+          <br />
+
+          {page === "home" ?
           <Home uid={user.uid} username={user.displayName} setPage={setPage} setViewTree={setViewTree} loggedIn={true} /> :
-          <Home loggedIn={false} />
+          null
           }
+
+          {page === "upload" ?
+          <UploadTreeForm uid={user.uid} username={user.displayName} /> :
+          null
+          }
+
+          {page === "profile" ?
+          <Profile uid={user.uid} username={user.displayName} setPage={setPage} setViewTree={setViewTree} /> :
+          null
+          }
+
+          {page === "feedback" ?
+          <Feedback username={user.displayName} /> :
+          null
+          }
+
+          {page === "tree" ?
+          <PublicTree uid={user.uid} username={user.displayName} psudeoId={viewTree.psudeoId}/> :
+          null
+          }
+
 
           <br />
           <Typography variant="caption" display="block" align="right" color="secondary" > comTree &copy; 2021 </Typography>
@@ -114,214 +115,14 @@ function Main(props) {
       
     }
 
-
-    else if (page === "upload") {
-
-
-      return (
-        <div>
-
-          <div style={headerstyle}>
-
-          {user ? 
-          <Typography className={classes.title} gutterBottom variant="h2" align="center" color="secondary"> comTree </Typography> :
-          null
-          }
-
-          <br/>
-          <br/>
-
-          <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("home")}>home</Button>
-          
-          {user ? 
-          (<Button className={classes.clickedButtonStyle} variant="outlined" color="secondary" onClick={() => setPage("upload")}>upload</Button>) :
-          null
-          }
-
-          {user ? 
-          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("profile")}>{user.displayName}</Button>) :
-          null
-          }
-
-          {user ? 
-          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("feedback")}>feedback</Button>) :
-          null
-          }
-
-           {user ? 
-          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => [auth.signOut(), setPage("home")]}>logout</Button>) :
-          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("login")}>login</Button>)
-          }
-
-
-          </div>
-
-          <br />
-          <UploadTreeForm uid={user.uid} username={user.displayName} />
-
-          <br />
-          <Typography variant="caption" display="block" align="right" color="secondary" > comTree &copy; 2021 </Typography>
-
-        </div>
+    else {
+      return(
+        <Home loggedIn={false} />
       )
     }
 
-    else if (page === "profile") {
 
-
-      return (
-        <div>
-
-          <div style={headerstyle}>
-
-          {user ? 
-          <Typography className={classes.title} gutterBottom variant="h2" align="center" color="secondary"> comTree </Typography> :
-          null
-          }
-
-          <br/>
-          <br/>
-
-
-          <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("home")}>home</Button>
-
-          {user ? 
-          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("upload")}>upload</Button>) :
-          null
-          }
-
-          {user ? 
-          (<Button className={classes.clickedButtonStyle} variant="outlined" color="secondary" onClick={() => setPage("profile")}>{user.displayName}</Button>) :
-          null
-          }
-
-          {user ? 
-          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("feedback")}>feedback</Button>) :
-          null
-          }
-
-           {user ? 
-          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => [auth.signOut(), setPage("home")]}>logout</Button>) :
-          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("login")}>login</Button>)
-          }
-
-
-          </div>
-
-        <br/>
-
-        <Profile uid={user.uid} username={user.displayName} setPage={setPage} setViewTree={setViewTree} />
-
-        <br />
-          <Typography variant="caption" display="block" align="right" color="secondary" > comTree &copy; 2021 </Typography>
-
-        </div>
-      )
-    }
-
-    else if (page === "feedback") {
-
-
-      return (
-        <div>
-
-          <div style={headerstyle}>
-
-          {user ? 
-          <Typography className={classes.title} gutterBottom variant="h2" align="center" color="secondary"> comTree </Typography> :
-          null
-          }
-
-          <br/>
-          <br/>
-
-          <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("home")}>home</Button>
-
-          {user ? 
-          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("upload")}>upload</Button>) :
-          null
-          }
-
-          {user ? 
-          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("profile")}>{user.displayName}</Button>) :
-          null
-          }
-
-          {user ? 
-          (<Button className={classes.clickedButtonStyle} variant="outlined" color="secondary" onClick={() => setPage("feedback")}>feedback</Button>) :
-          null
-          }
-
-           {user ? 
-          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => [auth.signOut(), setPage("home")]}>logout</Button>) :
-          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("login")}>login</Button>)
-          }
-
-          </div>
-
-          <br/>
-
-          <Feedback username={user.displayName} />
-
-          <br />
-          <Typography variant="caption" display="block" align="right" color="secondary" > comTree &copy; 2021 </Typography>
-
-
-        </div>
-      )
-    }
-
-    else if (page === "tree") {
-
-      return (
-        <div>
-
-          <div style={headerstyle}>
-
-         {user ? 
-          <Typography className={classes.title} gutterBottom variant="h2" align="center" color="secondary"> comTree </Typography> :
-          null
-          }
-
-          <br/>
-          <br/>
-
-          {user ?
-          <Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("home")}>home</Button> :
-          null
-          }
-          
-          {user ? 
-          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("upload")}>upload</Button>) :
-          null
-          }
-
-          {user ? 
-          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("profile")}>{user.displayName ? user.displayName : "profile"}</Button>) :
-          null
-          }
-
-          {user ? 
-          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => setPage("feedback")}>feedback</Button>) :
-          null
-          }
-
-           {user ? 
-          (<Button className={classes.buttonStyle} variant="outlined" color="secondary" onClick={() => [auth.signOut(), setPage("home")]}>logout</Button>) :
-          null
-          }
-
-          </div>
-          <br />
-
-          <PublicTree uid={user.uid} username={user.displayName} psudeoId={viewTree.psudeoId}/>
-
-          <br />
-          <Typography variant="caption" display="block" align="right" color="secondary" > comTree &copy; 2021 </Typography>
-
-        </div>
-      )
-    }
+   
 
       
   }

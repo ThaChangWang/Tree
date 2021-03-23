@@ -5,6 +5,7 @@ import firebase from "firebase"
 import PostDisplay from "./postDisplay"
 import Post from "./post"
 import Comment from "./comment"
+import TreeCare from "./treeCare"
 
 import { Button, Typography, Avatar, IconButton } from "@material-ui/core"
 
@@ -21,7 +22,7 @@ class PublicTree extends React.Component {
       postIds: [],
       post: null,
       postId: null,
-      posting: false
+      status: "none"
     }
 
     this.hugTree = this.hugTree.bind(this)
@@ -89,9 +90,6 @@ class PublicTree extends React.Component {
       })
     }
 
-      
-      
-
 
   }
 
@@ -130,18 +128,24 @@ class PublicTree extends React.Component {
                 }
 
                 <Button color="secondary" variant="outlined" onClick={() => {
-                  this.setState({makePost: !this.state.makePost})
+                  this.state.status === "post" ? this.setState({status: "none"}) :
+                  this.setState({status: "post"})
                 }} > Post </Button>
 
-                
-                
-
+                <Button color="secondary" variant="outlined" onClick={() => {
+                  this.state.status === "tree" ? this.setState({status: "none"}) :
+                  this.setState({status: "tree"})
+                }} > Tree </Button>
 
                 <br />
                 <br />
 
-                {this.state.makePost ?
-                <Post treeId={this.props.psudeoId} username={this.props.username} uid={this.props.uid} /> :
+                {this.state.status === "post" ?
+                <Post treeId={this.props.psudeoId} username={this.props.username} uid={this.props.uid} /> : 
+                null}
+
+                {this.state.status === "tree" ?
+                <TreeCare treeId={this.state.treeId} tree={this.state.tree} username={this.props.username} uid={this.props.uid} /> : 
                 null}
 
                 {this.state.posts.length > 0 ? this.state.posts.map((post, index) => {

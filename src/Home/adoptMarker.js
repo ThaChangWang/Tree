@@ -16,7 +16,7 @@ function AdoptMarker(props) {
 
     }
 
-    else if (props.tree.length > 0) {
+    else if (props.tree.huggedBy.length > 0) {
       adoptstyle = {
         border: "2px solid green",
         width: props.width,

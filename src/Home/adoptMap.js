@@ -33,8 +33,10 @@ class AdoptMap extends React.Component {
     isMounted = true
     db.collection("publicTrees").onSnapshot(snapshot => {
     if(isMounted) {
+      console.log("here")
 
       navigator.geolocation.getCurrentPosition((position) => {
+        console.log(position.coords)
         this.setState({
           publicTrees: snapshot.docs.map(doc => doc.data()),
           lat: position.coords.latitude,

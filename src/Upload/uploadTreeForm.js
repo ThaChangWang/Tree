@@ -66,7 +66,8 @@ function UploadTreeForm(props) {
             huggedBy: [props.uid],
             imageUrl: url,
             watered: null,
-            fert: null
+            fert: null,
+            wiki: null,
           }).then(
             db.collection("publicTrees").where("psudeoId", "==", generatedId).get()
             .then(function(querySnapshot) {
@@ -137,6 +138,10 @@ function UploadTreeForm(props) {
       if (!values.name) {
           errors.name = "Tree name required"
         }
+      
+      if (values.name.length > 13) {
+        errors.name = "Tree name must be 13 characters or less"
+      }
 
       if (!values.description) {
           errors.description = "Please enter a description for the tree"

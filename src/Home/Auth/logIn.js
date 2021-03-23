@@ -1,5 +1,5 @@
 import React from 'react';
-import { auth } from "../firebase"
+import { auth } from "../../firebase"
 
 import { Formik, Field, Form } from 'formik';
 import { Button, Box, makeStyles } from '@material-ui/core'

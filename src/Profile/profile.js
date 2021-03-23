@@ -90,8 +90,6 @@ class Profile extends React.Component {
           null }
         <br />
         <hr/>
-        <br/>
-        <br/>
         <MyTrees uid={this.props.uid} username={this.props.username} setPage={this.props.setPage} setViewTree={this.props.setViewTree} />
       </div>
       )
