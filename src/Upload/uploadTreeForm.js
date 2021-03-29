@@ -43,7 +43,9 @@ function UploadTreeForm(props) {
 
   const handleUpload = (formData) => {
 
-    const uploadTask = storage.ref("images/" + formData.image.name + "-" + props.uid).put(formData.image)
+    console.log(formData.image)
+
+    const uploadTask = storage.ref("images/" + formData.image.lastModifiedDate + "-" + props.uid).put(formData.image)
 
       uploadTask.on("state_changed", (snapshot) => {
         const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100)
@@ -56,7 +58,7 @@ function UploadTreeForm(props) {
 
         let generatedId = Math.random().toString(36)
 
-        storage.ref("images").child(formData.image.name + "-" + props.uid).getDownloadURL().then(url => {
+        storage.ref("images").child(formData.image.lastModifiedDate + "-" + props.uid).getDownloadURL().then(url => {
           db.collection("publicTrees").add({
             psudeoId: generatedId,
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
@@ -98,7 +100,7 @@ function UploadTreeForm(props) {
         navigator.geolocation.getCurrentPosition((position) => {
           setLat(position.coords.latitude)
           setLng(position.coords.longitude)
-          setZoom(10)
+          setZoom(15)
           setFound(true)
         
       })
